@@ -1,0 +1,197 @@
+spring:
+  application:
+    name: selab-foreign
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 1
+      #    password: 123456 #默认为空
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 20  # 最大连接数，负值表示没有限制，默认8
+          max-wait: -1    # 最大阻塞等待时间，负值表示没限制，默认-1
+          max-idle: 8     # 最大空闲连接，默认8
+          min-idle: 0     # 最小空闲连接，默认0
+  datasource:
+    #数据库驱动完整类名
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #数据库连接url
+    url: jdbc:mysql://49.232.217.248:3306/selab_foreign
+    #数据库用户名
+    username: foreign
+    #数据库密码
+    password: q482686291
+    # druid 连接池管理
+    druid:
+      filter:
+        config:
+          #开启密钥加密
+          enabled: true
+        stat:
+          enabled: true
+      # 配置默认的监控统计拦截的Filter
+      # 不配置则监控页面中的SQL无法统计
+      # stat - SQL监控配置
+      # wall - SQL防火墙配置
+      # slf4j - Druid日志配置
+      filters: stat,wall,slf4j
+      # 初始化连接池大小
+      initial-size: 5
+      # 连接池最大连接数
+      max-active: 20
+      # 每个连接上PSCache的最大值
+      # 如果大于0，pool-prepared-statements自动开启
+      max-pool-prepared-statement-per-connection-size: -1
+      # 连接时最大等待时间（单位：毫秒）
+      max-wait: 60000
+      # 保持空闲连接不被关闭的最小生存时间（单位：毫秒）
+      min-evictable-idle-time-millis: 300000
+      # 连接池最小空闲数
+      min-idle: 5
+      # 是否开启PSCache，即是否缓存preparedStatement（提升写入、查询效率）
+      # 建议在支持游标的数据库开启，例如：Oracle
+      pool-prepared-statements: false
+      # 检测获取连接时的有效性
+      # 开启后会影响性能
+      test-on-borrow: false
+      # 检测归还连接时的有效性
+      # 开启后会影响性能
+      test-on-return: false
+      # 检测空闲连接
+      # 不影响性能，建议开启
+      test-while-idle: true
+      # 检测关闭空闲连接的时间间隔（单位：毫秒）
+      time-between-eviction-runs-millis: 60000
+      # 检测连接有效的SQL
+      # 为空则test-while-idle、test-on-borrow、test-on-return配置失效
+      validation-query: SELECT 1
+      # 检测连接是否有效的超时时间
+      validation-query-timeout: 1
+      stat-view-servlet:
+        # 访问白名单
+        allow: 127.0.0.1
+        # 配置统计页面
+        enabled: true
+        # 访问密码
+        login-password: 123456
+        # 访问用户名
+        login-username: root
+        # 允许重置监控数据
+        reset-enable: true
+      web-stat-filter:
+        # 配置统计页面过滤
+        enabled: true
+        # 排除路径
+        exclusions: .js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*
+        # 开启session统计
+        session-stat-enable: true
+        # session统计的最大个数
+        session-stat-max-count: 100
+        # 过滤路径
+        url-pattern: /*
+  # 文件配置
+  servlet:
+    multipart:
+      enabled: true
+      # 文件单个限制
+      max-file-size: 100MB
+      # 请求最大限制
+      max-request-size: 100MB
+  mail:
+    # 你的邮箱，发邮件的邮箱
+    username: gmslymhn@163.com
+    # 你的授权码，邮箱里面设置->POP3/SMTP/IMAP
+    password: ZHOMYZQXXQVJVNJK
+
+    host: smtp.163.com
+
+server:
+  port: 8081
+# springdoc-openapi项目配置，访问地址：http://127.0.0.1:8081/doc.html
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: '后端框架'
+      paths-to-match: '/**'
+      packages-to-scan: tyut.selab.framework.controller
+    - group: '对外网站后台'
+      paths-to-match: '/**'
+      packages-to-scan: tyut.selab.modular.controller.admin
+    - group: '对外网站前台'
+      paths-to-match: '/**'
+      packages-to-scan: tyut.selab.modular.controller.foreign
+# Xxl-Job分布式定时任务调度中心
+xxl:
+  job:
+    admin:
+      # 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。
+
+    # 执行器通讯TOKEN [选填]：非空时启用 系统默认 default_token
+
+    executor:
+      # 执行器的应用名称
+
+      # 执行器注册 [选填]：优先使用该配置作为注册地址
+
+      # 执行器IP [选填]：默认为空表示自动获取sIP
+
+      # 执行器端口号 [选填]：小于等于0则自动获取；默认端口为9999
+
+      # 执行器运行日志文件存储磁盘路径 [选填] ：需要对该路径拥有读写权限；为空则使用默认路径；
+
+      # 执行器日志文件保存天数 [选填] ： 过期日志自动清理, 限制值大于等于3时生效; 否则, 如-1, 关闭自动清理功能；
+
+
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+#  basic:
+#    enable: true
+    # Basic账号
+#    username: root
+    # Basic密码
+#    password: 123456
+
+mybatis-plus:
+  global-config:
+    db-config:
+      # 主键类型：自增
+      id-type: ASSIGN_ID
+      logic-delete-field: flag # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 6 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  # mapper xml文件路径
+  mapper-locations: classpath:mapper/*.xml
+
+
+# token配置
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥
+  secret: tyutselabababbaaabcdefghijklmnopqrstuvwxyzaaaaaaaaaaaaa32136758967
+  # 令牌有效期（单位分钟）
+  expireTime: 30
+
+# 用户配置
+user:
+  password:
+    # 密码最大错误次数
+    maxRetryCount: 5
+    # 密码锁定时间（默认10分钟）
+    lockTime: 10
+
+
+# Logger Config
+logging:
+  level:
+    com.hexadecimal: debug

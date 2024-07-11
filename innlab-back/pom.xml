@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.2</version>
+    </parent>
+
+    <groupId>tyut.selab</groupId>
+    <artifactId>foreign</artifactId>
+    <version>0.0.1</version>
+
+    <name>foreign</name>
+    <description>创新实验室对外网站</description>
+    <modules>
+        <module>selab-common</module>
+        <module>selab-framework</module>
+        <module>selab-modular</module>
+        <module>selab-admin</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <properties>
+        <foreign.version>0.0.1</foreign.version>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>3.2.2</spring-boot.version>
+        <javax.servlet.version>3.1.0</javax.servlet.version>
+        <cn.hutool.version>5.8.8</cn.hutool.version>
+        <fastjson.version>2.0.14</fastjson.version>
+        <knife4j.version>4.4.0</knife4j.version>
+        <mybatis-plus-spring-boot3-starter.version>3.5.5</mybatis-plus-spring-boot3-starter.version>
+        <joda-time.version>2.10.14</joda-time.version>
+    </properties>
+    <!-- 依赖声明 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- SpringBoot的依赖配置-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.2.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--MyBatis Plus框架依赖-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot3-starter</artifactId>
+                <version>${mybatis-plus-spring-boot3-starter.version}</version>
+            </dependency>
+
+            <!--时间处理-->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
+
+            <!--knife4j-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- 阿里JSON解析器 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!-- 通用工具-->
+            <dependency>
+                <groupId>tyut.selab</groupId>
+                <artifactId>selab-common</artifactId>
+                <version>${foreign.version}</version>
+            </dependency>
+            <!-- 框架核心-->
+            <dependency>
+                <groupId>tyut.selab</groupId>
+                <artifactId>selab-framework</artifactId>
+                <version>${foreign.version}</version>
+            </dependency>
+            <!-- 后台服务-->
+            <dependency>
+                <groupId>tyut.selab</groupId>
+                <artifactId>selab-admin</artifactId>
+                <version>${foreign.version}</version>
+            </dependency>
+            <!--        业务模块-->
+            <dependency>
+                <groupId>tyut.selab</groupId>
+                <artifactId>selab-modular</artifactId>
+                <version>${foreign.version}</version>
+            </dependency>
+
+
+            <!--浏览器解析客户端操作系统、浏览器等-->
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>5.3</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>tyut.selab.SelabApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
