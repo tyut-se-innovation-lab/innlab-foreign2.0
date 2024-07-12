@@ -3,7 +3,6 @@ package tyut.selab.framework.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import tyut.selab.common.handler.RequestStringParamHandlerMethodArgumentResolver;
 
 import java.util.List;
 
@@ -17,13 +16,5 @@ import java.util.List;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    /**
-     * 注册自定义的参数解析器
-     */
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers){
-        argumentResolvers.add(new RequestStringParamHandlerMethodArgumentResolver());
-        WebMvcConfigurer.super.addArgumentResolvers(argumentResolvers);
-    }
 
 }

@@ -51,4 +51,8 @@ public class UserConstants {
      * 默认markdown
      */
     public static final Integer MARKDOWN_ID =3;
+    /**
+     * 验证码长度
+     */
+    public static final int VERIFCATION_CODE_LENGTH = 6;
 }

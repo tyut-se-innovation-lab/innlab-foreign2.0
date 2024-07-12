@@ -7,6 +7,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.2</version>
+        <relativePath />
     </parent>
 
     <groupId>tyut.selab</groupId>
@@ -105,6 +106,7 @@
             <dependency>
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
+                <version>1.21</version>
             </dependency>
             <!--aop用于插入操作日志 -->
             <dependency>

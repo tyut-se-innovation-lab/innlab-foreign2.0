@@ -6,11 +6,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import tyut.selab.common.annotation.RequestSingleParam;
+import org.springframework.web.bind.annotation.*;
 import tyut.selab.common.domain.R;
 import tyut.selab.modular.domain.dto.param.ActivityParam;
 import tyut.selab.modular.service.IActivityService;
@@ -43,7 +39,7 @@ public class ActivityController {
     @PostMapping("/getActivity")
     @Operation(summary = "进入某一个内容")
     @Parameter(name="activityId",description="活动id",required=true)
-    public R getOneActivity(@RequestSingleParam("activityId") String activityId){
+    public R getOneActivity(@RequestParam("activityId") String activityId){
         return iActivityService.getActivityMsg(Integer.valueOf(activityId));
     }
 }

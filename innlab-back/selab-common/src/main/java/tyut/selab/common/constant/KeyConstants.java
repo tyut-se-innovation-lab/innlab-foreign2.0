@@ -25,6 +25,14 @@ public class KeyConstants {
      */
     public static final String LOGIN_FAIL_FREQUENCY_KEY = "login_fail_frequency:";
     /**
+     * 注册验证码
+     */
+    public static final String REGISTER_VERIFCATION_CODE = "register_verifcation_code:";
+    /**
+     * 注册验证
+     */
+    public static final String REGISTER_VERIFCATION_FREQUENCY = "register_verifcation_frequency:";
+    /**
      * 登陆IP login ip key
      */
     public static final String LOGIN_IP_KEY = "login_ip:";

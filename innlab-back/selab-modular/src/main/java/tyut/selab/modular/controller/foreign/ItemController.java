@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import tyut.selab.common.annotation.RequestSingleParam;
 import tyut.selab.common.domain.R;
 import tyut.selab.modular.domain.dto.param.ItemParam;
 import tyut.selab.modular.service.IItemService;
@@ -55,7 +54,7 @@ public class ItemController {
     @PostMapping("/getOneItem")
     @Operation(summary = "进入某一个内容")
     @Parameter(name="itemId",description="项目id",required=true)
-    public R getOneItem(@RequestSingleParam("itemId") String itemId){
+    public R getOneItem(@RequestParam("itemId") String itemId){
         return iItemService.getItemMsg(Integer.valueOf(itemId));
     }
 }
