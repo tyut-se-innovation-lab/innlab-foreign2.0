@@ -5,7 +5,7 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
-      database: 1
+      database: 3
       #    password: 123456 #默认为空
       timeout: 3000ms
       lettuce:
@@ -180,7 +180,7 @@ token:
   # 令牌密钥
   secret: tyutselabababbaaabcdefghijklmnopqrstuvwxyzaaaaaaaaaaaaa32136758967
   # 令牌有效期（单位分钟）
-  expireTime: 30
+  expireTime: 1440
 
 # 用户配置
 user:

@@ -19,7 +19,7 @@ public class EnumUtils {
                 return department;
             }
         }
-        return DepartmentEnum.SELAB; // 如果未找到对应的部门ID，可以根据实际情况返回null或者抛出异常
+        return DepartmentEnum.INNLAB; // 如果未找到对应的部门ID，可以根据实际情况返回null或者抛出异常
     }
 
     public static String getDepartmentIdByName(String departmentName) {

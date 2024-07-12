@@ -10,7 +10,7 @@ import lombok.Getter;
  * @Version: 1.0
  **/
 public enum DepartmentEnum {
-    SELAB("0", "创新实验室"),
+    INNLAB("0", "创新实验室"),
 
     Software_Development("1", "软件开发"),
 
@@ -18,7 +18,8 @@ public enum DepartmentEnum {
 
     Artificial_Intelligence("3", "人工智能"),
 
-    Virtual_Reality("4", "虚拟现实");
+    Virtual_Reality("4", "虚拟现实"),
+    Algorithm_Competition("5", "算法竞赛");
 
     @Getter
     private final String departmentId ;

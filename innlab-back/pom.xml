@@ -101,11 +101,15 @@
                 <version>${foreign.version}</version>
             </dependency>
 
-
             <!--浏览器解析客户端操作系统、浏览器等-->
             <dependency>
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
+            </dependency>
+            <!--aop用于插入操作日志 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
             </dependency>
 
             <dependency>
