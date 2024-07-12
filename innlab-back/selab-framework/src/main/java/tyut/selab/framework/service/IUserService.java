@@ -26,5 +26,7 @@ public interface IUserService {
 
     R getUserList(UserParam userParam);
 
-    R getUserMsg(Integer userId);
+    R getUserMsgById(Integer userId);
+
+    R delectUserById(Integer userId);
 }

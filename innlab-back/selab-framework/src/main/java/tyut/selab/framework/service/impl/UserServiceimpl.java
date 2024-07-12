@@ -189,11 +189,17 @@ public class UserServiceimpl implements IUserService {
         return R.success(userIPage);
     }
     @Override
-    public R getUserMsg(Integer userId){
+    public R getUserMsgById(Integer userId){
         UserEntity userEntity = userMapper.selectById(userId);
         UserMsgEntity userMsgEntity = userMsgMapper.selectById(userId);
         UserMsgVo userMsgVo = get1(userEntity,userMsgEntity);
         return R.success(userMsgVo);
+    }
+    @Override
+    public R delectUserById(Integer userId){
+        userMapper.deleteById(userId);
+        userMsgMapper.deleteById(userId);
+        return R.success("删除成功！");
     }
     private UserMsgVo get1(UserEntity userEntity,UserMsgEntity userMsgEntity){
         UserMsgVo userMsgVo = new UserMsgVo();

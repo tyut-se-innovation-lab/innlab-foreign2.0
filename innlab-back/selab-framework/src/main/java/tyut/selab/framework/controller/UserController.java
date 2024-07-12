@@ -102,24 +102,31 @@ public class UserController {
 
         return R.success();
     }
-    @PostMapping("/getselfmag")
+    @PostMapping("/getSelfMag")
     @Operation(summary = "获取自己的登陆信息",description = "登陆成功后第一时间通过token调取，可以获得用户自己的信息")
     public R getSelfMsg() {
         Integer userId = SecurityUtils.getUserId();
-        return iUserService.getUserMsg(userId);
+        return iUserService.getUserMsgById(userId);
     }
-    @PostMapping("/userlist")
+    @PostMapping("/userList")
     @Operation(summary = "用户列表",description= "获取用户列表")
     public R userList(@RequestBody @Validated UserParam userParam) {
         return iUserService.getUserList(userParam);
     }
 
-    @PostMapping("/usermsg")
+    @PostMapping("/userMsg")
     @Operation(summary = "用户信息",description= "获取用户详细信息")
     public R userMsg(@RequestParam("userId")Integer userId) {
-        return iUserService.getUserMsg(userId);
+        return iUserService.getUserMsgById(userId);
     }
 
+
+
+    @PostMapping("/deleteUser")
+    @Operation(summary = "删除用户",description= "通过用户id删除用户")
+    public R delectUserById(@RequestParam("userId")Integer userId) {
+        return iUserService.delectUserById(userId);
+    }
 
 
 }
