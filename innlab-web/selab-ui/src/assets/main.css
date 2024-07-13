@@ -1,0 +1,70 @@
+@import './base.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: 'Montserrat', sans-serif; */
+}
+
+#app {
+  /* margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal; */
+  /* max-width: 1800px; */
+  width: 100vw;
+  /* padding: 1rem 3rem; */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none !important;
+  user-select: none;
+  /* background-color: #5650c7; */
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none !important;
+
+}
+
+a:-webkit-any-link {
+  color: inherit;
+  /* 使用父元素的颜色 */
+  cursor: auto;
+  /* 使用浏览器默认光标样式 */
+  text-decoration: none;
+  /* 取消下划线 */
+}
+
+/* a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+} */
+/* 
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+} */
+
+/* @media (min-width: 1090px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+} */
+
