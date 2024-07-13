@@ -39,13 +39,6 @@ public class ResourceController {
     public R handleFileUploadImage(MultipartFile file,String description){
         return iResourceService.addResource(file,description,1);
     }
-    @PostMapping("/resource/addmarkdown")
-    @Operation(summary = "添加md",description ="添加资源仅支持mrekdown文件，调用本接口后需根据返回信息调用添加资源接口")
-    @Parameter(name="file",description="上传文件",required=true)
-    @Parameter(name="description",description="文件描述")
-    public R handleFileUploadMarkdown(MultipartFile file,String description){
-        return iResourceService.addResource(file,description,3);
-    }
     @PostMapping("/resource/addvideo")
     @Operation(summary = "添加视频",description ="添加资源仅支持.mp4文件，调用本接口后需根据返回信息调用添加资源接口")
     @Parameter(name="file",description="上传文件",required=true)

@@ -62,7 +62,7 @@ public class ItemEntity extends BaseEntity{
      * 项目markdown
      */
     @TableField("content_markdown")
-    private Integer contentMarkdown;
+    private String contentMarkdown;
     /**
      * 项目状态
      */

@@ -44,9 +44,7 @@ public class ResourceServiceImpl implements IResourceService {
         //获取文件后缀名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         String imagePath = null;
-        if (type==3 && suffixName.equals(".md")) {
-            imagePath = "Markdown/";
-        } else if (type==1 && (suffixName.equals(".jpg") || suffixName.equals(".png"))) {
+        if (type==1 && (suffixName.equals(".jpg") || suffixName.equals(".png"))) {
             imagePath = "Image/";
         } else if (type==2 && suffixName.equals(".mp4")) {
             imagePath = "Video/";
@@ -73,24 +71,8 @@ public class ResourceServiceImpl implements IResourceService {
             QueryWrapper<ResourceEntity> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("resource_path", resourceEntity.getResourcePath());
             ResourceEntity resourceEntity1 =resourceMapper.selectOne(queryWrapper);
-            String base64 = null;
-            if (type==3){
-
-                try (BufferedInputStream in = new BufferedInputStream(new FileInputStream("selab-resources/"+resourceEntity1.getResourcePath()))) {
-                    byte[] fileData = new byte[0];
-                    fileData = in.readAllBytes();
-                    // 处理文件内容，例如显示或保存文件内容
-                    base64 = Base64.getEncoder().encodeToString(fileData);
-                }catch (IOException e) {
-                    // 处理异常
-                    e.printStackTrace();
-                }
-            }else {
-                addResourceForCloud(resourceEntity1.getResourceId());
-            }
             ResourceEntity resourceEntity2 = resourceMapper.selectById(resourceEntity1.getResourceId());
             ResourceVo resourceVo = new ResourceVo(resourceEntity2);
-            resourceVo.setResourceBase64(base64);
             return R.success(resourceVo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,9 +85,6 @@ public class ResourceServiceImpl implements IResourceService {
         ResourceEntity resourceEntity = resourceMapper.selectById(resourceId);
         if (StringUtils.isEmpty(resourceEntity.getResourcePath())) {
             return R.error("文件不存在！");
-        }
-        if (resourceEntity.getResourceType() == 3 || resourceEntity.getResourceType() == 0) {
-            return R.error("文件暂不支持上传！");
         }
         try {
             BufferedInputStream in = new BufferedInputStream(new FileInputStream("selab-resources/" + resourceEntity.getResourcePath()));

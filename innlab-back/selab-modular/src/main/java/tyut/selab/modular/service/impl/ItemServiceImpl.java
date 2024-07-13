@@ -95,25 +95,13 @@ public class ItemServiceImpl implements IItemService {
             return R.error("文章不存在！");
         }
         ItemMsgVo itemMsgVo = new ItemMsgVo(itemEntity);
-        ResourceEntity resourceEntity = resourceMapper.selectById(itemEntity.getContentMarkdown());
 //        ImageVo imageVo = new ImageVo();
 //        imageVo.setIsNewd(resourceEntity.getIsNewd());
 //        imageVo.setPwd(resourceEntity.getPwd());
 //        imageVo.setFId(resourceEntity.getFId());
         String base64 = null;
-
-        if (resourceEntity.getResourceType() == 3) {
-
-            try (BufferedInputStream in = new BufferedInputStream(new FileInputStream("selab-resources/" + resourceEntity.getResourcePath()))) {
-                byte[] fileData = new byte[0];
-                fileData = in.readAllBytes();
-                // 处理文件内容，例如显示或保存文件内容
-                base64 = Base64.getEncoder().encodeToString(fileData);
-            } catch (IOException e) {
-                // 处理异常
-                e.printStackTrace();
-            }
-            itemMsgVo.setMarkdownBase64(base64);
+        if (ObjectUtils.isNotNull(itemEntity.getContentMarkdown())){
+            itemMsgVo.setMarkdownBase64(itemEntity.getContentMarkdown());
             return R.success(itemMsgVo);
         }
         return R.error("文章已删除！");
