@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tyut.selab.common.domain.R;
 import tyut.selab.framework.domain.PageParam;
-import tyut.selab.modular.domain.dto.param.ItemParam;
 import tyut.selab.modular.service.IHistoryService;
 
 /**
@@ -25,7 +24,7 @@ import tyut.selab.modular.service.IHistoryService;
 @RequestMapping("/foreign")
 @Tag(name = "前台组织历史展示")
 @Slf4j
-public class HistoryController {
+public class ForeignHistoryController {
     @Autowired
     private IHistoryService iHistoryService;
 

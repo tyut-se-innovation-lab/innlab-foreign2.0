@@ -1,17 +1,21 @@
 package tyut.selab.framework.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tyut.selab.common.domain.R;
 import tyut.selab.common.utils.*;
+import tyut.selab.framework.domain.dto.param.ResourceParam;
 import tyut.selab.framework.domain.entity.ResourceEntity;
 import tyut.selab.framework.domain.vo.CookieVo;
 import tyut.selab.framework.domain.vo.ResourceVo;
 import tyut.selab.framework.mapper.ResourceMapper;
 import tyut.selab.framework.service.IResourceService;
 import tyut.selab.common.domain.Lz;
+import tyut.selab.framework.web.SecurityUtils;
 
 import java.io.*;
 import java.util.Base64;
@@ -67,6 +71,7 @@ public class ResourceServiceImpl implements IResourceService {
             resourceEntity.setResourceType(type);
             resourceEntity.setDelFlag(0);
             resourceEntity.setResourceDescription(fileDescription);
+            resourceEntity.setCreateUser(SecurityUtils.getUserNickName());
             resourceMapper.insert(resourceEntity);
             QueryWrapper<ResourceEntity> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("resource_path", resourceEntity.getResourcePath());
@@ -127,6 +132,14 @@ public class ResourceServiceImpl implements IResourceService {
         }else {
             return R.error("文件蓝奏云资源不存在！");
         }
+    }
+    @Override
+    public R getResourcelist(ResourceParam resourceParam){
+        Page<ResourceEntity> page = new Page<>(resourceParam.getPageNum(),resourceParam.getPageSize());
+        QueryWrapper<ResourceEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(ObjectUtils.isNotNull(resourceParam.getResourceType()),"resource_type",resourceParam.getResourceType());
+        IPage<ResourceEntity> resourceEntityIPage = resourceMapper.selectPage(page, queryWrapper);
+        return R.success(resourceEntityIPage);
     }
     public R getResourceBase64(Integer resourceId){
         ResourceEntity resourceEntity = resourceMapper.selectById(resourceId);

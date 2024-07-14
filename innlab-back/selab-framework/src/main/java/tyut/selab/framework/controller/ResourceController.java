@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tyut.selab.common.domain.R;
+import tyut.selab.framework.domain.dto.param.ResourceParam;
 import tyut.selab.framework.domain.vo.CookieVo;
 import tyut.selab.framework.service.IResourceService;
 
@@ -21,12 +22,12 @@ import tyut.selab.framework.service.IResourceService;
  **/
 @RestController
 @Tag(name = "资源管理")
-@RequestMapping("background/adm")
+@RequestMapping("/background/resource")
 @Slf4j
 public class ResourceController {
     @Autowired
     private IResourceService iResourceService;
-    @PostMapping("/resource/cachexookie")
+    @PostMapping("/cachexookie")
     @Operation(summary = "缓存蓝奏云Cookie",description = "缓存蓝奏云Cookie")
     public R cacheCookie(@RequestBody @Validated CookieVo cookieVo){
         return iResourceService.cacheCookie(cookieVo);
@@ -35,15 +36,20 @@ public class ResourceController {
     @Operation(summary = "添加图片",description ="添加资源仅支持.jpg.png 文件，调用本接口后需根据返回信息调用添加资源接口")
     @Parameter(name="file",description="上传文件",required=true)
     @Parameter(name="description",description="文件描述")
-    @PostMapping("/resource/addImage")
+    @PostMapping("/addImage")
     public R handleFileUploadImage(MultipartFile file,String description){
         return iResourceService.addResource(file,description,1);
     }
-    @PostMapping("/resource/addvideo")
+    @PostMapping("/addvideo")
     @Operation(summary = "添加视频",description ="添加资源仅支持.mp4文件，调用本接口后需根据返回信息调用添加资源接口")
     @Parameter(name="file",description="上传文件",required=true)
     @Parameter(name="description",description="文件描述")
     public R handleFileUploadVideo(MultipartFile file,String description){
         return iResourceService.addResource(file,description,2);
+    }
+    @PostMapping("/resourceList")
+    @Operation(summary = "资源列表",description ="获取资源列表方便管理")
+    public R getResourceList(@RequestBody @Validated ResourceParam resourceParam){
+        return iResourceService.getResourcelist(resourceParam);
     }
 }

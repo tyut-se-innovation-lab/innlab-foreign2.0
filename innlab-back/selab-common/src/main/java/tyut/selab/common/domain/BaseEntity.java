@@ -2,6 +2,7 @@ package tyut.selab.common.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,7 @@ public class BaseEntity implements Serializable {
      * 逻辑删除(1删除 0未删除)
      */
     @TableLogic
+    @JsonIgnore
     @TableField("del_flag")
     private Integer delFlag;
 }

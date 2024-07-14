@@ -36,9 +36,11 @@ public class PersonnelServiceImpl implements IPersonnelService {
     public R getPersonnelForeign(PersonnelParam personnelParam){
         Page<PersonnelEntity> page = new Page<>(personnelParam.getPageNum(),personnelParam.getPageSize());
         QueryWrapper<PersonnelEntity> queryWrapper = new QueryWrapper<>();
+        if(ObjectUtils.isNotNull(personnelParam.getDepartment())){
+            queryWrapper.eq("department_id", EnumUtils.getDepartmentIdByName(personnelParam.getDepartment()));
+        }
         queryWrapper.eq("state",true)
-                .eq("personnel_period",personnelParam.getPeriod())
-                .eq("department_id", EnumUtils.getDepartmentIdByName(personnelParam.getDepartment()))
+                .eq(ObjectUtils.isNotNull(personnelParam.getPeriod()),"personnel_period",personnelParam.getPeriod())
                 .orderByAsc("personnel_sort");
         Page<PersonnelEntity> personnelPage = personnelMapper.selectPage(page,queryWrapper);
         List<PersonnelVo> personnelVoList = new ArrayList<>();
@@ -50,6 +52,7 @@ public class PersonnelServiceImpl implements IPersonnelService {
                 imageVo.setIsNewd(resourceEntity.getIsNewd());
                 imageVo.setPwd(resourceEntity.getPwd());
                 imageVo.setFId(resourceEntity.getFId());
+                imageVo.setUrl(resourceEntity.getResourceUrl());
                 personnelVo.setPersonnelAvatar(imageVo);
             }
             personnelVoList.add(personnelVo);

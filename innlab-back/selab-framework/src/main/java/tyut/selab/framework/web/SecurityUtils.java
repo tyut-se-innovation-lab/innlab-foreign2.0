@@ -15,7 +15,7 @@ import tyut.selab.framework.domain.model.LoginUser;
  * @CreateTime: 2024-05-19 22:08
  * @Version: 1.0
  **/
-public class SecurityUtils {
+public class  SecurityUtils {
     /**
      * 用户ID
      **/
@@ -33,6 +33,16 @@ public class SecurityUtils {
     public static String getUserAccount() {
         try {
             return getLoginUser().getUserAccount();
+        } catch (Exception e) {
+            throw new ServiceException("获取用户账户异常", ErrorCode.ACCOUNT_ABNORMAL);
+        }
+    }
+    /**
+     * 获取用户账户
+     **/
+    public static String getUserNickName() {
+        try {
+            return getLoginUser().getUserNickName();
         } catch (Exception e) {
             throw new ServiceException("获取用户账户异常", ErrorCode.ACCOUNT_ABNORMAL);
         }

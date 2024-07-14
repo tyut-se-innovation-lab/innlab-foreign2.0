@@ -123,7 +123,7 @@ springdoc:
       packages-to-scan: tyut.selab.framework.controller
     - group: '对外网站后台'
       paths-to-match: '/**'
-      packages-to-scan: tyut.selab.modular.controller.admin
+      packages-to-scan: tyut.selab.modular.controller.background
     - group: '对外网站前台'
       paths-to-match: '/**'
       packages-to-scan: tyut.selab.modular.controller.foreign

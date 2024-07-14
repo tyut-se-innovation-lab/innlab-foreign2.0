@@ -3,6 +3,7 @@ package tyut.selab.modular.domain.vo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import tyut.selab.common.utils.EnumUtils;
 import tyut.selab.modular.domain.entity.ItemEntity;
 
 /**
@@ -28,6 +29,11 @@ public class ItemMsgVo {
      */
     @JsonIgnore
     private ImageVo headerImage;
+    /**
+     * 项目部门
+     */
+    @JsonIgnore
+    private String itemDepartment;
 
     @Schema(description = "markdownBase64")
     private String markdownBase64;
@@ -35,14 +41,23 @@ public class ItemMsgVo {
     @Schema(description = "创建时间")
     private String createTime;
 
+    @Schema(description = "作者")
+    private String author;
+
     @Schema(description = "更新时间")
     private String updateTime;
+
+    @Schema(description = "审核人")
+    private String auditor;
 
     public ItemMsgVo(ItemEntity itemEntity){
         this.itemId = itemEntity.getItemId();
         this.itemTitle = itemEntity.getItemTitle();
-//        this.itemIntroduction = itemEntity.getItemIntroduction();
+        this.itemIntroduction = itemEntity.getItemIntroduction();
         this.createTime = itemEntity.getCreateTime();
         this.updateTime = itemEntity.getUpdateTime();
+        this.auditor = itemEntity.getUpdateUser();
+        this.author = itemEntity.getCreateUser();
+        this.itemDepartment = EnumUtils.getDepartmentNameById(String.valueOf(itemEntity.getDepartmentId()));
     }
 }

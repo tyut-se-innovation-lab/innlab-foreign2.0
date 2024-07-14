@@ -2,6 +2,7 @@ package tyut.selab.framework.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import tyut.selab.common.domain.R;
+import tyut.selab.framework.domain.dto.param.ResourceParam;
 import tyut.selab.framework.domain.vo.CookieVo;
 
 /**
@@ -19,4 +20,6 @@ public interface IResourceService {
     R cacheCookie(CookieVo cookieVo);
 
     R getResourceLz(Integer resourceId);
+
+    R getResourcelist(ResourceParam resourceParam);
 }

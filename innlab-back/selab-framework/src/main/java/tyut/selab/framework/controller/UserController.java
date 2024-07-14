@@ -31,7 +31,7 @@ import tyut.selab.framework.web.service.LoginService;
  **/
 @RestController
 @Tag(name = "用户")
-@RequestMapping("background")
+@RequestMapping("/background")
 @Slf4j
 public class UserController {
     @Autowired
@@ -53,7 +53,6 @@ public class UserController {
 
     @PostMapping("/logout")
     @Operation(summary = "用户登出")
-    @PreAuthorize("@ss.hasLoginType('B')")
     public R logout() {
         R r = iUserService.logoutUser();
         return r;

@@ -44,7 +44,7 @@ public class AccountUserDetailsService implements UserDetailsService {
     }
     public UserDetails createLoginUser(UserEntity userEntity) {
         LoginUser loginUser = new LoginUser();
-        return new LoginUser(userEntity.getUserId(),null,userEntity.getUserState(),userEntity.getUserAccount(), userEntity.getUserPassword(), EnumUtils.getDepartmentNameById(String.valueOf(userEntity.getUserDepartment())),null,null);
+        return new LoginUser(userEntity.getUserId(),null,userEntity.getUserState(),userEntity.getUserAccount(), userEntity.getUserPassword(), EnumUtils.getDepartmentNameById(String.valueOf(userEntity.getUserDepartment())),userEntity.getUserNickname(),null,null);
     }
 
 }

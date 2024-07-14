@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tyut.selab.common.domain.R;
-import tyut.selab.framework.domain.PageParam;
 import tyut.selab.modular.domain.dto.param.PersonnelParam;
 import tyut.selab.modular.service.IPersonnelService;
 
@@ -25,7 +24,7 @@ import tyut.selab.modular.service.IPersonnelService;
 @RequestMapping("/foreign")
 @Tag(name = "前台组织人员展示")
 @Slf4j
-public class PersonnelController {
+public class ForeignPersonnelController {
     @Autowired
     private IPersonnelService iPersonnelService;
 

@@ -22,7 +22,7 @@ import tyut.selab.modular.service.IItemService;
 @RequestMapping("/foreign")
 @Tag(name = "前台项目展示")
 @Slf4j
-public class ItemController {
+public class ForeignItemController {
     @Autowired
     private IItemService iItemService;
 

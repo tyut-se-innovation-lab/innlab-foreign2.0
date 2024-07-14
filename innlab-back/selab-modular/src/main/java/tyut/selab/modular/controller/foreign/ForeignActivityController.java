@@ -22,7 +22,7 @@ import tyut.selab.modular.service.IActivityService;
 @RequestMapping("/foreign")
 @Tag(name = "前台日常活动")
 @Slf4j
-public class ActivityController {
+public class ForeignActivityController {
     @Autowired
     private IActivityService iActivityService;
     @PostMapping("/showActivitys")

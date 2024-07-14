@@ -20,6 +20,6 @@ public class ItemParam extends PageParam {
      * 部门
      */
     @Schema(description = "部门")
-    @NotBlank(message = "部门不能为空")
+    @Size(min = 4,max = 4,message = "部门字符必须为4")
     private String department;
 }

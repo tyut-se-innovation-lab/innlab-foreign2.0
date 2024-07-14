@@ -2,6 +2,7 @@ package tyut.selab.modular.service;
 
 import tyut.selab.common.domain.R;
 import tyut.selab.framework.domain.PageParam;
+import tyut.selab.modular.domain.dto.HistoryDto;
 
 /**
  * @ClassName: HistoryService
@@ -12,4 +13,12 @@ import tyut.selab.framework.domain.PageParam;
  **/
 public interface IHistoryService {
     R getHistoryForeign(PageParam pageParam);
+
+    R addHistory(HistoryDto historyDto);
+
+    R updateHistory(HistoryDto historyDto);
+
+    R deleteHistoryById(Integer historyId);
+
+    R getHistoryList(PageParam pageParam);
 }

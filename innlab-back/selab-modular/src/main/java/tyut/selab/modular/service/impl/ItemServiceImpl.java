@@ -42,9 +42,10 @@ public class ItemServiceImpl implements IItemService {
     public R showItemsTitle1(ItemParam itemParam) {
         Page<ItemEntity> page = new Page<>(itemParam.getPageNum(), itemParam.getPageSize());
         QueryWrapper<ItemEntity> itemEntityQueryWrapper = new QueryWrapper<>();
-        System.out.println(EnumUtils.getDepartmentIdByName(itemParam.getDepartment()));
-        itemEntityQueryWrapper.eq("department_id", EnumUtils.getDepartmentIdByName(itemParam.getDepartment()))
-                .eq("state",true)
+        if (ObjectUtils.isNotNull(itemParam.getDepartment())){
+            itemEntityQueryWrapper.eq("department_id", EnumUtils.getDepartmentIdByName(itemParam.getDepartment()));
+        }
+        itemEntityQueryWrapper.eq("state",true)
                 .orderByDesc("is_top");
         Page<ItemEntity> itemEntityPage = itemMapper.selectPage(page,itemEntityQueryWrapper);
         List<ItemTitleVo> itemTitleVos = new ArrayList<>();
@@ -63,8 +64,10 @@ public class ItemServiceImpl implements IItemService {
     public R showItemsTitle2(ItemParam itemParam) {
         Page<ItemEntity> page = new Page<>(itemParam.getPageNum(), itemParam.getPageSize());
         QueryWrapper<ItemEntity> itemEntityQueryWrapper = new QueryWrapper<>();
-        itemEntityQueryWrapper.eq("department_id", EnumUtils.getDepartmentIdByName(itemParam.getDepartment()))
-                .eq("state",true)
+        if (ObjectUtils.isNotNull(itemParam.getDepartment())){
+            itemEntityQueryWrapper.eq("department_id", EnumUtils.getDepartmentIdByName(itemParam.getDepartment()));
+        }
+        itemEntityQueryWrapper.eq("state",true)
                 .orderByDesc("is_top");
         Page<ItemEntity> itemEntityPage = itemMapper.selectPage(page,itemEntityQueryWrapper);
         List<ItemTitleVo> itemTitleVos = new ArrayList<>();
@@ -79,6 +82,7 @@ public class ItemServiceImpl implements IItemService {
                 imageVo.setIsNewd(resourceEntity.getIsNewd());
                 imageVo.setPwd(resourceEntity.getPwd());
                 imageVo.setFId(resourceEntity.getFId());
+                imageVo.setUrl(resourceEntity.getResourceUrl());
                 itemTitleVo.setHeaderImage(imageVo);
             }
             itemTitleVos.add(itemTitleVo);
@@ -99,7 +103,6 @@ public class ItemServiceImpl implements IItemService {
 //        imageVo.setIsNewd(resourceEntity.getIsNewd());
 //        imageVo.setPwd(resourceEntity.getPwd());
 //        imageVo.setFId(resourceEntity.getFId());
-        String base64 = null;
         if (ObjectUtils.isNotNull(itemEntity.getContentMarkdown())){
             itemMsgVo.setMarkdownBase64(itemEntity.getContentMarkdown());
             return R.success(itemMsgVo);

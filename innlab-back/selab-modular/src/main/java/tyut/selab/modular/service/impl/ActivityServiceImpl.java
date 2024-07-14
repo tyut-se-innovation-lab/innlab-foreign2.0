@@ -43,8 +43,8 @@ public class ActivityServiceImpl implements IActivityService {
         QueryWrapper<ActivityEntity> itemEntityQueryWrapper = new QueryWrapper<>();
         itemEntityQueryWrapper.eq(ObjectUtils.isNotNull(activityParam.getActivityType()),"activity_type",activityParam.getActivityType())
                 .eq("state",true)
-                .orderByDesc("create_time")
-                .orderByDesc("is_top");
+                .orderByDesc("is_top")
+                .orderByDesc("create_time");
         Page<ActivityEntity> activityEntityPage = activityMapper.selectPage(page,itemEntityQueryWrapper);
         List<ActivityTitleVo> activityTitleVos = new ArrayList<>();
         activityEntityPage.getRecords().forEach(activityEntity -> {
@@ -64,8 +64,8 @@ public class ActivityServiceImpl implements IActivityService {
         QueryWrapper<ActivityEntity> itemEntityQueryWrapper = new QueryWrapper<>();
         itemEntityQueryWrapper.eq(ObjectUtils.isNotNull(activityParam.getActivityType()),"activity_type",activityParam.getActivityType())
                 .eq("state",true)
-                .orderByDesc("create_time")
-                .orderByDesc("is_top");
+                .orderByDesc("is_top")
+                .orderByDesc("create_time");
         Page<ActivityEntity> activityEntityPage = activityMapper.selectPage(page,itemEntityQueryWrapper);
         List<ActivityTitleVo> activityTitleVos = new ArrayList<>();
         activityEntityPage.getRecords().forEach(activityEntity -> {
@@ -81,6 +81,7 @@ public class ActivityServiceImpl implements IActivityService {
                 imageVo.setIsNewd(resourceEntity.getIsNewd());
                 imageVo.setPwd(resourceEntity.getPwd());
                 imageVo.setFId(resourceEntity.getFId());
+                imageVo.setUrl(resourceEntity.getResourceUrl());
                 activityTitleVo.setHeaderImage(imageVo);
             }
             activityTitleVos.add(activityTitleVo);
@@ -117,6 +118,7 @@ public class ActivityServiceImpl implements IActivityService {
                     imageVo.setIsNewd(resourceEntity.getIsNewd());
                     imageVo.setPwd(resourceEntity.getPwd());
                     imageVo.setFId(resourceEntity.getFId());
+                    imageVo.setUrl(resourceEntity.getResourceUrl());
                     resource.add(imageVo);
                 }
                 subTitleMo.setResource(resource);

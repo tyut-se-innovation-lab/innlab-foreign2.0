@@ -40,6 +40,8 @@ public class LoginUser implements UserDetails {
 
     private String department;
 
+    private String userNickName;
+
     /**
      * 权限
      */
