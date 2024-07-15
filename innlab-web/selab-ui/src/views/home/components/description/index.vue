@@ -40,8 +40,6 @@ import Readmore from '@/components/readmore/index.vue'
 
 <style scoped>
 .outer {
-  width: 30%;
-  height: 7%;
   padding: 0 120px;
   display: flex;
   align-items: center;
@@ -61,7 +59,6 @@ import Readmore from '@/components/readmore/index.vue'
   align-items: center;
   position: relative;
 }
-
 
 
 .title {

@@ -28,10 +28,11 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from "vue"
-import Action from "@/views/blog/components/action/index.vue"
-import Comment from "@/views/blog/components/comment/index.vue"
 import { useRouter } from 'vue-router';
 import { getActInfo, getPartActInfo, getMd } from '@/api/blog/blog'
+import Action from "@/views/blog/components/action/index.vue"
+import Comment from "@/views/blog/components/comment/index.vue"
+
 import bus from '@/eventBus';
 import axios from "axios";
 
@@ -81,8 +82,6 @@ const getActvityInfo = async () => {
         mdContent.value = decodedContent;
 
 
-
-
     } catch (error) {
         console.error('Error fetching data:');
     } finally {
@@ -94,6 +93,7 @@ onMounted(async () => {
     setTimeout(() => {
         bus.emit('loading', false);
     }, 200);
+    
     proPart.value = props.part ? props.part : '项目列表'
     window.scrollTo({ top: 0, behavior: 'smooth' });
 

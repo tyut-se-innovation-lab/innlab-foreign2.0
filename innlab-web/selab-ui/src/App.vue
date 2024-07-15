@@ -6,21 +6,11 @@ import headerUnhome from '@/components/header/headUnhome.vue'
 import Footer from '@/components/footer/index.vue'
 import FooterBlue from '@/components/footer/footer_blue.vue'
 import { ref, reactive, onMounted, onUnmounted } from "vue"
-import scrollShow from '@/utils/scrollshow'
 
 import Loading from "@/components/loading/loading.vue"
 
 onMounted(() => {
-  // 获取所有带有 acShow 类名的元素
-  scrollShow()
 
-  // 添加滚动监听
-  window.addEventListener('scroll', scrollShow)
-
-  // 在组件卸载时移除监听器
-  onUnmounted(() => {
-    window.removeEventListener('scroll', scrollShow)
-  })
 })
 
 
@@ -178,6 +168,7 @@ header {
   max-height: 100vh;
 }
 
+
 .logo {
   display: block;
   margin: 0 auto 2rem;
@@ -234,6 +225,4 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
-
-
 </style>

@@ -1,153 +1,84 @@
 <template>
-  <div class="outer">
-    <div class="lowceng">
-      <div class="white"></div>
-      <div class="low">
-        <a href="javascript:if(confirm('http://www.google.cn/intl/zh-CN/chrome/browser/  \n\n���ļ�δ�� Teleport Pro ���أ���Ϊ ��λ����ʼ��ַ�����õı߽���������·���С�  \n\n����Ҫ�ӷ�����������?'))window.location='http://www.google.cn/intl/zh-CN/chrome/browser/'"
-          tppabs="http://www.google.cn/intl/zh-CN/chrome/browser/"></a>
-      </div>
-    </div>
-
+  <div class="outContainer">
     <!-- 头部 -->
     <div class="header">
       <Header :islogoWhite="logoWhite" :color="headerColor"></Header>
     </div>
 
-    <div class="cengboxindex">
-    </div>
-
-    <div class="entrybox">
-      <!-- <div class="scan">
-              <div class="scancode"></div>
-          </div>
-          <div class="wexin">
-              <div class="weixincode"></div>
-          </div> -->
-      <div class="top"></div>
-    </div>
-
-    <!-- 主页 -->
-    <div id="fullpage" class="fullpage-wrapper">
-      <!-- banner -->
-      <div class="section fp-section" id="section0" data-anchor="firstPage">
-        <section class="banner" style="background-color: #0d1621;">
-          <div class="slider">
-            <el-carousel ref="carousel" class="slide" motion-blur arrow="never" indicator-position="none">
-              <el-carousel-item v-for="item in actImgs" :key="item">
-                <img :src="item" />
-                <div class="left-info">
-                  <div class="penetrte-blur">
-                    <h1>Innov</h1>
-                  </div>
-                  <div class="content">
-                    <h3>The Innovation Laboratory</h3>
-                    <p>
-                      软件学院创新实验室位于软件学院行勉楼实验室一层,是隶属于软件学院的学生创新实践基地,宗旨在于丰富学生课外知识、提升学生创新实践能力。
-                    </p>
-                    <p>The Innovation Laboratory of the School of Software is located on the first
-                      floor
-                      of the Xingmian
-                      Building Laboratory of the School of Software. It is a student innovation
-                      practice base affiliated to
-                      the School of Software. The purpose is to enrich students' extracurricular
-                      knowledge and improve
-                      students' innovative practice ability.</p>
-                    <a href="#" class="btn">More Details</a>
-                  </div>
+    <!-- banner -->
+    <div class="banner" :class="{ 'hidden': isBannerHidden }" :style="{ height: isBannerHidden ? '0' : '100vh' }"
+      style="background-color: #0d1621;">
+      <div class="slider">
+        <div>
+          <el-carousel class="slide active" ref="carousel" motion-blur indicator-position="none">
+            <el-carousel-item v-for="item in actImgs" :key="item">
+              <img :src="item" />
+              <div class="left-info">
+                <div class="penetrte-blur">
+                  <h1>Innov</h1>
                 </div>
-                <div class="right-info">
-                  <h1>ation</h1>
-                  <h3>Laboratory</h3>
+                <div class="content">
+                  <h3>The Innovation Laboratory</h3>
+                  <p>
+                    软件学院创新实验室位于软件学院行勉楼实验室一层,是隶属于软件学院的学生创新实践基地,宗旨在于丰富学生课外知识、提升学生创新实践能力。
+                  </p>
+                  <p>The Innovation Laboratory of the School of Software is located on the first
+                    floor
+                    of the Xingmian
+                    Building Laboratory of the School of Software. It is a student innovation
+                    practice base affiliated to
+                    the School of Software. The purpose is to enrich students' extracurricular
+                    knowledge and improve
+                    students' innovative practice ability.</p>
+                  <a href="#" class="btn">More Details</a>
                 </div>
-              </el-carousel-item>
-            </el-carousel>
-            <button @click="prev" class="carousel-control prev">◀</button>
-            <button @click="next" class="carousel-control next">▶</button>
-          </div>
-
-
-        </section>
+              </div>
+              <div class="right-info">
+                <h1>ation</h1>
+                <h3>Laboratory</h3>
+              </div>
+            </el-carousel-item>
+          </el-carousel>
+        </div>
       </div>
+
+
+    </div>
+
+    <div id="main">
       <!-- description -->
-      <Desc class="section fp-section" id="section1" data-anchor="secondPage"></Desc>
+      <Desc id="desc" ref="desc"></Desc>
 
-    </div>
-    <!-- history -->
-    <div class="section fp-section" id="section2" data-anchor="3rdPage">
+      <!-- history -->
+      <History id="history"></History>
 
-      <div class="content3">
+      <!-- part -->
+      <Part id="part"></Part>
 
-        <div class="timeline-container">
-          <div class="time-top">
-            <img class="timeTitle" src="public/img/titleImg/time.png" alt="">
-          </div>
-          <div class="timeline" ref="timeline">
-            <div class="historys" v-for="(item, index) in historyList">
-              {{ item.historyTime }}
-              <span class="arrow" v-if="index !== historyList.length - 1">⇾</span>
-              <div v-if="!isOdd(index)" class="history-up">
-                <img src="public/img/homeImg/timeline-up.png" alt="">
-                <Tooltip :title="item.historyTitle" :content="item.historyContent"></Tooltip>
-              </div>
-              <div v-if="isOdd(index)" class="history-down">
-                <img src="public/img/homeImg/timeline-down.png" alt="">
-                <Tooltip style="margin-top:50px;" :title="item.historyTitle" :content="item.historyContent"></Tooltip>
-              </div>
-            </div>
+      <!-- actvity -->
+      <Act id="act"></Act>
 
-          </div>
-        </div>
-        <div class="scroll">
-          <button class="linemore" @click="scrollLeft">◀</button>
-          <button class="linemore" @click="scrollRight">▶</button>
-        </div>
-      </div>
-    </div>
-    <!-- part -->
-    <div class="section fp-section" id="section3" data-anchor="4thpage">
-      <Part class="ifadeIn"></Part>
-    </div>
-    <!-- actvity -->
-    <div class="section fp-section" id="section4" data-anchor="5fivpage">
-      <div class="center2">
-        <Act></Act>
-      </div>
-    </div>
-    <!-- people -->
-    <div class="section fp-section" id="section5" data-anchor="lastpage">
-      <People></People>
+      <!-- people -->
+      <People id="people"></People>
 
+      <Footer></Footer>
     </div>
-    <Footer></Footer>
 
   </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed } from "vue"
+import { ref, reactive, onMounted, computed, onBeforeUnmount } from "vue"
 import Header from '@/components/header/header.vue'
 import Footer from '@/components/footer/index.vue'
 import Banner from "@/components/banner/banner.vue"
 import Desc from "@/views/home/components/description/index.vue"
+import History from "@/views/home/components/history/index.vue"
 import Act from "@/views/home/components/activity/index.vue"
 import People from "@/views/home/components/people/index.vue"
 import Part from "@/views/home/components/part/index.vue"
-import Tooltip from '@/components/tooltip/index.vue'
-
-
-// 页面滚动
-import './js/jquery.min_78bc357.js';
-import './js/jquery.fullPage.min_688fc6d.js';
-import './js/jquery.easings.min_80a8980.js'
-import './js/page_3b93263.js'
-import './js/jquery.cookie_119dc0f.js';
-
 import bus from '@/eventBus';
 
-import { getHistoryList } from '@/api/history/history.ts';
 
-interface JQuery {
-  fullpage(options?: any): void;
-}
 
 const actImgs = ref([
   "https://tg-image.com/file/d19d49389f231ab624ea8.jpg",
@@ -169,70 +100,46 @@ const prev = () => {
 const headerColor = ref('white');
 const logoWhite = ref(true);
 
-const isOdd = (index) => {
-  return index % 2 === 1;
-}
 
-const historyList = ref<Array<{ historyTime: string; historyTitle: string; historyContent: string }>>([]);
-historyList.value = [
-  { historyTime: '2000', historyTitle: 'Title 1', historyContent: 'Content 1Content 1' },
-  { historyTime: '2001', historyTitle: 'Title 2', historyContent: 'Content 2' },
-  { historyTime: '2002', historyTitle: 'Title 3', historyContent: 'Content 3' },
-  { historyTime: '2000', historyTitle: 'Title 1', historyContent: 'Content 1' },
-  { historyTime: '2001', historyTitle: 'Title 2', historyContent: 'Content 2' },
-  { historyTime: '2002', historyTitle: 'Title 3', historyContent: 'Content 3' },
-  { historyTime: '2000', historyTitle: 'Title 1', historyContent: 'Content 1' },
-  { historyTime: '2001', historyTitle: 'Title 2', historyContent: 'Content 2' },
-  { historyTime: '2001', historyTitle: 'Title 2', historyContent: 'Content 2' },
-  { historyTime: '2002', historyTitle: 'Title 3', historyContent: 'Content 3' },
 
-];
-const scrollPosition = ref(0);
-const timeline = ref<HTMLDivElement | null>(null);
+// banner展开收起动画
+const isBannerHidden = ref(false);
+const lastScrollY = ref(0);
 
-const isAtLeft = ref(true);
-const isAtRight = ref(false);
+const handleScroll = () => {
+  const currentScroll = window.scrollY;
 
-const scrollRight = () => {
-  if (timeline.value) {
-    const scrollAmount = 300 // Adjust scroll amount as needed
-    console.log('scrollPosition', scrollPosition.value, -(timeline.value.clientWidth * 0.6), scrollPosition.value >= -(timeline.value.clientWidth * 0.6));
-    if (scrollPosition.value >= -(timeline.value.clientWidth * 0.35)) {
-      scrollPosition.value -= scrollAmount
-      timeline.value.style.transform = `translateX(${scrollPosition.value}px)`
+  const descElement = document.getElementById('desc');
+
+  if (descElement) {
+    const bannerHeight = document.querySelector('.banner')?.clientHeight ?? 0;
+    const descOffset = descElement.getBoundingClientRect().top + window.scrollY - bannerHeight;
+
+    if (currentScroll > lastScrollY.value) {
+      isBannerHidden.value = true;
+
+      // smoothScrollToDesc(descOffset);
+    } else if (currentScroll < descOffset - 30) {
+
+      isBannerHidden.value = false;
+      smoothScrollToTop();
     }
-
-  }
-}
-const scrollLeft = () => {
-  if (timeline.value) {
-    const scrollAmount = 300 // Adjust scroll amount as needed
-    console.log('scrollPosition', scrollPosition.value, timeline.value.clientWidth);
-
-    if (scrollPosition.value !== 0) {
-      scrollPosition.value += scrollAmount
-      timeline.value.style.transform = `translateX(${scrollPosition.value}px)`
-    }
-  }
-
-
-}
-
-
-
-const getHistorys = async () => {
-  try {
-    const result = await getHistoryList();
-    if (result.code == 200) {
-      historyList.value = result.data.records;
-    }
-
-  } catch (error) {
-    console.error('Error fetching data:');
-  } finally {
-
+    lastScrollY.value = currentScroll;
   }
 };
+
+const smoothScrollToTop = () => {
+  const scrollDuration = 800; // duration in ms
+  const scrollStep = -window.scrollY / (scrollDuration / 15);
+  const scrollInterval = setInterval(() => {
+    if (window.scrollY != 0) {
+      window.scrollBy(0, scrollStep);
+    } else {
+      clearInterval(scrollInterval);
+    }
+  }, 15);
+};
+
 
 onMounted(() => {
   //加载动画
@@ -240,121 +147,343 @@ onMounted(() => {
     bus.emit('loading', false);
   }, 800);
 
-  getHistorys();
-
-  // 页面滚动
-  $('#fullpage').fullpage({
-    sectionsColor: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff'],
-    lockAnchors: true,
-    menu: '#menu',
-    css3: true,
-    scrollingSpeed: 800,
-    afterLoad: function (anchorLink: any, index: number) {
-      console.log('index: ', index);
-
-      if (index == 1) {
-        headerColor.value = 'white'
-        logoWhite.value = true
-        $(".top").hide();
-      } else {
-        $(".top").show();
-      }
-
-      if (index == 2 || index == 3 || index == 4 || index == 5 || index == 6) {
-        headerColor.value = '#4474c4'
-        logoWhite.value = false
-      }
-    }
-  });
-
-  $('.top').click(function () {
-    $.fn.fullpage.moveTo(1);
-  });
-
-
   window.addEventListener('scroll', handleScroll);
 
-
+});
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
 });
 
-function jp(index: any) {
-  $.fn.fullpage.moveTo(index);
-}
 
-
-// 滚动到part部分时渐显
-// 监听 fullpage 的滚动事件，根据滚动到第三页的条件来控制元素的显示
-function handleScroll() {
-  const thirdPageElement = document.querySelector('#section2');
-  const elements = document.querySelectorAll<HTMLElement>('.acShow');
-
-  if (thirdPageElement && isElementInViewport(thirdPageElement)) {
-    elements.forEach((element: HTMLElement) => {
-      element.style.opacity = "1";
-    });
-  } else {
-    elements.forEach((element: HTMLElement) => {
-      element.style.opacity = "0";
-    });
-  }
-}
-
-// 判断元素是否在视口内
-function isElementInViewport(el: HTMLElement) {
-  const rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
 
 </script>
 <style scoped>
-@import url('./homebase.css');
+/* @import url('./homebase.css'); */
 
-.outer {
+.outContainer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   /* 父容器最小高度为视口高度 */
+  /* overflow-x: hidden; */
+
 }
 
-#fullpage {
-  flex: 1;
-  /* 填充剩余空间 */
+/* header */
+.header {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  /* background: #fff; */
+  background-color: transparent;
+  /* border-bottom: solid 1px #015bb1; */
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  opacity: 0;
+  opacity: 1\9;
+  -webkit-animation: slideTop 1s ease 1.3s forwards;
+  -moz-animation: slideTop 1s ease 1.3s forwards;
+  -ms-animation: slideTop 1s ease 1.3s forwards;
+  -o-animation: slideTop 1s ease 1.3s forwards;
+  animation: slideTop 1s ease 1.3s forwards
 }
 
-.carousel-control {
-  width: 6%;
-  height: 10%;
+@-webkit-keyframes slideTop {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%)
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    transform: none
+  }
+}
+
+@-moz-keyframes slideTop {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%)
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    transform: none
+  }
+}
+
+@-ms-keyframes slideTop {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%)
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    transform: none
+  }
+}
+
+@-o-keyframes slideTop {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%)
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    transform: none
+  }
+}
+
+@keyframes slideTop {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%)
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    transform: none
+  }
+}
+
+
+/* banner */
+.banner {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  transition: all 0.8s ease-in-out;
+
+}
+
+.banner.hidden {
+  /* pointer-events: none; */
+}
+
+.slider {
+  width: 100%;
+  height: 100%;
+}
+
+:deep(.el-carousel) {
+  width: 100%;
+  height: 100%;
+}
+
+:deep(.el-carousel-item) {
+  width: 100%;
+  height: 100%;
+}
+
+:deep(.el-carousel__container) {
+  width: 100%;
+  height: 100%;
+}
+
+.bannerImg {
+  width: 100%;
+  height: 100%;
+}
+
+.slider .slide {
   position: absolute;
-  top: 90%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.5);
-  color: #ffffff;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 10;
-  transition: all .2s;
-  font-size: 52px;
+  width: 100%;
+  height: 100%;
 }
 
-.carousel-control.prev {
-  right: 12%;
+.slide img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0;
+  transition: .5s ease;
 }
 
-.carousel-control.next {
-  right: 5%;
+.slide.active img {
+  opacity: 1;
 }
 
-.carousel-control:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: rgb(181, 181, 181);
+.slide .left-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  transform: translateX(-100%);
+  transition: 0;
 }
 
+.slide.active .left-info {
+  transform: translateX(0);
+  z-index: 1;
+  transition: 1s ease;
+}
+
+.left-info .penetrte-blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, .1);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  -webkit-mask: linear-gradient(#000 0 0),
+    linear-gradient(#000 0 0);
+  -webkit-mask-clip: text, padding-box;
+  -webkit-mask-composite: xor;
+  padding-right: 15px;
+}
+
+.penetrte-blur h1 {
+  font-size: 250px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.left-info .content {
+  position: absolute;
+  bottom: 8%;
+  left: 10%;
+  color: #fff;
+}
+
+.content h3 {
+  font-size: 20px;
+}
+
+.content p {
+  font-size: 16px;
+  margin: 10px 10px 15px 0px;
+}
+
+.content .btn {
+  display: inline-block;
+  padding: 13px 28px;
+  background: #fff;
+  border: 2px solid #fff;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  font-weight: 600;
+  color: #444;
+  font-size: 16px;
+  transition: all .3s linear;
+}
+
+.content .btn:hover {
+  background: transparent;
+  color: #fff;
+}
+
+.slide .right-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transform: translateX(100%);
+  transition: 0s;
+}
+
+.slide.active .right-info {
+  transform: translateX(0);
+  transition: 1s ease;
+}
+
+
+.right-info h1 {
+  font-size: 250px;
+  color: #fff;
+  text-shadow:
+    0 1px 0 #ccc,
+    0 2px 0 #c9c9c9,
+    0 3px 0 #bbb,
+    0 4px 0 #b9b9b9,
+    0 5px 0 #aaa,
+    0 6px 1px rgba(0, 0, 0, .1),
+    0 0px 5px rgba(0, 0, 0, .1),
+    0 1px 3px rgba(0, 0, 0, .3),
+    0 3px 5px rgba(0, 0, 0, .2),
+    0 5px 10px rgba(0, 0, 0, .25),
+    0 10px 10px rgba(0, 0, 0, .2),
+    0 20px 20px rgba(0, 0, 0, .15);
+}
+
+.right-info h3 {
+  position: absolute;
+  font-size: 80px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, .5);
+  transform: translateY(150%);
+  margin-left: 13px;
+}
+
+
+/* main */
+#main {
+  background-color: #0c131b;
+  background-image: url(public/img/homeImg/background2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  padding-top: 300px;
+}
+
+#desc,
+#history,
+#part,
+#act,
+#people {
+  min-height: 100vh;
+}
+
+
+
+
+
+/* 时间轴 */
 .time-top {
   width: 100%;
   height: 40%;
@@ -380,12 +509,30 @@ function isElementInViewport(el: HTMLElement) {
   color: white;
   background: #02406f;
   z-index: 100;
-  position: fixed;
-  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   margin-top: auto;
+}
+
+/* 响应式 */
+@media (max-width: 1600px) {
+
+  /* banner left title */
+  .penetrte-blur h1 {
+    font-size: 220px;
+  }
+
+  .right-info h1 {
+    font-size: 220px;
+  }
+
+  .right-info h3 {}
+
+  .content .btn {
+    display: none;
+  }
+
 }
 </style>

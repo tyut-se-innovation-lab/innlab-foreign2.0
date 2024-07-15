@@ -41,7 +41,7 @@ const PeopleListParams = ref({
     pageNum: 1,
     pageSize: 10,
     department: "软件开发",
-    period: 2021
+    period: 2022
 })
 const getPeopleList = async () => {
     try {
@@ -87,7 +87,7 @@ onMounted(() => {
     height: 900px;
     overflow: hidden;
     padding: 0 120px;
-    margin-top: 100px;
+    /* margin-top: 100px; */
     padding-top: 130px;
 
 }

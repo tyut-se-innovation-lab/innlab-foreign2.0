@@ -42,7 +42,7 @@
         </div>
         <div class="pros">
             <h1 class="prosTitle">日常动态</h1>
-            <Programs></Programs>
+            <Programs :part="partName"></Programs>
         </div>
     </div>
 
@@ -146,8 +146,6 @@ document.querySelector('.content-l button')?.addEventListener('click', () => {
     }
 });
 
-
-
 // 监视路由参数的变化
 watch(
     () => routeQuery.query,
@@ -159,7 +157,6 @@ watch(
 );
 
 onMounted(() => {
-
     setTimeout(() => {
         bus.emit('loading', false);
     }, 200);

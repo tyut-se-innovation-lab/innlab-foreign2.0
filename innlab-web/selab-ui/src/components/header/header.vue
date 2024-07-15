@@ -78,24 +78,11 @@ const scrollTo = (elementId: number, elementName: string) => {
     const routeInfo = elementIdMap[elementId];
 
     router.push({ path: routeInfo.path, query: { id: elementId, name: routeInfo.name } });
-    bus.emit('loading', true);
+    // bus.emit('loading', true);
 
-    setTimeout(function () {
-        window.location.reload();
-    }, 100);
-
-
-
-    let element = document.getElementById(String(elementId));
-    if (elementId == 7) {
-        element = document.getElementById('3');
-    }
-
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        return true; // 继续默认行为
-    }
-    return false; // 阻止默认行为
+    // setTimeout(function () {
+    //     window.location.reload();
+    // }, 100);
 }
 
 
@@ -129,8 +116,6 @@ onUnmounted(() => {
     z-index: 100;
 }
 
-
-
 .header {
     position: fixed;
     top: 0;
@@ -140,8 +125,8 @@ onUnmounted(() => {
     /* background: rgba(51, 183, 231, .2); */
     display: flex;
     align-items: center;
-    z-index: 100;
-    transition: all .3s;
+    z-index: 10000;
+    transition: all .6s;
 }
 
 .headUnTop {

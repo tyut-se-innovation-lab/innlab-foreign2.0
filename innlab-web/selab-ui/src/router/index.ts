@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/home/actIndex/home.vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import Home from '../views/home/index.vue'
 import bus from '@/eventBus';
 // import Home from '../views/home/index.vue'
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',

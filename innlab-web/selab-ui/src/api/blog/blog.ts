@@ -12,9 +12,8 @@ export const getActInfo = (id: any) => {
 
 //获取部门活动详情
 export const getPartActInfo = (id: any) => {
-    console.log("##", id);
 
-    return http.post(`${prefix}/getOneItem`, {
+    return http.parampost(`${prefix}/getOneItem`, {
         itemId: id
     })
 }

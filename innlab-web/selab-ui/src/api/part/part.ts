@@ -3,11 +3,11 @@ import http from '../http'
 const prefix = '/foreign'
 
 //获取活动
-export const getPros = (params: { current: number; size: number; branchId: number }) => {
-    return http.parampost(`${prefix}/showItems`, {
-        current: params.current,
-        size: params.size,
-        branchId: params.branchId
+export const getPros = (params: { pageNum: number; pageSize: number; department: string }) => {
+    return http.post(`${prefix}/showItems`, {
+        pageNum: params.pageNum,
+        pageSize: params.pageSize,
+        department: params.department
     })
 }
 

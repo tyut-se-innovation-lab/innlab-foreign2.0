@@ -38,8 +38,6 @@ import { onBeforeRouteUpdate } from 'vue-router';
 const loading = ref(true); // 初始值为true
 
 const loadingHandler = (data: boolean) => {
-    console.log("loading: ", data);
-
     loading.value = data;
 };
 

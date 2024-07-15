@@ -31,8 +31,8 @@
 
             <div class="demo-pagination-block">
 
-                <el-pagination v-model:current-page="params.current" v-model:page-size="params.size" :page-sizes="[3]"
-                    layout=" prev, pager, next" :total="total" @size-change="handleSizeChange"
+                <el-pagination v-model:current-page="params.pageNum" v-model:page-size="params.pageSize"
+                    :page-sizes="[3]" layout=" prev, pager, next" :total="total" @size-change="handleSizeChange"
                     @current-change="handleCurrentChange" />
             </div>
         </div>
@@ -44,22 +44,31 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
 import { getPros } from '@/api/part/part'
+import { parseLanzouLink } from '@/utils/getFile';
 
 const props = defineProps<{
     part: string
 }>()
 const total = ref(10)
 const params = ref({
-    current: 1,
-    size: 3,
-    branchId: 1
+    pageNum: 1,
+    pageSize: 3,
+    department: props.part
 })
 
-const ActivitiesList = ref<Array<{ itemId: number; itemTitle: string; itemIntroduction: string; createTime: string }>>([]);
+const ActivitiesList = ref<Array<{ itemId: number; itemTitle: string; itemIntroduction: string; headerImage: object; createTime: string }>>([]);
 const getActivitiesList = async () => {
     try {
         const result = await getPros(params.value);
         ActivitiesList.value = result.data.records;
+
+        ActivitiesList.value.forEach(async e => {
+
+            e.headerImage = await parseLanzouLink(e.headerImage);
+            console.log('e.headerImage: ', e.headerImage);
+
+        })
+
         total.value = result.data.total;
 
     } catch (error) {

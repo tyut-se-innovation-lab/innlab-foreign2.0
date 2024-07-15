@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <Acts></Acts>
+                <Acts part="日常"></Acts>
             </div>
             <div class="menus">
                 <div class="title">

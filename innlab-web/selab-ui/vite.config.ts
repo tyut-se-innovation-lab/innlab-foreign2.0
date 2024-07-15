@@ -17,6 +17,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: path => path.replace(/^\/reqmd/, ''),
       },
+      '/getfile': {
+        target: 'https://www.lanzouh.com',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/getfile/, ''),
+      },
     },
   },
   base: './',

@@ -1,53 +1,31 @@
 <template>
     <div class="homeHistory">
         <div class="container">
-            <header class="title">
-                <h1 class="titleItem">
-                    部门历史
-                </h1>
-            </header>
-            <main>
-                <ul class="timeline">
-                    <!-- Item 1 -->
-                    <li>
-                        <div class="direction-r">
-                            <div class="flag-wrapper">
-                                <span class="hexa"></span>
-                                <span class="flag">Lorem ipsum.</span>
-                                <span class="time-wrapper"><span class="time">Feb 2015</span></span>
-                            </div>
-                            <div class="desc">Lorem ipsum Nisi labore aute do aute culpa magna nulla voluptate
-                                exercitation deserunt proident.</div>
+            <div class="timeline-container">
+                <div class="time-top">
+                    <img class="timeTitle" src="public/img/titleImg/time.png" alt="">
+                </div>
+                <div class="timeline" ref="timeline">
+                    <div class="historys" v-for="(item, index) in historyList">
+                        {{ item.historyTime }}
+                        <span class="arrow" v-if="index !== historyList.length - 1">⇾</span>
+                        <div v-if="!isOdd(index)" class="history-up">
+                            <img src="public/img/homeImg/timeline-up.png" alt="">
+                            <Tooltip :title="item.historyTitle" :content="item.historyContent"></Tooltip>
                         </div>
-                    </li>
+                        <div v-if="isOdd(index)" class="history-down">
+                            <img src="public/img/homeImg/timeline-down.png" alt="">
+                            <Tooltip style="margin-top:50px;" :title="item.historyTitle" :content="item.historyContent">
+                            </Tooltip>
+                        </div>
+                    </div>
 
-                    <!-- Item 2 -->
-                    <li>
-                        <div class="direction-l">
-                            <div class="flag-wrapper">
-                                <span class="hexa"></span>
-                                <span class="flag">Lorem ipsum Anim.</span>
-                                <span class="time-wrapper"><span class="time">Dec 2014</span></span>
-                            </div>
-                            <div class="desc">Lorem ipsum In ut sit in dolor nisi ex magna eu anim anim tempor dolore
-                                aliquip enim cupidatat laborum dolore.</div>
-                        </div>
-                    </li>
-
-                    <!-- Item 3 -->
-                    <li>
-                        <div class="direction-r">
-                            <div class="flag-wrapper">
-                                <span class="hexa"></span>
-                                <span class="flag">Lorem Occaecat.</span>
-                                <span class="time-wrapper"><span class="time">July 2014</span></span>
-                            </div>
-                            <div class="desc">Lorem ipsum Minim labore Ut cupidatat quis qui deserunt proident fugiat
-                                pariatur cillum cupidatat reprehenderit sit id dolor consectetur ut.</div>
-                        </div>
-                    </li>
-                </ul>
-            </main>
+                </div>
+            </div>
+            <div class="scroll">
+                <button class="linemore" @click="scrollLeft">◀</button>
+                <button class="linemore" @click="scrollRight">▶</button>
+            </div>
         </div>
 
 
@@ -57,7 +35,73 @@
 
 <script setup lang="ts">
 import { ref, reactive } from "vue"
+import { getHistoryList } from '@/api/history/history.ts';
+import Tooltip from '@/components/tooltip/index.vue'
 
+
+const isOdd = (index) => {
+    return index % 2 === 1;
+}
+
+const historyList = ref<Array<{ historyTime: string; historyTitle: string; historyContent: string }>>([]);
+historyList.value = [
+    { historyTime: '2000', historyTitle: 'Title 1', historyContent: 'Content 1Content 1' },
+    { historyTime: '2001', historyTitle: 'Title 2', historyContent: 'Content 2' },
+    { historyTime: '2002', historyTitle: 'Title 3', historyContent: 'Content 3' },
+    { historyTime: '2000', historyTitle: 'Title 1', historyContent: 'Content 1' },
+    { historyTime: '2001', historyTitle: 'Title 2', historyContent: 'Content 2' },
+    { historyTime: '2002', historyTitle: 'Title 3', historyContent: 'Content 3' },
+    { historyTime: '2000', historyTitle: 'Title 1', historyContent: 'Content 1' },
+    { historyTime: '2001', historyTitle: 'Title 2', historyContent: 'Content 2' },
+    { historyTime: '2001', historyTitle: 'Title 2', historyContent: 'Content 2' },
+    { historyTime: '2002', historyTitle: 'Title 3', historyContent: 'Content 3' },
+
+];
+const scrollPosition = ref(0);
+const timeline = ref<HTMLDivElement | null>(null);
+
+const isAtLeft = ref(true);
+const isAtRight = ref(false);
+
+const scrollRight = () => {
+    if (timeline.value) {
+        const scrollAmount = 300 // Adjust scroll amount as needed
+        console.log('scrollPosition', scrollPosition.value, -(timeline.value.clientWidth * 0.6), scrollPosition.value >= -(timeline.value.clientWidth * 0.6));
+        if (scrollPosition.value >= -(timeline.value.clientWidth * 0.35)) {
+            scrollPosition.value -= scrollAmount
+            timeline.value.style.transform = `translateX(${scrollPosition.value}px)`
+        }
+
+    }
+}
+const scrollLeft = () => {
+    if (timeline.value) {
+        const scrollAmount = 300 // Adjust scroll amount as needed
+        console.log('scrollPosition', scrollPosition.value, timeline.value.clientWidth);
+
+        if (scrollPosition.value !== 0) {
+            scrollPosition.value += scrollAmount
+            timeline.value.style.transform = `translateX(${scrollPosition.value}px)`
+        }
+    }
+
+
+}
+
+
+const getHistorys = async () => {
+    try {
+        const result = await getHistoryList();
+        if (result.code == 200) {
+            historyList.value = result.data.records;
+        }
+
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
 
 
 
@@ -74,333 +118,126 @@ import { ref, reactive } from "vue"
 
 .container {
     width: 100%;
-    height: 600px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* 时间轴 */
+.time-top {
+    width: 100%;
+    height: 40%;
+    padding-right: 60px;
     display: flex;
     align-items: center;
-}
-
-.titleItem {
-    writing-mode: vertical-rl;
-}
-
-
-/* main */
-main {
-    width: 100%;
-    margin-top: 260px;
-    display: flex;
     justify-content: center;
+    margin-bottom: 8%;
 }
 
-header h1 {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 0;
+.timeTitle {
+    width: 900px;
+    height: auto;
 }
 
-header p {
-    text-align: center;
-    margin-bottom: 0;
-}
-
-.hexa {
-    border: 0px;
-    float: left;
-    text-align: center;
-    height: 35px;
-    width: 60px;
-    font-size: 22px;
-    background: #f0f0f0;
-    color: #3c3c3c;
+.timeline-container {
+    width: 90%;
+    /* overflow-x: auto; */
+    /* 允许水平滚动 */
+    overflow: hidden;
+    white-space: nowrap;
+    /* 防止内容换行 */
+    padding-bottom: 120px;
+    /* margin-top: 90px; */
     position: relative;
-    margin-top: 15px;
+    cursor: pointer;
 }
 
-.hexa:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-bottom: 15px solid #f0f0f0;
-    border-left: 30px solid transparent;
-    border-right: 30px solid transparent;
-    top: -15px;
+.timeline-container::-webkit-scrollbar {
+    height: 8px;
 }
 
-.hexa:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 30px solid transparent;
-    border-right: 30px solid transparent;
-    border-top: 15px solid #f0f0f0;
-    bottom: -15px;
+.timeline-container::-webkit-scrollbar-track {
+    background-color: #09284e;
+    /* 设置滑块背景色 */
+    border-radius: 5px;
+    /* 设置滑块圆角 */
 }
+
+.timeline-container::-webkit-scrollbar-thumb {
+    width: 20px;
+    background: linear-gradient(80deg, #5dccf8, #1a3d68);
+    /* 设置滑块背景色 */
+    border-radius: 5px;
+    /* 设置滑块圆角 */
+}
+
 
 .timeline {
-    position: relative;
-    padding: 0;
-    width: 100%;
-    margin-top: 20px;
-    list-style-type: none;
+    min-width: 1700px;
+    width: fit-content;
+    height: 50px;
+    background-image: url(public/img/homeImg/timeline.png);
+    background-repeat: no-repeat;
+    background-size: 100% 160px;
+    background-position: 1%;
+    display: flex;
+    align-items: center;
+    padding-left: 6%;
+    padding-right: 15%;
+    transition: transform 0.3s ease;
+    margin-top: 12%;
+    margin-bottom: 5%;
 }
 
-.timeline:before {
+.historys {
+    display: flex;
+    font-size: 20px;
+    color: white;
+    padding-left: 160px;
+    position: relative;
+}
+
+.arrow {
     position: absolute;
-    left: 50%;
-    top: 0;
-    content: ' ';
-    display: block;
-    width: 2px;
+    left: 126%;
+}
+
+.history-up {
+    width: 220px;
+    height: 130px;
+    position: absolute;
+    bottom: 36px;
+    left: 140px;
+    display: flex;
+}
+
+.history-down {
+    width: 220px;
+    height: 130px;
+    position: absolute;
+    top: 36px;
+    left: 140px;
+    display: flex;
+}
+
+.scroll {
+    width: 100%;
+    height: 6%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 6%;
+}
+
+.linemore {
+    width: 6%;
     height: 100%;
-    margin-left: -1px;
-    background: rgb(213, 213, 213);
-    background: -moz-linear-gradient(top, rgba(213, 213, 213, 0) 0%, rgb(213, 213, 213) 8%, rgb(213, 213, 213) 92%, rgba(213, 213, 213, 0) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(30, 87, 153, 1)), color-stop(100%, rgba(125, 185, 232, 1)));
-    background: -webkit-linear-gradient(top, rgba(213, 213, 213, 0) 0%, rgb(213, 213, 213) 8%, rgb(213, 213, 213) 92%, rgba(213, 213, 213, 0) 100%);
-    background: -o-linear-gradient(top, rgba(213, 213, 213, 0) 0%, rgb(213, 213, 213) 8%, rgb(213, 213, 213) 92%, rgba(213, 213, 213, 0) 100%);
-    background: -ms-linear-gradient(top, rgba(213, 213, 213, 0) 0%, rgb(213, 213, 213) 8%, rgb(213, 213, 213) 92%, rgba(213, 213, 213, 0) 100%);
-    background: linear-gradient(to bottom, rgba(213, 213, 213, 0) 0%, rgb(213, 213, 213) 8%, rgb(213, 213, 213) 92%, rgba(213, 213, 213, 0) 100%);
-    z-index: 5;
+    background-color: #1f78a7;
 }
 
-.timeline li {
-    padding: 2em 0;
-}
-
-.timeline .hexa {
-    width: 16px;
-    height: 10px;
-    position: absolute;
-    background: #00c4f3;
-    z-index: 5;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    top: -30px;
-    margin-top: 0;
-}
-
-.timeline .hexa:before {
-    border-bottom: 4px solid #00c4f3;
-    border-left-width: 8px;
-    border-right-width: 8px;
-    top: -4px;
-}
-
-.timeline .hexa:after {
-    border-left-width: 8px;
-    border-right-width: 8px;
-    border-top: 4px solid #00c4f3;
-    bottom: -4px;
-}
-
-.direction-l,
-.direction-r {
-    float: none;
-    width: 100%;
-    text-align: center;
-}
-
-.flag-wrapper {
-    text-align: center;
-    position: relative;
-}
-
-.flag {
-    position: relative;
-    display: inline;
-    background: rgb(255, 255, 255);
-    font-weight: 600;
-    z-index: 15;
-    padding: 6px 10px;
-    text-align: left;
-    border-radius: 5px;
-}
-
-.direction-l .flag:after,
-.direction-r .flag:after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: -15px;
-    height: 0;
-    width: 0;
-    margin-left: -8px;
-    border: solid transparent;
-    border-bottom-color: rgb(255, 255, 255);
-    border-width: 8px;
-    pointer-events: none;
-}
-
-.direction-l .flag {
-    -webkit-box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15);
-    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15);
-}
-
-.direction-r .flag {
-    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15);
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15);
-}
-
-.time-wrapper {
-    display: block;
-    position: relative;
-    margin: 4px 0 0 0;
-    z-index: 14;
-    line-height: 1em;
-    vertical-align: middle;
-    color: #fff;
-}
-
-.direction-l .time-wrapper {
-    float: none;
-}
-
-.direction-r .time-wrapper {
-    float: none;
-}
-
-.time {
-    background: #00c4f3;
-    display: inline-block;
-    padding: 8px;
-}
-
-.desc {
-    position: relative;
-    margin: 1em 0 0 0;
-    padding: 1em;
-    background: rgb(254, 254, 254);
-    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.20);
-    -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.20);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.20);
-    z-index: 15;
-}
-
-.direction-l .desc,
-.direction-r .desc {
-    position: relative;
-    margin: 1em 1em 0 1em;
-    padding: 1em;
-    z-index: 15;
-}
-
-@media(min-width: 768px) {
-    .timeline {
-        width: 660px;
-        margin: 0 auto;
-        margin-top: 20px;
-    }
-
-    .timeline li:after {
-        content: "";
-        display: block;
-        height: 0;
-        clear: both;
-        visibility: hidden;
-    }
-
-    .timeline .hexa {
-        left: -28px;
-        right: auto;
-        top: 8px;
-    }
-
-    .timeline .direction-l .hexa {
-        left: auto;
-        right: -28px;
-    }
-
-    .direction-l {
-        position: relative;
-        width: 310px;
-        float: left;
-        text-align: right;
-    }
-
-    .direction-r {
-        position: relative;
-        width: 310px;
-        float: right;
-        text-align: left;
-    }
-
-    .flag-wrapper {
-        display: inline-block;
-    }
-
-    .flag {
-        font-size: 18px;
-    }
-
-    .direction-l .flag:after {
-        left: auto;
-        right: -16px;
-        top: 50%;
-        margin-top: -8px;
-        border: solid transparent;
-        border-left-color: rgb(254, 254, 254);
-        border-width: 8px;
-    }
-
-    .direction-r .flag:after {
-        top: 50%;
-        margin-top: -8px;
-        border: solid transparent;
-        border-right-color: rgb(254, 254, 254);
-        border-width: 8px;
-        left: -8px;
-    }
-
-    .time-wrapper {
-        display: inline;
-        vertical-align: middle;
-        margin: 0;
-    }
-
-    .direction-l .time-wrapper {
-        float: left;
-    }
-
-    .direction-r .time-wrapper {
-        float: right;
-    }
-
-    .time {
-        padding: 5px 10px;
-    }
-
-    .direction-r .desc {
-        margin: 1em 0 0 0.75em;
-    }
-}
-
-@media(min-width: 992px) {
-    .timeline {
-        width: 800px;
-        margin: 0 auto;
-        margin-top: 20px;
-    }
-
-    .direction-l {
-        position: relative;
-        width: 380px;
-        float: left;
-        text-align: right;
-    }
-
-    .direction-r {
-        position: relative;
-        width: 380px;
-        float: right;
-        text-align: left;
-    }
+.linemore:nth-child(1) {
+    margin-right: 2%;
 }
 </style>
