@@ -27,14 +27,14 @@ const router = createRouter({
       path: '/description',
       name: 'description',
       component: () => import('../views/describe/index.vue'),
-      meta: { header: true, footer_blue: true }
+      meta: { header: true }
     },
     {
       path: '/part',
       name: 'part',
       component: () => import('../views/part/text.vue'),
       // meta: { header_unhome: true, footer: true },
-      meta: { header: true, footer: true },
+      meta: { header: true },
 
     },
 
@@ -43,35 +43,34 @@ const router = createRouter({
       name: 'blog',
       component: () => import('../views/blog/index.vue'),
       // meta: { header_unhome: true, footer: true }
-      meta: { header: true, footer: true }
+      meta: { header: true }
     },
     {
       path: '/proMd',
       name: 'proMd',
       component: () => import('../views/proMd/index.vue'),
       // meta: { header_unhome: true, footer: true }
-      meta: { header: true, footer: true }
+      meta: { header: true }
     },
     {
       path: '/people',
       name: 'people',
       component: () => import('../views/people/index.vue'),
       // meta: { header_unhome: true, footer: true }
-      meta: { header: true, footer: true }
+      meta: { header: true }
     },
     {
       path: '/activity',
       name: 'activity',
       component: () => import('../views/activity/index.vue'),
       // meta: { header_blue: true, footer_blue: true }
-      meta: { header: true, footer_blue: true }
+      meta: { header: true }
     },
     {
       path: '/about',
       name: 'about',
       component: () => import('../views/about/index.vue'),
       // meta: { header_blue: true, footer_blue: true }
-      meta: { header: true, footer_blue: true }
     }
   ]
 })

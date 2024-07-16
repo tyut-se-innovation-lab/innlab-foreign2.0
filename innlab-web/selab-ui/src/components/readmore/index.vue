@@ -31,9 +31,9 @@ const props = defineProps<{
 
 const linkTo = () => {
     router.push({ path: props.link, query: { period: props.period, part: props.part } });
-    setTimeout(function () {
-        window.location.reload();
-    }, 100);
+    // setTimeout(function () {
+    //     window.location.reload();
+    // }, 100);
 }
 
 

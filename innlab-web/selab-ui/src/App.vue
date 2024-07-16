@@ -1,10 +1,19 @@
+<template>
+  <Header id="2" v-if="$route.meta.header"></Header>
+  <HeaderBlue id="2" v-if="$route.meta.header_blue"></HeaderBlue>
+  <headerUnhome id="2" v-if="$route.meta.header_unhome"></headerUnhome>
+  <RouterView :key="$route.fullPath" />
+  <Footer></Footer>
+  <!--loading加载-->
+  <Loading></Loading>
+</template>
+
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import Header from '@/components/header/header.vue'
 import HeaderBlue from '@/components/header/headerBlue.vue'
 import headerUnhome from '@/components/header/headUnhome.vue'
 import Footer from '@/components/footer/index.vue'
-import FooterBlue from '@/components/footer/footer_blue.vue'
 import { ref, reactive, onMounted, onUnmounted } from "vue"
 
 import Loading from "@/components/loading/loading.vue"
@@ -150,17 +159,6 @@ function clickEffect() {
 clickEffect();//调用特效函数
 
 </script>
-
-<template>
-  <Header id="2" v-if="$route.meta.header"></Header>
-  <HeaderBlue id="2" v-if="$route.meta.header_blue"></HeaderBlue>
-  <headerUnhome id="2" v-if="$route.meta.header_unhome"></headerUnhome>
-  <RouterView :key="$route.fullPath" />
-  <Footer v-if="$route.meta.footer"></Footer>
-  <FooterBlue v-if="$route.meta.footer_blue"></FooterBlue>
-  <!--loading加载-->
-  <Loading></Loading>
-</template>
 
 <style scoped>
 header {

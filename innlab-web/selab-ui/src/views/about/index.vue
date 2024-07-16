@@ -1,5 +1,10 @@
 <template>
     <div class="outer">
+        <!-- 头部 -->
+        <div class="header">
+            <Header></Header>
+        </div>
+
         <nav class="navbar">
             <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
                 <el-menu-item v-for="item in menuList" :index="item.id" @click="scrollTo(item.id)">{{ item.name
@@ -119,9 +124,10 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue"
+import { useRouter } from 'vue-router';
+import Header from '@/components/header/header.vue'
 import bus from '@/eventBus';
 
-import { useRouter } from 'vue-router';
 const route = useRouter();
 
 const activeIndex = ref('50');

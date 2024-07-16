@@ -11,6 +11,8 @@ export default defineConfig({
   server: {
     host: '127.0.0.1',//自定义主机名
     port: 5174,//自定义端口
+    // host: '49.232.217.248',
+    // port: 80,
     proxy: {
       '/reqmd': {
         target: 'https://down-load.lanrar.com',

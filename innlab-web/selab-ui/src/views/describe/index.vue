@@ -98,6 +98,9 @@ import { jarallax } from "jarallax";
 import 'jarallax/dist/jarallax.min.css';
 
 onMounted(() => {
+
+
+
     // 获取所有的 jarallax 元素
     const jarallaxElements = document.querySelectorAll('.jarallax');
 
@@ -169,6 +172,8 @@ onMounted(() => {
     setTimeout(() => {
         bus.emit('loading', false);
     }, 100);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 </script>

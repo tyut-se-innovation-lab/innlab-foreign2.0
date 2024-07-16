@@ -13,10 +13,9 @@
                                 <h2>软件开发</h2>
                                 <p class="subtitle">Condimentum nisl</p>
                                 <ul class="style1">
-                                    <li><a href="#">Donec dictum metus sapien</a></li>
-                                    <li><a href="#">DonecInteger gravida urna</a></li>
-                                    <li><a href="#">DonecEtiam posuere amet nisl</a></li>
-                                    <li><a href="#">DonecMauris vulputate nibh</a></li>
+                                    <li v-for="item in rkPros"><span href="#" @click="linkProTo(item.itemId)">{{
+                                        item.itemTitle }}</span></li>
+
                                 </ul>
                                 <router-link :to="{ path: '/part', query: { name: '软件开发' } }">
                                     <button class="cta">
@@ -25,7 +24,7 @@
                                             height="10" viewBox="0 0 46 16">
                                             <path id="Path_10" data-name="Path 10"
                                                 d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z"
-                                                transform="translate(30)"></path>
+                                                transform="translate(30)" style="fill: white;"></path>
                                         </svg>
                                     </button>
 
@@ -37,10 +36,8 @@
                                 <h2>网络安全</h2>
                                 <p class="subtitle">luctus lectus</p>
                                 <ul class="style1">
-                                    <li><a href="#">Donec dictum metus sapien</a></li>
-                                    <li><a href="#">DonecInteger gravida urna</a></li>
-                                    <li><a href="#">DonecEtiam posuere amet nisl</a></li>
-                                    <li><a href="#">DonecMauris vulputate nibh</a></li>
+                                    <li v-for="item in waPros"><span @click="linkProTo(item.itemId)">{{
+                                        item.itemTitle }}</span></li>
                                 </ul>
                                 <router-link :to="{ path: '/part', query: { name: '网络安全' } }">
                                     <button class="cta">
@@ -49,7 +46,7 @@
                                             height="10" viewBox="0 0 46 16">
                                             <path id="Path_10" data-name="Path 10"
                                                 d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z"
-                                                transform="translate(30)"></path>
+                                                transform="translate(30)" style="fill: white;"></path>
                                         </svg>
                                     </button>
                                 </router-link>
@@ -62,10 +59,8 @@
                                 <h2>人工智能</h2>
                                 <p class="subtitle">luctus eleifend</p>
                                 <ul class="style1">
-                                    <li><a href="#">Donec dictum metus sapien</a></li>
-                                    <li><a href="#">DonecInteger gravida urna</a></li>
-                                    <li><a href="#">DonecEtiam posuere amet nisl</a></li>
-                                    <li><a href="#">DonecMauris vulputate nibh</a></li>
+                                    <li v-for="item in aiPros"><span href="#" @click="linkProTo(item.itemId)">{{
+                                        item.itemTitle }}</span></li>
                                 </ul>
                                 <router-link :to="{ path: '/part', query: { name: '人工智能' } }">
                                     <button class="cta">
@@ -74,7 +69,7 @@
                                             height="10" viewBox="0 0 46 16">
                                             <path id="Path_10" data-name="Path 10"
                                                 d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z"
-                                                transform="translate(30)"></path>
+                                                transform="translate(30)" style="fill: white;"></path>
                                         </svg>
                                     </button>
                                 </router-link>
@@ -85,10 +80,8 @@
                                 <h2>虚拟现实</h2>
                                 <p class="subtitle">dictum metus</p>
                                 <ul class="style1">
-                                    <li><a href="#">Donec dictum metus sapien</a></li>
-                                    <li><a href="#">DonecInteger gravida urna</a></li>
-                                    <li><a href="#">DonecEtiam posuere amet nisl</a></li>
-                                    <li><a href="#">DonecMauris vulputate nibh</a></li>
+                                    <li v-for="item in vrPros"><span href="#" @click="linkProTo(item.itemId)">{{
+                                        item.itemTitle }}</span></li>
                                 </ul>
                                 <router-link :to="{ path: '/part', query: { name: '虚拟现实' } }">
                                     <button class="cta">
@@ -97,14 +90,13 @@
                                             height="10" viewBox="0 0 46 16">
                                             <path id="Path_10" data-name="Path 10"
                                                 d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z"
-                                                transform="translate(30)"></path>
+                                                transform="translate(30)" style="fill: white;"></path>
                                         </svg>
                                     </button>
                                 </router-link>
                             </section>
                         </div>
                     </div>
-
 
 
                 </div>
@@ -114,7 +106,7 @@
                         <div class="selabAc_title">机构动态</div>
                     </router-link>
                     <div class="selab" v-for="item in ActivitiesList">
-                        <span class="seTitle" @click="linkTo(item.activityId)">{{ item.title }}</span>
+                        <span class="seTitle" @click="linkTo(item.activityId)">{{ item.activityTitle }}</span>
                         <span class="seTime">{{ item.createTime }}</span>
                     </div>
                 </div>
@@ -129,15 +121,90 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue"
-import { getActivities } from '@/api/activity/activity'
+import { getActs } from '@/api/activity/activity'
+import { getProTitles } from '@/api/pro/pro'
 import router from '@/router';
 import bus from "@/eventBus";
-const ActivitiesList = ref<Array<{ activityId: number; title: string; createTime: string }>>([]);
+const actParams = ref({
+    pageNum: 1,
+    pageSize: 8,
+    // activityType: '软件开发'
+})
+const rkParams = ref({
+    pageNum: 1,
+    pageSize: 4,
+    department: '软件开发'
+})
+const waParams = ref({
+    pageNum: 1,
+    pageSize: 4,
+    department: '网络安全'
+})
+const aiParams = ref({
+    pageNum: 1,
+    pageSize: 4,
+    department: '人工智能'
+})
+const vrParams = ref({
+    pageNum: 1,
+    pageSize: 4,
+    department: '虚拟现实'
+})
+
+const ActivitiesList = ref<Array<{ activityId: number; activityTitle: string; createTime: string }>>([]);
 const getActivitiesList = async () => {
     try {
-        const result = await getActivities();
-        console.log('*', result.data);
+        const result = await getActs(actParams.value);
         ActivitiesList.value = result.data.records;
+
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
+
+const rkPros = ref<Array<{ itemId: number; itemTitle: string; }>>([]);
+const getRkPros = async () => {
+    try {
+        const result = await getProTitles(rkParams.value);
+        rkPros.value = result.data.records;
+
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
+const waPros = ref<Array<{ itemId: number; itemTitle: string; }>>([]);
+const getWaPros = async () => {
+    try {
+        const result = await getProTitles(waParams.value);
+        waPros.value = result.data.records;
+
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
+const aiPros = ref<Array<{ itemId: number; itemTitle: string; }>>([]);
+const getAiPros = async () => {
+    try {
+        const result = await getProTitles(aiParams.value);
+        aiPros.value = result.data.records;
+
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
+const vrPros = ref<Array<{ itemId: number; itemTitle: string; }>>([]);
+const getVrPros = async () => {
+    try {
+        const result = await getProTitles(vrParams.value);
+        vrPros.value = result.data.records;
 
     } catch (error) {
         console.error('Error fetching data:');
@@ -149,15 +216,20 @@ const getActivitiesList = async () => {
 // 点击跳转
 const linkTo = (item: number) => {
     router.push({ path: '/blog', query: { actid: item } });
-    bus.emit('loading', true);
 
-    setTimeout(function () {
-        window.location.reload();
-    }, 100);
+}
+// 部门点击跳转
+const linkProTo = (item: number) => {
+    router.push({ path: '/proMd', query: { id: item } });
+
 }
 
 onMounted(() => {
     getActivitiesList();
+    getRkPros();
+    getWaPros();
+    getAiPros();
+    getVrPros();
 });
 
 </script>
@@ -290,7 +362,7 @@ ul.style1 li {
     /* background: url(images/bullet-icon.png) no-repeat left 50%; */
 }
 
-ul.style1 a {
+ul.style1 span {
     cursor: pointer;
     display: block;
     /* padding-left: 0.5em; */
@@ -299,7 +371,7 @@ ul.style1 a {
     color: white;
 }
 
-ul.style1 a:hover {
+ul.style1 span:hover {
     text-decoration: underline !important;
 }
 

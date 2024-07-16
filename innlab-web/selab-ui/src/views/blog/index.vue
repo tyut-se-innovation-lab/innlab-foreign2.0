@@ -101,7 +101,8 @@ import { ref, reactive, onMounted } from "vue"
 import Action from "@/views/blog/components/action/index.vue"
 import Comment from "@/views/blog/components/comment/index.vue"
 import { useRouter } from 'vue-router';
-import { getActInfo, getPartActInfo } from '@/api/blog/blog'
+import { getProInfo } from '@/api/pro/pro'
+import { getActInfo } from '@/api/activity/activity'
 import bus from '@/eventBus';
 
 const route = useRouter();
@@ -126,7 +127,7 @@ const actInfo = ref<ActivityInfo | null>(null);
 // 根据id获取活动详情
 const getActvityInfo = async () => {
     try {
-        const result = await getPartActInfo(partId.value);
+        const result = await getActInfo(actId.value);
         actInfo.value = result.data;
         console.log(result.data);
 

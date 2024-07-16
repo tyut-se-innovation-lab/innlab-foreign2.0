@@ -1,7 +1,8 @@
 <template>
     <div class="homePeople">
         <h1 style="color: white;">人员介绍</h1>
-        <el-carousel :interval="4000" type="card" height="500px" style="height: 500px;margin-top: 30px;">
+        <el-carousel :interval="4000" indicator-position="outside" type="card" height="500px"
+            style="height: 500px;margin-top: 30px;">
             <el-carousel-item v-for="item in PeopleList" :key="item">
                 <div class="people">
                     <Avatar :name="item.personnelName" :avatar="item.personnelAvatar" :period="item.personnelPeriod"

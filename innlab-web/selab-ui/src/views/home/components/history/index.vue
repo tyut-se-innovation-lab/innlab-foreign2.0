@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue"
+import { ref, reactive, onMounted } from "vue"
 import { getHistoryList } from '@/api/history/history.ts';
 import Tooltip from '@/components/tooltip/index.vue'
 
@@ -103,7 +103,9 @@ const getHistorys = async () => {
     }
 };
 
-
+onMounted(() => {
+    getHistorys();
+})
 
 </script>
 

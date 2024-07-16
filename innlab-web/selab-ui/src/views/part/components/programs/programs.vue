@@ -5,11 +5,11 @@
                 <span>{{ props.part ? props.part : '项目列表' }}</span>
             </div>
             <div class="content">
-                <span v-for="item in ActivitiesList"> {{ item.itemTitle }}</span>
+                <span v-for="item in ProList"> {{ item.itemTitle }}</span>
             </div>
         </div>
         <div class="progs">
-            <router-link v-for="item in ActivitiesList" :to="getlink(item.itemId)">
+            <router-link v-for="item in ProList" :to="getlink(item.itemId)">
 
                 <div class="notification">
                     <div class="notiglow"></div>
@@ -43,7 +43,7 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
-import { getPros } from '@/api/part/part'
+import { getPros } from '@/api/pro/pro'
 import { parseLanzouLink } from '@/utils/getFile';
 
 const props = defineProps<{
@@ -56,13 +56,13 @@ const params = ref({
     department: props.part
 })
 
-const ActivitiesList = ref<Array<{ itemId: number; itemTitle: string; itemIntroduction: string; headerImage: object; createTime: string }>>([]);
-const getActivitiesList = async () => {
+const ProList = ref<Array<{ itemId: number; itemTitle: string; itemIntroduction: string; headerImage: object; createTime: string }>>([]);
+const getProList = async () => {
     try {
         const result = await getPros(params.value);
-        ActivitiesList.value = result.data.records;
+        ProList.value = result.data.records;
 
-        ActivitiesList.value.forEach(async e => {
+        ProList.value.forEach(async e => {
 
             e.headerImage = await parseLanzouLink(e.headerImage);
             console.log('e.headerImage: ', e.headerImage);
@@ -79,7 +79,7 @@ const getActivitiesList = async () => {
 };
 
 onMounted(() => {
-    getActivitiesList();
+    getProList();
 })
 
 const getlink = (id: any) => {
@@ -87,10 +87,10 @@ const getlink = (id: any) => {
 }
 
 const handleSizeChange = () => {
-    getActivitiesList();
+    getProList();
 }
 const handleCurrentChange = () => {
-    getActivitiesList();
+    getProList();
 }
 
 

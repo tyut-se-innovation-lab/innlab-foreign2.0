@@ -1,17 +1,10 @@
 <template>
     <div class="heading">
 
-        <header class="header" :class="{ 'header': isAtTop, headUnTop: !isAtTop || isBlue }">
+        <header class="header" :class="{ 'header': isAtTop, 'headUnTop': !isAtTop || isBlue }">
             <div @click="scrollTo(1, '首页')">
                 <img lass="logo" width="200px" src="../../assets/logo.png" alt="">
                 <!-- <img v-show="!props.islogoWhite" lass="logo" width="200px" src="../../assets/logo/logo_blue.png" alt=""> -->
-            </div>
-
-            <div class="social-media">
-                <!-- <a href="#"><i class="bx bxl-twitter"></i></a>
-                <a href="#"><i class="bx bxl-facebook"></i></a>
-                <a href="#"><i class="bx bxl-linkedin"></i></a>
-                <a href="#"><i class="bx bxl-tiktok"></i></a> -->
             </div>
 
             <nav class="navbar">
@@ -58,7 +51,7 @@ import { useRouter } from 'vue-router';
 const route = useRouter();
 
 const props = defineProps<{
-    islogoWhite: boolean;
+    // islogoWhite: boolean;
 }>();
 const isBlue = ref(false);
 const currentPath = ref('')
@@ -68,8 +61,6 @@ const isAtTop = ref(true);
 const handleScroll = () => {
     isAtTop.value = window.scrollY === 0;
 };
-
-
 
 
 
@@ -163,41 +154,14 @@ onUnmounted(() => {
     font-weight: 700;
 }
 
-.social-media {
-    margin: 0 auto 0 50px;
-}
 
-.social-media a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    border: 2px solid #fff;
-    border-radius: 6px;
-    text-decoration: none;
-    margin-right: 10px;
-    transition: all .3s linear;
-}
-
-.social-media a:hover {
-    background: #fff;
-}
-
-.social-media a i {
-    font-size: 20px;
-    color: #fff;
-    transition: all .3s linear;
-}
-
-.social-media a:hover i {
-    color: #2d2b2b;
-}
 
 .navbar {
     display: flex;
     border: none !important;
+    margin-left: 40%;
+    position: absolute;
+    right: 6%;
 }
 
 .navbar .menus {

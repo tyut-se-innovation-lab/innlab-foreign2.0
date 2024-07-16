@@ -29,7 +29,8 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from "vue"
 import { useRouter } from 'vue-router';
-import { getActInfo, getPartActInfo, getMd } from '@/api/blog/blog'
+import { getProInfo, getMd } from '@/api/pro/pro'
+import { getActInfo } from '@/api/activity/activity'
 import Action from "@/views/blog/components/action/index.vue"
 import Comment from "@/views/blog/components/comment/index.vue"
 
@@ -52,7 +53,7 @@ const props = defineProps<{
 
 // 根据路由参数获取对应活动id
 const actId = ref(route.currentRoute.value.query.actid);
-const partId = ref(route.currentRoute.value.query.id);
+const proId = ref(route.currentRoute.value.query.id);
 interface proInfo {
     itemId: number;
     itemTitle: string;
@@ -65,10 +66,10 @@ interface proInfo {
 
 }
 const actInfo = ref<proInfo | null>(null);
-// 根据id获取活动详情
+// 根据id获取项目详情
 const getActvityInfo = async () => {
     try {
-        const result = await getPartActInfo(partId.value);
+        const result = await getProInfo(proId.value);
 
         actInfo.value = result.data;
         proTitle.value = result.data.itemTitle;
@@ -93,7 +94,7 @@ onMounted(async () => {
     setTimeout(() => {
         bus.emit('loading', false);
     }, 200);
-    
+
     proPart.value = props.part ? props.part : '项目列表'
     window.scrollTo({ top: 0, behavior: 'smooth' });
 

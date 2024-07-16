@@ -61,7 +61,7 @@
       <!-- people -->
       <People id="people"></People>
 
-      <Footer></Footer>
+      <!-- <Footer></Footer> -->
     </div>
 
   </div>
@@ -81,9 +81,9 @@ import bus from '@/eventBus';
 
 
 const actImgs = ref([
-  "https://tg-image.com/file/d19d49389f231ab624ea8.jpg",
-  "https://ts1.cn.mm.bing.net/th/id/R-C.c535692088f20b46fe10d2033fdd1e9c?rik=gyunSGzwxyqvaA&riu=http%3a%2f%2fseopic.699pic.com%2fphoto%2f50064%2f5999.jpg_wh1200.jpg&ehk=CWiOffIICuMAgVLeEN8Mj2s57mCFCAR%2fl5wjTmaGjrs%3d&risl=&pid=ImgRaw&r=0",
-  "https://ts1.cn.mm.bing.net/th/id/R-C.dadca894207a4d0ed84d8f660aecbe9d?rik=1NY%2fCtVnHKJ%2fPA&riu=http%3a%2f%2fres.dps.cn%2fres%2fbgimg%2f18674%2fk1-1.jpg&ehk=U8DrQVfzEHUrFj3YU4L1Gj2Lp4uF3MTGHUQznsg7Qok%3d&risl=&pid=ImgRaw&r=0",
+  "img/bannerImg/banner1.jpg",
+  "img/bannerImg/banner2.jpg",
+  "img/bannerImg/banner3.jpg",
 ])
 
 // 轮播图切换
@@ -499,22 +499,6 @@ onBeforeUnmount(() => {
   height: auto;
 }
 
-/* 首页footer */
-.footer {
-  width: 100%;
-  min-width: 1140px;
-  height: 45px;
-  /* border-top: solid 1px #dedede; */
-  /* line-height: 225%; */
-  color: white;
-  background: #02406f;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-top: auto;
-}
 
 /* 响应式 */
 @media (max-width: 1600px) {

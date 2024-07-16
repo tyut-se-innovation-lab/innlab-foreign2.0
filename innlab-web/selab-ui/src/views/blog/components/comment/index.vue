@@ -6,15 +6,13 @@
             <template #header style="display: none !important;">评论</template>
         </u-comment>
 
-
-
     </div>
 </template>
 <script setup lang="ts">
 import { ref, reactive, onMounted, defineProps } from "vue"
 import emoji from '@/utils/emoji'
 import { type CommentApi, type ConfigApi, type SubmitParamApi, UToast, dayjs, createObjectURL } from 'undraw-ui'
-import { getComments } from '@/api/blog/blog'
+import { getComments } from '@/api/activity/activity'
 
 const props = defineProps({
     actId: Number,
@@ -51,7 +49,7 @@ const getCommentsInfo = async () => {
 
 onMounted(() => {
     console.log(props);
-    getCommentsInfo();
+    // getCommentsInfo();
 })
 
 
