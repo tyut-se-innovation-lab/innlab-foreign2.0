@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tyut.selab.common.constant.KeyConstants;
 import tyut.selab.common.domain.R;
 import tyut.selab.common.utils.EnumUtils;
 import tyut.selab.common.utils.ObjectUtils;
+import tyut.selab.common.utils.RedisUtils;
+import tyut.selab.common.utils.StringUtils;
 import tyut.selab.framework.domain.entity.ResourceEntity;
 import tyut.selab.framework.mapper.ResourceMapper;
 import tyut.selab.modular.domain.dto.param.PersonnelParam;
@@ -32,6 +35,8 @@ public class PersonnelServiceImpl implements IPersonnelService {
     private PersonnelMapper personnelMapper;
     @Autowired
     private ResourceMapper resourceMapper;
+    @Autowired
+    private RedisUtils redisUtils;
     @Override
     public R getPersonnelForeign(PersonnelParam personnelParam){
         Page<PersonnelEntity> page = new Page<>(personnelParam.getPageNum(),personnelParam.getPageSize());
@@ -52,7 +57,12 @@ public class PersonnelServiceImpl implements IPersonnelService {
                 imageVo.setIsNewd(resourceEntity.getIsNewd());
                 imageVo.setPwd(resourceEntity.getPwd());
                 imageVo.setFId(resourceEntity.getFId());
-                imageVo.setUrl(resourceEntity.getResourceUrl());
+                String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+                if (StringUtils.isNotEmpty(lzLinkUrl)){
+                    imageVo.setUrl(lzLinkUrl);
+                }else {
+                    imageVo.setUrl(resourceEntity.getResourceUrl());
+                }
                 personnelVo.setPersonnelAvatar(imageVo);
             }
             personnelVoList.add(personnelVo);

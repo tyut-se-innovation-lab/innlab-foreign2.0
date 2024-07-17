@@ -17,9 +17,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import tyut.selab.common.domain.BaseEntity;
 
 /**
@@ -32,6 +34,7 @@ import tyut.selab.common.domain.BaseEntity;
 @Data
 @AllArgsConstructor
 @Schema(description = "项目")
+@NoArgsConstructor
 public class ItemEntity extends BaseEntity{
     /**
      * 项目id
@@ -39,9 +42,10 @@ public class ItemEntity extends BaseEntity{
     @TableId(value = "item_id",type = IdType.AUTO)
     private Integer itemId;
     /**
-     * 部门标题
+     * 部门id
      */
     @TableField("department_id")
+    @JsonIgnore
     private Integer departmentId;
     /**
      * 项目标题
@@ -67,7 +71,7 @@ public class ItemEntity extends BaseEntity{
      * 项目状态
      */
     @TableField("state")
-    private Integer state;
+    private Boolean state;
     /**
      * 项目地址
      */

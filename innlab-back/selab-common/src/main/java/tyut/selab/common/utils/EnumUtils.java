@@ -22,10 +22,10 @@ public class EnumUtils {
         return DepartmentEnum.INNLAB; // 如果未找到对应的部门ID，可以根据实际情况返回null或者抛出异常
     }
 
-    public static String getDepartmentIdByName(String departmentName) {
+    public static Integer getDepartmentIdByName(String departmentName) {
         for (DepartmentEnum department : DepartmentEnum.values()) {
             if (department.getDepartmentName().equals(departmentName)) {
-                return department.getDepartmentId();
+                return Integer.valueOf(department.getDepartmentId());
             }
         }
         throw new ServiceException("输入部门异常！", ErrorCode.ACCOUNT_ABNORMAL); // 如果未找到对应的部门名称，可以根据实际情况返回null或者抛出异常

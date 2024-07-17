@@ -2,7 +2,8 @@ package tyut.selab.modular.service;
 
 import tyut.selab.common.domain.R;
 import tyut.selab.framework.domain.PageParam;
-import tyut.selab.modular.domain.dto.HistoryDto;
+import tyut.selab.modular.domain.dto.AddHistoryDto;
+import tyut.selab.modular.domain.dto.UpdateHistoryDto;
 
 /**
  * @ClassName: HistoryService
@@ -14,9 +15,9 @@ import tyut.selab.modular.domain.dto.HistoryDto;
 public interface IHistoryService {
     R getHistoryForeign(PageParam pageParam);
 
-    R addHistory(HistoryDto historyDto);
+    R addHistory(AddHistoryDto addHistoryDto);
 
-    R updateHistory(HistoryDto historyDto);
+    R updateHistory(UpdateHistoryDto updateHistoryDto);
 
     R deleteHistoryById(Integer historyId);
 

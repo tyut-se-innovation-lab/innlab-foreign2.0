@@ -84,9 +84,10 @@ public class HttpsUtils
             {
                 result.append(line);
             }
-            log.info("recv - {}", result);
+//            log.info("recv - {}", result);
             long t2 = System.currentTimeMillis();
-            log.info("sendGet -- 调用接口结束，耗时：{}，响应结果：{}", t2 - t1, result);
+            log.info("sendGet -- 调用接口结束，耗时：{}", t2 - t1);
+//            log.info("sendGet -- 调用接口结束，耗时：{}，响应结果：{}", t2 - t1, result);
 
         }
         catch (ConnectException e)

@@ -27,12 +27,10 @@ public class ItemMsgVo {
     /**
      * 标题图片
      */
-    @JsonIgnore
     private ImageVo headerImage;
     /**
      * 项目部门
      */
-    @JsonIgnore
     private String itemDepartment;
 
     @Schema(description = "markdownBase64")

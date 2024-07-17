@@ -1,9 +1,13 @@
 package tyut.selab.framework.service;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.multipart.MultipartFile;
+import tyut.selab.common.domain.Lz;
 import tyut.selab.common.domain.R;
 import tyut.selab.framework.domain.dto.param.ResourceParam;
 import tyut.selab.framework.domain.vo.CookieVo;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @ClassName: IResourceService
@@ -22,4 +26,7 @@ public interface IResourceService {
     R getResourceLz(Integer resourceId);
 
     R getResourcelist(ResourceParam resourceParam);
+
+    @Async
+    CompletableFuture<String> getResourceByLz(Lz lz);
 }

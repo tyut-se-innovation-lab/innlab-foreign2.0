@@ -1,5 +1,6 @@
 package tyut.selab.modular.domain.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -26,4 +27,12 @@ public class ItemTitleVo {
      * 标题图片
      */
     private ImageVo headerImage;
+    /**
+     * 项目状态
+     */
+    private Boolean state;
+    /**
+     * 是否置顶
+     */
+    private Boolean isTop;
 }

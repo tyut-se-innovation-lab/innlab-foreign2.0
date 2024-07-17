@@ -8,7 +8,8 @@ import tyut.selab.common.domain.R;
 import tyut.selab.common.utils.ObjectUtils;
 import tyut.selab.framework.domain.PageParam;
 import tyut.selab.framework.web.SecurityUtils;
-import tyut.selab.modular.domain.dto.HistoryDto;
+import tyut.selab.modular.domain.dto.AddHistoryDto;
+import tyut.selab.modular.domain.dto.UpdateHistoryDto;
 import tyut.selab.modular.domain.entity.HistoryEntity;
 import tyut.selab.modular.domain.vo.HistoryVo;
 import tyut.selab.modular.mapper.HistoryMapper;
@@ -48,17 +49,17 @@ public class HistoryServiceImpl implements IHistoryService {
         return R.success(historyVoPage);
     }
     @Override
-    public R addHistory(HistoryDto historyDto){
+    public R addHistory(AddHistoryDto addHistoryDto){
         QueryWrapper<HistoryEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("history_title",historyDto.getHistoryTitle());
+        queryWrapper.eq("history_title",addHistoryDto.getHistoryTitle());
         HistoryEntity historyEntity1 = historyMapper.selectOne(queryWrapper);
         if (ObjectUtils.isNotNull(historyEntity1)){
             return R.error("历史标题已存在！");
         }
         HistoryEntity historyEntity = new HistoryEntity();
-        historyEntity.setHistoryTime(historyDto.getHistoryTime());
-        historyEntity.setHistoryTitle(historyDto.getHistoryTitle());
-        historyEntity.setHistoryContent(historyDto.getHistoryContent());
+        historyEntity.setHistoryTime(addHistoryDto.getHistoryTime());
+        historyEntity.setHistoryTitle(addHistoryDto.getHistoryTitle());
+        historyEntity.setHistoryContent(addHistoryDto.getHistoryContent());
         historyEntity.setState(false);
         historyEntity.setDelFlag(0);
         historyEntity.setCreateUser(SecurityUtils.getUserNickName());
@@ -66,17 +67,17 @@ public class HistoryServiceImpl implements IHistoryService {
         return R.success("添加成功！");
     }
     @Override
-    public R updateHistory(HistoryDto historyDto){
-        HistoryEntity historyEntity1 = historyMapper.selectById(historyDto.getHistoryId());
+    public R updateHistory(UpdateHistoryDto updateHistoryDto){
+        HistoryEntity historyEntity1 = historyMapper.selectById(updateHistoryDto.getHistoryId());
         if (ObjectUtils.isNull(historyEntity1)){
             return R.error("历史结点不存在！");
         }
         HistoryEntity historyEntity = new HistoryEntity();
-        historyEntity.setHistoryId(historyDto.getHistoryId());
-        historyEntity.setHistoryTime(historyDto.getHistoryTime());
-        historyEntity.setHistoryTitle(historyDto.getHistoryTitle());
-        historyEntity.setHistoryContent(historyDto.getHistoryContent());
-        historyEntity.setState(historyDto.getState());
+        historyEntity.setHistoryId(updateHistoryDto.getHistoryId());
+        historyEntity.setHistoryTime(updateHistoryDto.getHistoryTime());
+        historyEntity.setHistoryTitle(updateHistoryDto.getHistoryTitle());
+        historyEntity.setHistoryContent(updateHistoryDto.getHistoryContent());
+        historyEntity.setState(updateHistoryDto.getState());
         historyEntity.setUpdateUser(SecurityUtils.getUserNickName());
         historyMapper.updateById(historyEntity);
         return R.success("修改成功！");
