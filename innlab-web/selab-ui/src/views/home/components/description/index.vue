@@ -3,9 +3,9 @@
     <div class="content">
       <div class="main">
         <div class="title">
-          <img src="public/img/homeImg/desc.png" alt="">
+          <img data-aos="fade-right" data-aos-duration="800" src="public/img/homeImg/desc.png" alt="">
         </div>
-        <main>
+        <main data-aos="fade-left" data-aos-duration="800" data-aos-delay="500">
           <div class="img">
             <img src="public/img/homeImg/descimg.png" alt="">
 
@@ -33,8 +33,13 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue"
 import Readmore from '@/components/readmore/index.vue'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
+onMounted(() => {
+  AOS.init();
 
+});
 
 </script>
 
@@ -63,9 +68,10 @@ import Readmore from '@/components/readmore/index.vue'
 
 .title {
   width: 45%;
+  margin-bottom: 6%;
 
   img {
-    width: 90%;
+    width: 86%;
     height: auto;
   }
 }

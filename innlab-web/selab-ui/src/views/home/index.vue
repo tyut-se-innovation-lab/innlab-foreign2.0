@@ -6,8 +6,7 @@
     </div>
 
     <!-- banner -->
-    <div class="banner" :class="{ 'hidden': isBannerHidden }" :style="{ height: isBannerHidden ? '0' : '100vh' }"
-      style="background-color: #0d1621;">
+    <div class="banner" :class="{ 'hidden': isBannerHidden }" :style="{ height: isBannerHidden ? '0' : '100vh' }">
       <div class="slider">
         <div>
           <el-carousel class="slide active" ref="carousel" motion-blur indicator-position="none">
@@ -46,6 +45,7 @@
     </div>
 
     <div id="main">
+
       <!-- description -->
       <Desc id="desc" ref="desc"></Desc>
 
@@ -53,7 +53,7 @@
       <History id="history"></History>
 
       <!-- part -->
-      <Part id="part"></Part>
+      <Part id="part" class=""></Part>
 
       <!-- actvity -->
       <Act id="act"></Act>
@@ -67,12 +67,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed, onBeforeUnmount } from "vue"
+import { ref, reactive, onMounted, computed, onBeforeUnmount, nextTick } from "vue"
 import Header from '@/components/header/header.vue'
 import Footer from '@/components/footer/index.vue'
 import Banner from "@/components/banner/banner.vue"
 import Desc from "@/views/home/components/description/index.vue"
-import History from "@/views/home/components/history/index.vue"
+import History from "@/views/home/components/history/test.vue"
 import Act from "@/views/home/components/activity/index.vue"
 import People from "@/views/home/components/people/index.vue"
 import Part from "@/views/home/components/part/index.vue"
@@ -105,40 +105,43 @@ const logoWhite = ref(true);
 // banner展开收起动画
 const isBannerHidden = ref(false);
 const lastScrollY = ref(0);
+// const handleScroll = () => {
+//   const currentScroll = window.scrollY;
 
-const handleScroll = () => {
-  const currentScroll = window.scrollY;
+//   const descElement = document.getElementById('desc');
 
-  const descElement = document.getElementById('desc');
+//   if (descElement) {
+//     const bannerHeight = document.querySelector('.banner')?.clientHeight ?? 0;
+//     const descOffset = descElement.getBoundingClientRect().top + window.scrollY - bannerHeight;
 
-  if (descElement) {
-    const bannerHeight = document.querySelector('.banner')?.clientHeight ?? 0;
-    const descOffset = descElement.getBoundingClientRect().top + window.scrollY - bannerHeight;
+//     if (currentScroll > lastScrollY.value) {
+//       isBannerHidden.value = true;
 
-    if (currentScroll > lastScrollY.value) {
-      isBannerHidden.value = true;
+//       // smoothScrollToDesc(descOffset);
+//     } else if (currentScroll < descOffset - 20) {
 
-      // smoothScrollToDesc(descOffset);
-    } else if (currentScroll < descOffset - 30) {
+//       isBannerHidden.value = false;
+//       console.log('currentScroll', currentScroll);
 
-      isBannerHidden.value = false;
-      smoothScrollToTop();
-    }
-    lastScrollY.value = currentScroll;
-  }
-};
+//       if (currentScroll < 60) {
+//         smoothScrollToTop();
+//       }
 
-const smoothScrollToTop = () => {
-  const scrollDuration = 800; // duration in ms
-  const scrollStep = -window.scrollY / (scrollDuration / 15);
-  const scrollInterval = setInterval(() => {
-    if (window.scrollY != 0) {
-      window.scrollBy(0, scrollStep);
-    } else {
-      clearInterval(scrollInterval);
-    }
-  }, 15);
-};
+//     }
+//     lastScrollY.value = currentScroll;
+//   }
+// };
+// const smoothScrollToTop = () => {
+//   const scrollDuration = 800; // duration in ms
+//   const scrollStep = -window.scrollY / (scrollDuration / 15);
+//   const scrollInterval = setInterval(() => {
+//     if (window.scrollY != 0) {
+//       window.scrollBy(0, scrollStep);
+//     } else {
+//       clearInterval(scrollInterval);
+//     }
+//   }, 15);
+// };
 
 
 onMounted(() => {
@@ -147,11 +150,14 @@ onMounted(() => {
     bus.emit('loading', false);
   }, 800);
 
-  window.addEventListener('scroll', handleScroll);
+
+  // window.addEventListener('scroll', handleScroll);
+  //   reset: true,
+  // });
 
 });
 onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll);
+  // window.removeEventListener('scroll', handleScroll);
 });
 
 
@@ -463,12 +469,12 @@ onBeforeUnmount(() => {
 
 /* main */
 #main {
-  background-color: #0c131b;
-  background-image: url(public/img/homeImg/background2.png);
+  background-color: #010207;
+  background-image: url(public/img/homeImg/background3.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0 0;
-  padding-top: 300px;
+  padding-top: 200px;
 }
 
 #desc,

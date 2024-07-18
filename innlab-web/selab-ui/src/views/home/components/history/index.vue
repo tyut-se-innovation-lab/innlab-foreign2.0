@@ -3,10 +3,12 @@
         <div class="container">
             <div class="timeline-container">
                 <div class="time-top">
-                    <img class="timeTitle" src="public/img/titleImg/time.png" alt="">
+                    <img data-aos="fade-in" data-aos-duration="800" class="timeTitle" src="public/img/titleImg/time.png"
+                        alt="">
                 </div>
                 <div class="timeline" ref="timeline">
-                    <div class="historys" v-for="(item, index) in historyList">
+                    <div class="historys" v-for="(item, index) in historyList" data-aos="fade-in"
+                        data-aos-duration="1000" :data-aos-delay="index * 100">
                         {{ item.historyTime }}
                         <span class="arrow" v-if="index !== historyList.length - 1">⇾</span>
                         <div v-if="!isOdd(index)" class="history-up">
@@ -37,7 +39,8 @@
 import { ref, reactive, onMounted } from "vue"
 import { getHistoryList } from '@/api/history/history.ts';
 import Tooltip from '@/components/tooltip/index.vue'
-
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const isOdd = (index) => {
     return index % 2 === 1;
@@ -104,7 +107,9 @@ const getHistorys = async () => {
 };
 
 onMounted(() => {
+    AOS.init();
     getHistorys();
+
 })
 
 </script>
