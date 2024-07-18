@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tyut.selab.common.annotation.AccessLogAnnotation;
 import tyut.selab.common.domain.R;
 import tyut.selab.framework.domain.PageParam;
 import tyut.selab.modular.service.IHistoryService;
@@ -33,6 +34,7 @@ public class ForeignHistoryController {
      * @return
      */
     @PostMapping("/showHistory")
+    @AccessLogAnnotation()
     @Operation(summary = "获取历史信息",description = "获取历史信息")
     public R showHistory(@RequestBody @Validated PageParam pageParam){
         return iHistoryService.getHistoryForeign(pageParam);

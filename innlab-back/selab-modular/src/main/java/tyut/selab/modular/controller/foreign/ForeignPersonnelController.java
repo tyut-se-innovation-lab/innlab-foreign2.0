@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tyut.selab.common.annotation.AccessLogAnnotation;
 import tyut.selab.common.domain.R;
 import tyut.selab.modular.domain.dto.param.PersonnelParam;
 import tyut.selab.modular.service.IPersonnelService;
@@ -33,6 +34,7 @@ public class ForeignPersonnelController {
      * @return
      */
     @PostMapping("/showPersonnel")
+    @AccessLogAnnotation()
     @Operation(summary = "获取人员信息",description = "获取人员信息")
     public R showPersonnel(@RequestBody @Validated PersonnelParam personnelParam){
         return iPersonnelService.getPersonnelForeign(personnelParam);

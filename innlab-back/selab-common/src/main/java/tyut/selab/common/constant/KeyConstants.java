@@ -40,5 +40,9 @@ public class KeyConstants {
      * 验证频率 reset password key
      */
     public static final String RESET_PASSWORD_KEY = "reset_password:";
+    /**
+     * 蓝奏云直链
+     */
+    public static final String LZ_LINEURL_KEY = "lz_lineurl:";
 
 }

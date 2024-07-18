@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.common.annotation.AccessLogAnnotation;
 import tyut.selab.common.domain.R;
 import tyut.selab.modular.domain.dto.param.ItemParam;
 import tyut.selab.modular.service.IItemService;
@@ -31,6 +32,7 @@ public class ForeignItemController {
      * @return R
      */
     @PostMapping("/showItems")
+    @AccessLogAnnotation()
     @Operation(summary = "展示方向介绍和项目介绍")
     public R showItems(@RequestBody @Validated ItemParam itemParam){
         return iItemService.showItemsTitle2(itemParam);
@@ -41,6 +43,7 @@ public class ForeignItemController {
      * @return R
      */
     @PostMapping("/showItemsTitle")
+    @AccessLogAnnotation()
     @Operation(summary = "展示项目介绍标题")
     public R showItemsTitle(@RequestBody @Validated ItemParam itemParam){
         return iItemService.showItemsTitle1(itemParam);
@@ -52,6 +55,7 @@ public class ForeignItemController {
      * @return R
      */
     @PostMapping("/getOneItem")
+    @AccessLogAnnotation()
     @Operation(summary = "进入某一个内容")
     @Parameter(name="itemId",description="项目id",required=true)
     public R getOneItem(@RequestParam("itemId") String itemId){

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.common.annotation.AccessLogAnnotation;
 import tyut.selab.common.annotation.LoginLogAnnotation;
 import tyut.selab.common.annotation.SysLogAnnotation;
 import tyut.selab.common.domain.R;
@@ -58,6 +59,7 @@ public class UserController {
         return r;
     }
     @PostMapping("/register")
+    @AccessLogAnnotation(method = "用户注册")
     @Operation(summary = "用户注册")
     public R register(@RequestBody @Validated AddUserDto addUserDto) {
         R verifyr = loginService.mayRegister(addUserDto.getUserAccount(), addUserDto.getUserEmail(),addUserDto.getVerificationCode());
@@ -70,6 +72,7 @@ public class UserController {
 
     @PostMapping("/register/verify")
     @Operation(summary = "用户注册验证")
+    @AccessLogAnnotation(method = "用户注册验证")
     public R verifyRegister(@RequestBody @Validated VerifyRegisterDto verifyRegister) {
         R verifyr = loginService.mayRegisterVerify();
         if (verifyr.getCode()!=200){

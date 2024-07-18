@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tyut.selab.common.constant.KeyConstants;
 import tyut.selab.common.domain.R;
 import tyut.selab.common.utils.EnumUtils;
 import tyut.selab.common.utils.ObjectUtils;
+import tyut.selab.common.utils.RedisUtils;
+import tyut.selab.common.utils.StringUtils;
 import tyut.selab.framework.domain.entity.ResourceEntity;
 import tyut.selab.framework.mapper.ResourceMapper;
 import tyut.selab.modular.domain.dto.param.ActivityParam;
@@ -36,6 +39,8 @@ public class ActivityServiceImpl implements IActivityService {
     private SubTitleMapper subTitleMapper;
     @Autowired
     private ResourceMapper resourceMapper;
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Override
     public R shwoActivityTitle1(ActivityParam activityParam){
@@ -81,7 +86,12 @@ public class ActivityServiceImpl implements IActivityService {
                 imageVo.setIsNewd(resourceEntity.getIsNewd());
                 imageVo.setPwd(resourceEntity.getPwd());
                 imageVo.setFId(resourceEntity.getFId());
-                imageVo.setUrl(resourceEntity.getResourceUrl());
+                String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+                if (StringUtils.isNotEmpty(lzLinkUrl)){
+                    imageVo.setUrl(lzLinkUrl);
+                }else {
+                    imageVo.setUrl(resourceEntity.getResourceUrl());
+                }
                 activityTitleVo.setHeaderImage(imageVo);
             }
             activityTitleVos.add(activityTitleVo);
@@ -118,7 +128,12 @@ public class ActivityServiceImpl implements IActivityService {
                     imageVo.setIsNewd(resourceEntity.getIsNewd());
                     imageVo.setPwd(resourceEntity.getPwd());
                     imageVo.setFId(resourceEntity.getFId());
-                    imageVo.setUrl(resourceEntity.getResourceUrl());
+                    String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+                    if (StringUtils.isNotEmpty(lzLinkUrl)){
+                        imageVo.setUrl(lzLinkUrl);
+                    }else {
+                        imageVo.setUrl(resourceEntity.getResourceUrl());
+                    }
                     resource.add(imageVo);
                 }
                 subTitleMo.setResource(resource);

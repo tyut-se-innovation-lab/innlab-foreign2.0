@@ -20,6 +20,7 @@ import tyut.selab.framework.domain.dto.LoginDto;
 import tyut.selab.framework.domain.dto.VerifyRegisterDto;
 import tyut.selab.framework.domain.dto.param.UserParam;
 import tyut.selab.framework.domain.entity.InvitationEntity;
+import tyut.selab.framework.domain.entity.RoleEntity;
 import tyut.selab.framework.domain.entity.UserEntity;
 import tyut.selab.framework.domain.entity.UserMsgEntity;
 import tyut.selab.framework.domain.model.LoginUser;
@@ -27,6 +28,7 @@ import tyut.selab.framework.domain.model.LoginUserToken;
 import tyut.selab.framework.domain.vo.UserMsgVo;
 import tyut.selab.framework.jwt.security.AuthenticationContextHolder;
 import tyut.selab.framework.mapper.InvitationMapper;
+import tyut.selab.framework.mapper.RoleMapper;
 import tyut.selab.framework.mapper.UserMapper;
 import tyut.selab.framework.mapper.UserMsgMapper;
 import tyut.selab.framework.service.IUserService;
@@ -57,6 +59,8 @@ public class UserServiceimpl implements IUserService {
     private LoginService loginService;
     @Autowired
     private InvitationMapper invitationMapper;
+    @Autowired
+    private RoleMapper roleMapper;
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -210,7 +214,10 @@ public class UserServiceimpl implements IUserService {
         userMsgVo.setPhone(userMsgEntity.getUserPhone());
         userMsgVo.setEmail(userEntity.getUserEmail());
         userMsgVo.setLastLoginLocation(userEntity.getLastLoginLocation());
+        userMsgVo.setDepartment(EnumUtils.getDepartmentNameById(String.valueOf(userEntity.getUserDepartment())));
         userMsgVo.setAvatarUrl("https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/1060da23f3b113b2b5b463a79362a585073ab63910848e4cde3592cebca6e86ec9606c33bc453f781041bee899c21f71?pictype=scale&from=30113&version=3.3.3.3&fname=tx.jpg&size=750");
+        RoleEntity roleEntity = roleMapper.selectById(userEntity.getRoleId());
+        userMsgVo.setRole(roleEntity.getRoleKey());
         return userMsgVo;
     }
 

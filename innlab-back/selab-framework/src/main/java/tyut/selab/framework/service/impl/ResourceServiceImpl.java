@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import tyut.selab.common.constant.KeyConstants;
 import tyut.selab.common.domain.R;
 import tyut.selab.common.utils.*;
 import tyut.selab.framework.domain.dto.param.ResourceParam;
@@ -20,6 +22,8 @@ import tyut.selab.framework.web.SecurityUtils;
 import java.io.*;
 import java.util.Base64;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName: ResourceServiceImpl
@@ -76,6 +80,10 @@ public class ResourceServiceImpl implements IResourceService {
             QueryWrapper<ResourceEntity> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("resource_path", resourceEntity.getResourcePath());
             ResourceEntity resourceEntity1 =resourceMapper.selectOne(queryWrapper);
+            R r = addResourceForCloud(resourceEntity.getResourceId());
+            if (r.getCode()!=200){
+                return r;
+            }
             ResourceEntity resourceEntity2 = resourceMapper.selectById(resourceEntity1.getResourceId());
             ResourceVo resourceVo = new ResourceVo(resourceEntity2);
             return R.success(resourceVo);
@@ -140,6 +148,23 @@ public class ResourceServiceImpl implements IResourceService {
         queryWrapper.eq(ObjectUtils.isNotNull(resourceParam.getResourceType()),"resource_type",resourceParam.getResourceType());
         IPage<ResourceEntity> resourceEntityIPage = resourceMapper.selectPage(page, queryWrapper);
         return R.success(resourceEntityIPage);
+    }
+
+    @Async
+    @Override
+    public CompletableFuture<String> getResourceByLz(Lz lz){
+        String lineUrl = null;
+        String lzKey = KeyConstants.LZ_LINEURL_KEY + lz.getFId();
+        if (redisUtils.hasKey(lzKey)) {
+            lineUrl = (String) redisUtils.getCacheObject(lzKey);
+            return CompletableFuture.completedFuture(lineUrl);
+        }
+
+        return CompletableFuture.supplyAsync(() -> {
+            String newLineUrl = FigureBedUtils.getLz(lz);
+            redisUtils.setCacheObject(lzKey, newLineUrl, 10, TimeUnit.MINUTES);
+            return newLineUrl;
+        });
     }
     public R getResourceBase64(Integer resourceId){
         ResourceEntity resourceEntity = resourceMapper.selectById(resourceId);
