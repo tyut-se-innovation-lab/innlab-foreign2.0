@@ -8,7 +8,7 @@
                     <Avatar :name="item.personnelName" :avatar="item.personnelAvatar" :period="item.personnelPeriod"
                         :department="item.personnelDepartment" :post="item.personnelPost" :say="item.personnelSaying"
                         :contribute="item.personnelContribute"></Avatar>
-                    <ReadMore class="readmore" :link="linkprop" :period="item.personnelPeriod"
+                    <ReadMore class="readmore" :people="item" :link="linkprop" :period="item.personnelPeriod"
                         :part="item.personnelDepartment"></ReadMore>
 
                 </div>
@@ -22,6 +22,7 @@ import { ref, onMounted } from "vue";
 import Avatar from '@/components/people/avatar.vue'
 import ReadMore from '@/components/readmore/index.vue'
 import { getPeoples } from "@/api/people/people"
+
 
 const linkprop = ref('/people')
 

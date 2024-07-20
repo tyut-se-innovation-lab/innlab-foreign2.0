@@ -44,7 +44,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
 import { getPros } from '@/api/pro/pro'
-import { parseLanzouLink } from '@/utils/getFile';
+import { parseLanzouLink } from '@/utils/getFileByBackend';
 
 const props = defineProps<{
     part: string

@@ -1,5 +1,8 @@
 <template>
     <div class="clockmain">
+        <div class="clockMainTitle">
+            发展历史
+        </div>
         <!-- 向上箭头 -->
         <svg t="1721216671697" class="icon iconfont icon-arrow-up-bold" id="up-btn" @click="slideToNext()"
             viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4265" width="48" height="48">
@@ -14,7 +17,7 @@
                 d="M966.4 323.2c-9.6-9.6-25.6-9.6-35.2 0l-416 416-425.6-416c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l441.6 432c9.6 9.6 25.6 9.6 35.2 0l435.2-432C976 345.6 976 332.8 966.4 323.2z"
                 p-id="1425" fill="#ffffff"></path>
         </svg>
-        <div id="clockcontent">
+        <div id="clockcontent" data-aos="fade-in" data-aos-duration="800" data-aos-delay="400">
             <div class="clockcard" v-for="(item, index) in historyList" :key="index"
                 :style="{ transform: `translateY(${(index - offset) * 100}%)` }">
                 <div class="clockcard-time">
@@ -35,7 +38,7 @@
             </div>
         </div>
 
-        <div id="clock">
+        <div id="clock" data-aos="fade-left" data-aos-duration="800" data-aos-delay="600">
             <div id="clock-center"></div>
             <div id="clock-pointer"></div>
             <div id="clock-table"></div>
@@ -46,7 +49,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { getHistoryList } from '@/api/history/history.ts';
-
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 // 定义响应式变量
 const offset = ref(0);
 const maxOffset = ref(0);
@@ -84,8 +88,9 @@ const getHistorys = async () => {
 
 // 在组件挂载时进行初始化操作
 onMounted(async () => {
-    await getHistorys();
 
+    await getHistorys();
+    AOS.init();
     // 获取时钟表盘元素
     clock.value = document.querySelector("#clock-table");
 
@@ -170,6 +175,14 @@ function updateClock(): void {
     position: relative;
     /* background-color: #5053fc; */
     overflow: hidden;
+}
+
+.clockMainTitle {
+    color: white;
+    position: absolute;
+    top: 3%;
+    left: 2%;
+    font-size: 32px;
 }
 
 .iconfont {

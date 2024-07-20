@@ -1,7 +1,8 @@
 <template>
     <div class="outer">
         <div class="card">
-            <div class="card__img"><svg xmlns="http://www.w3.org/2000/svg" width="100%">
+            <div class="card__img">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%">
                     <rect fill="#ffffff" width="540" height="450"></rect>
                     <defs>
                         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -10,11 +11,10 @@
                         </linearGradient>
                     </defs>
                     <rect x="0" y="0" fill="url(#gradient)" width="100%" height="70%"></rect>
-
-                </svg></div>
+                </svg>
+            </div>
             <div class="card__avatar">
-                <img style="width: 90%; height:90%; border-radius: 50%;" :src="props.avatar" alt="">
-
+                <img v-if="avatarSrc" :src="avatarSrc" style="width: 90%; height:90%; border-radius: 50%;" alt="">
             </div>
             <div class="card__title">{{ props.name }}</div>
             <div class="card__subtitle">
@@ -24,13 +24,12 @@
             <div class="card__subtitle">部门：{{ props.department }}</div>
             <div class="card__subtitle">{{ props.say }}</div>
         </div>
-
-
-
     </div>
 </template>
+
 <script setup lang="ts">
-import { ref, reactive } from "vue"
+import { ref, watchEffect } from "vue";
+import { parseLanzouLink } from '@/utils/getFileByBackend';
 
 const props = defineProps<{
     name: string,
@@ -42,8 +41,19 @@ const props = defineProps<{
     say: string,
 }>();
 
+const avatarSrc = ref('');
 
+const parseLink = async (file: string) => {
+    const result = await parseLanzouLink(file);
+    console.log('pe: ', result);
+    return result;
+};
+
+watchEffect(async () => {
+    avatarSrc.value = await parseLink(props.avatar);
+});
 </script>
+
 <style scoped>
 .outer {
     width: 100%;
@@ -88,7 +98,7 @@ const props = defineProps<{
     top: calc(30% - 57px);
 }
 
-.card__avatar svg {
+.card__avatar img {
     width: 100px;
     height: 100px;
 }

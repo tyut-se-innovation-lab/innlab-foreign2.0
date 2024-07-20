@@ -75,7 +75,7 @@ const getActvityInfo = async () => {
         proTitle.value = result.data.itemTitle;
         proPart.value = result.data.itemIntroduction;
 
-        const base64Content = result.data.contentMarkdown;
+        const base64Content = result.data.markdownBase64;
         const byteArray = Uint8Array.from(atob(base64Content), c => c.charCodeAt(0));
         const decoder = new TextDecoder('utf-8');
         const decodedContent = decoder.decode(byteArray);

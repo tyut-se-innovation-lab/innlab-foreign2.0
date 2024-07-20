@@ -17,29 +17,40 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive, defineProps } from "vue"
+import { ref, reactive, defineProps, onMounted } from "vue"
 import router from '@/router';
-import type { getStyle } from "element-plus/es/utils/index.mjs";
+import { encrypt } from '@/utils/crypto';
 
 const props = defineProps<{
     link: string,
     period: string,
     part: string,
+    people: Record<string, any>, // 使用 Record 类型来定义对象
     text: string,
     color: string
 }>();
 
 const linkTo = () => {
-    router.push({ path: props.link, query: { period: props.period, part: props.part } });
-    // setTimeout(function () {
-    //     window.location.reload();
-    // }, 100);
+    const encryptedPeople = encrypt(JSON.stringify(props.people));//参数加密
+    router.push({
+        path: props.link,
+        query: {
+            period: props.period,
+            part: props.part,
+            people: encryptedPeople
+        }
+    });
+    sessionStorage.setItem('isDetail', 'true');
 }
-
 
 const getarrowStyle = () => {
     return 'fill: white;'
 }
+
+onMounted(() => {
+    console.log('props', props);
+
+})
 
 </script>
 <style scoped>

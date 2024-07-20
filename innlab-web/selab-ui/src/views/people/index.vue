@@ -219,8 +219,7 @@
             <div class="mainpeople">
                 <div class="top">
                     <div class="top_img">
-                        <img src="https://ts1.cn.mm.bing.net/th?id=OIP-C.yDD5tw8Xnx8UDBMX8hAMLQAAAA&w=80&h=80&c=1&vt=10&bgcl=038a26&r=0&o=6&dpr=1.5&pid=5.1"
-                            alt="">
+                        <img :src="people.personnelAvatar" alt="">
                     </div>
                     <div class="top_title">
                         <div class="topline">
@@ -228,7 +227,7 @@
                                 姓名：
                             </p>
                             <span class="topline_content">
-
+                                {{ people.personnelName }}
                             </span>
                         </div>
                         <div class="topline">
@@ -236,7 +235,7 @@
                                 年代：
                             </p>
                             <span class="topline_content">
-
+                                {{ people.personnelPeriod }}
                             </span>
                         </div>
                         <div class="topline">
@@ -244,7 +243,7 @@
                                 部门：
                             </p>
                             <span class="topline_content">
-
+                                {{ people.personnelDepartment }}
                             </span>
                         </div>
                         <div class="topline">
@@ -252,7 +251,7 @@
                                 职位：
                             </p>
                             <span class="topline_content">
-
+                                {{ people.personnelPost }}
                             </span>
                         </div>
                     </div>
@@ -260,18 +259,18 @@
                 <div class="bottom">
                     <div class="bottomline">
                         <p class="bottomline_title">
-贡献：
+                            贡献：
                         </p>
                         <p class="bottomline_content">
-feafd
+                            {{ people.personnelContribute ? people.personnelContribute : '暂无' }}
                         </p>
                     </div>
                     <div class="bottomline">
                         <p class="bottomline_title">
-语录：
+                            语录：
                         </p>
                         <p class="bottomline_content">
-
+                            {{ people.personnelSaying ? people.personnelSaying : '暂无' }}
                         </p>
                     </div>
                 </div>
@@ -281,45 +280,17 @@ feafd
         </div>
         <div class="more">
 
-            <div class="card">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M20 5H4V19L13.2923 9.70649C13.6828 9.31595 14.3159 9.31591 14.7065 9.70641L20 15.0104V5ZM2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11Z">
-                    </path>
-                </svg>
+            <div class="card" v-for="item in PeopleList">
+                <img :src="item.personnelAvatar" style="width:100%;" alt="">
                 <div class="card__content">
-                    <p class="card__title">XXX</p>
+                    <p class="card__title">{{ item.personnelName }}</p>
                     <p class="card__description">开发组组长</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                         eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                 </div>
             </div>
-            <div class="card">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M20 5H4V19L13.2923 9.70649C13.6828 9.31595 14.3159 9.31591 14.7065 9.70641L20 15.0104V5ZM2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11Z">
-                    </path>
-                </svg>
-                <div class="card__content">
-                    <p class="card__title">XXX</p>
-                    <p class="card__description">开发组组长</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                </div>
-            </div>
-            <div class="card">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M20 5H4V19L13.2923 9.70649C13.6828 9.31595 14.3159 9.31591 14.7065 9.70641L20 15.0104V5ZM2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM8 11C6.89543 11 6 10.1046 6 9C6 7.89543 6.89543 7 8 7C9.10457 7 10 7.89543 10 9C10 10.1046 9.10457 11 8 11Z">
-                    </path>
-                </svg>
-                <div class="card__content">
-                    <p class="card__title">XXX</p>
-                    <p class="card__description">开发组组长</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                </div>
-            </div>
+
+
 
         </div>
 
@@ -334,35 +305,15 @@ import { useRouter } from 'vue-router';
 import { useRoute } from 'vue-router';
 import { watch } from 'vue';
 import { getPeoples } from "@/api/people/people"
+import { parseLanzouLink } from '@/utils/getFileByBackend';
 import bus from '@/eventBus';
 
 const router = useRouter();
 const routeQuery = useRoute();
 const partName = ref(router.currentRoute.value.query.name);
 
-
-// 监视路由参数的变化
-watch(
-    () => routeQuery.query,
-    () => {
-        // 执行页面刷新操作
-        router.go(0);
-    },
-    { deep: true } // 深度监视对象的变化
-);
-
-onMounted(() => {
-
-    setTimeout(() => {
-        bus.emit('loading', false);
-    }, 1200);
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    PeopleListParams.value.personnelPeriod = router.currentRoute.value.query.period;
-    PeopleListParams.value.personnelDepartment = router.currentRoute.value.query.part;
-    getPeopleList();
-});
+const people = ref<Record<string, any>>({});
+const PeopleList = ref<Array<{}>>([]);
 
 const PeopleListParams = ref({
     pageParam: {
@@ -376,6 +327,9 @@ const getPeopleList = async () => {
     try {
         const result = await getPeoples(PeopleListParams.value);
         PeopleList.value = result.data.records;
+        PeopleList.value.forEach(async e => {
+            e.personnelAvatar = await parseLanzouLink(e.personnelAvatar);
+        })
 
     } catch (error) {
         console.error('Error fetching data:');
@@ -383,6 +337,41 @@ const getPeopleList = async () => {
 
     }
 };
+
+// 监视路由参数的变化
+watch(
+    () => routeQuery.query,
+    () => {
+        // 执行页面刷新操作
+        router.go(0);
+    },
+    { deep: true } // 深度监视对象的变化
+);
+
+onMounted(async () => {
+
+    setTimeout(() => {
+        bus.emit('loading', false);
+    }, 1200);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    console.log('23: ', routeQuery.query.people);
+
+    if (routeQuery.query.people) {
+        try {
+            people.value = JSON.parse(routeQuery.query.people as string);
+            people.value.personnelAvatar = await parseLanzouLink(people.value.personnelAvatar);
+        } catch (error) {
+            console.error('Error parsing people parameter:', error);
+        }
+    }
+
+    PeopleListParams.value.personnelPeriod = router.currentRoute.value.query.period;
+    PeopleListParams.value.personnelDepartment = router.currentRoute.value.query.part;
+    getPeopleList();
+});
+
+
 </script>
 
 <style scoped>
@@ -621,7 +610,7 @@ const getPeopleList = async () => {
 
     .top {
         margin: 60px;
-        margin-bottom:0;
+        margin-bottom: 0;
         width: 80%;
         height: 38%;
         display: flex;
@@ -638,58 +627,63 @@ const getPeopleList = async () => {
         }
 
         .top_title {
-            width:60%;
+            width: 60%;
             height: 80%;
             color: white;
             font-size: 26px;
 
             .topline {
-                width:100%;
+                width: 100%;
                 height: 19%;
                 display: flex;
                 align-items: center;
                 background-image: url(/public/img/disImg/border6.png);
-                padding:0 30px;
-                border-radius:10px;
-                margin-bottom:5%;
+                padding: 0 30px;
+                border-radius: 10px;
+                margin-bottom: 5%;
             }
-            .topline_content{
+
+            .topline_content {
                 font-size: 22px;
-                margin-left:5%;
+                margin-left: 5%;
             }
         }
     }
-.bottom{
-    margin: 60px;
-    margin-top:0;
+
+    .bottom {
+        margin: 60px;
+        margin-top: 0;
         width: 80%;
         height: 40%;
         display: flex;
-        flex-direction:column;
-        justify-content:flex-start;
-        .bottomline{
+        flex-direction: column;
+        justify-content: flex-start;
+
+        .bottomline {
             width: 100%;
-            height:100%;
+            height: 100%;
             display: flex;
-           align-items:flex-start;
-        flex-direction:column;
-.bottomline_title{
-    color: white;
-            font-size: 30px;
-}
-.bottomline_content{
-    width:100%;
-    min-height:50%;
-    background-image: url(/public/img/disImg/back1.png);
-    display:flex;
-    justify-content:flex-start;
-    align-items:flex-start;
-    padding:10px 30px;
-    color: white;
-            font-size: 20px;
-}
+            align-items: flex-start;
+            flex-direction: column;
+
+            .bottomline_title {
+                color: white;
+                font-size: 30px;
+            }
+
+            .bottomline_content {
+                width: 100%;
+                min-height: 50%;
+                background-image: url(/public/img/disImg/back1.png);
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding: 10px 30px;
+                color: white;
+                font-size: 20px;
+            }
         }
-}
+    }
 
 }
 
@@ -743,11 +737,11 @@ const getPeopleList = async () => {
     padding: 20px;
     box-sizing: border-box;
     /* background-color: #f2f2f2; */
-    background-color:#095875;
+    background-color: #095875;
     transform: rotateX(-90deg);
     transform-origin: bottom;
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    color:white;
+    color: white;
 }
 
 .card:hover .card__content {

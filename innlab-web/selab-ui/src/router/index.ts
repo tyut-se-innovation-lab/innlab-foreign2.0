@@ -55,7 +55,7 @@ const router = createRouter({
     {
       path: '/people',
       name: 'people',
-      component: () => import('../views/people/index.vue'),
+      component: () => import('../views/people/test.vue'),
       // meta: { header_unhome: true, footer: true }
       meta: { header: true }
     },
