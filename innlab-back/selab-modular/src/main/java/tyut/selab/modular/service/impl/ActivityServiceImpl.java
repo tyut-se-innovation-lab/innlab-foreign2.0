@@ -22,6 +22,7 @@ import tyut.selab.modular.mapper.SubTitleMapper;
 import tyut.selab.modular.service.IActivityService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,6 +47,9 @@ public class ActivityServiceImpl implements IActivityService {
     public R shwoActivityTitle1(ActivityParam activityParam){
         Page<ActivityEntity> page = new Page<>(activityParam.getPageNum(), activityParam.getPageSize());
         QueryWrapper<ActivityEntity> itemEntityQueryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(activityParam.getDepartment())){
+            itemEntityQueryWrapper.eq("activity_department",EnumUtils.getDepartmentIdByName(activityParam.getDepartment()));
+        }
         itemEntityQueryWrapper.eq(ObjectUtils.isNotNull(activityParam.getActivityType()),"activity_type",activityParam.getActivityType())
                 .eq("state",true)
                 .orderByDesc("is_top")
@@ -53,9 +57,7 @@ public class ActivityServiceImpl implements IActivityService {
         Page<ActivityEntity> activityEntityPage = activityMapper.selectPage(page,itemEntityQueryWrapper);
         List<ActivityTitleVo> activityTitleVos = new ArrayList<>();
         activityEntityPage.getRecords().forEach(activityEntity -> {
-            ActivityTitleVo activityTitleVo = new ActivityTitleVo();
-            activityTitleVo.setActivityId(activityEntity.getActivityId());
-            activityTitleVo.setActivityTitle(activityEntity.getActivityTitle());
+            ActivityTitleVo activityTitleVo = new ActivityTitleVo(activityEntity);
             activityTitleVos.add(activityTitleVo);
         });
 //        itemTitleVos.remove(0);
@@ -67,6 +69,9 @@ public class ActivityServiceImpl implements IActivityService {
     public R shwoActivityTitle2(ActivityParam activityParam){
         Page<ActivityEntity> page = new Page<>(activityParam.getPageNum(), activityParam.getPageSize());
         QueryWrapper<ActivityEntity> itemEntityQueryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(activityParam.getDepartment())){
+            itemEntityQueryWrapper.eq("activity_department",EnumUtils.getDepartmentIdByName(activityParam.getDepartment()));
+        }
         itemEntityQueryWrapper.eq(ObjectUtils.isNotNull(activityParam.getActivityType()),"activity_type",activityParam.getActivityType())
                 .eq("state",true)
                 .orderByDesc("is_top")
@@ -74,12 +79,7 @@ public class ActivityServiceImpl implements IActivityService {
         Page<ActivityEntity> activityEntityPage = activityMapper.selectPage(page,itemEntityQueryWrapper);
         List<ActivityTitleVo> activityTitleVos = new ArrayList<>();
         activityEntityPage.getRecords().forEach(activityEntity -> {
-            ActivityTitleVo activityTitleVo = new ActivityTitleVo();
-            activityTitleVo.setActivityId(activityEntity.getActivityId());
-            activityTitleVo.setActivityTitle(activityEntity.getActivityTitle());
-            activityTitleVo.setActivityIntroduction(activityEntity.getActivityIntroduction());
-            activityTitleVo.setPageView(activityEntity.getPageView());
-            activityTitleVo.setCreateTime(activityEntity.getCreateTime());
+            ActivityTitleVo activityTitleVo = new ActivityTitleVo(activityEntity);
             ResourceEntity resourceEntity = resourceMapper.selectById(activityEntity.getHeaderImage());
             if (ObjectUtils.isNotNull(resourceEntity)){
                 ImageVo imageVo = new ImageVo();
@@ -109,6 +109,20 @@ public class ActivityServiceImpl implements IActivityService {
             return R.error("文章不存在！");
         }
         ActivityMsgVo activityMsgVo  = new ActivityMsgVo(activityEntity);
+        ResourceEntity resourceEntity1 = resourceMapper.selectById(activityEntity.getHeaderImage());
+        if (ObjectUtils.isNotNull(resourceEntity1)){
+            ImageVo imageVo = new ImageVo();
+            imageVo.setIsNewd(resourceEntity1.getIsNewd());
+            imageVo.setPwd(resourceEntity1.getPwd());
+            imageVo.setFId(resourceEntity1.getFId());
+            String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+            if (StringUtils.isNotEmpty(lzLinkUrl)){
+                imageVo.setUrl(lzLinkUrl);
+            }else {
+                imageVo.setUrl(resourceEntity1.getResourceUrl());
+            }
+            activityMsgVo.setHeaderImage(imageVo);
+        }
         QueryWrapper<SubTitleEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("activity_id",activityId).orderByAsc("subtitle_sort");
         List<SubTitleEntity> subTitleEntityList = subTitleMapper.selectList(queryWrapper);
@@ -122,8 +136,8 @@ public class ActivityServiceImpl implements IActivityService {
             }else {
                 String arr[] = subTitleEntity.getSubtitleContent().split("\\.");
                 List<ImageVo> resource = new ArrayList<>();
-                for (String resourceId:arr){
-                    ResourceEntity resourceEntity = resourceMapper.selectById(resourceId);
+                List<ResourceEntity> resourceEntityList = resourceMapper.selectBatchIds(Arrays.asList(arr));
+                for (ResourceEntity resourceEntity:resourceEntityList){
                     ImageVo imageVo = new ImageVo();
                     imageVo.setIsNewd(resourceEntity.getIsNewd());
                     imageVo.setPwd(resourceEntity.getPwd());
@@ -143,4 +157,39 @@ public class ActivityServiceImpl implements IActivityService {
         activityMsgVo.setActivityContent(subTitleMoList);
             return R.success(activityMsgVo);
     }
+
+    public R getActivityList(ActivityParam activityParam){
+        Page<ActivityEntity> page = new Page<>(activityParam.getPageNum(), activityParam.getPageSize());
+        QueryWrapper<ActivityEntity> itemEntityQueryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotEmpty(activityParam.getDepartment())){
+            itemEntityQueryWrapper.eq("activity_department",EnumUtils.getDepartmentIdByName(activityParam.getDepartment()));
+        }
+        itemEntityQueryWrapper.eq(ObjectUtils.isNotNull(activityParam.getActivityType()),"activity_type",activityParam.getActivityType())
+                .orderByDesc("is_top")
+                .orderByDesc("create_time");
+        Page<ActivityEntity> activityEntityPage = activityMapper.selectPage(page,itemEntityQueryWrapper);
+        List<ActivityTitleVo> activityTitleVos = new ArrayList<>();
+        activityEntityPage.getRecords().forEach(activityEntity -> {
+            ActivityTitleVo activityTitleVo = new ActivityTitleVo(activityEntity);
+            ResourceEntity resourceEntity = resourceMapper.selectById(activityEntity.getHeaderImage());
+            if (ObjectUtils.isNotNull(resourceEntity)){
+                ImageVo imageVo = new ImageVo();
+                imageVo.setIsNewd(resourceEntity.getIsNewd());
+                imageVo.setPwd(resourceEntity.getPwd());
+                imageVo.setFId(resourceEntity.getFId());
+                String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+                if (StringUtils.isNotEmpty(lzLinkUrl)){
+                    imageVo.setUrl(lzLinkUrl);
+                }else {
+                    imageVo.setUrl(resourceEntity.getResourceUrl());
+                }
+                activityTitleVo.setHeaderImage(imageVo);
+            }
+            activityTitleVos.add(activityTitleVo);
+        });
+        Page<ActivityTitleVo> activityTitleVoPage = new Page<>(activityEntityPage.getCurrent(),activityEntityPage.getSize(),activityEntityPage.getTotal());
+        activityTitleVoPage.setRecords(activityTitleVos);
+        return R.success(activityTitleVoPage);
+    }
 }
+

@@ -13,6 +13,12 @@ public class PersonnelVo {
     /**
      * 人员姓名
      */
+    @NotBlank(message = "人员id不能为空")
+    @Schema(description = "人员id")
+    private Integer personnelId;
+    /**
+     * 人员姓名
+     */
     @NotBlank(message = "人员姓名不能为空")
     @Schema(description = "人员姓名")
     @Size(min = 1, max = 20, message = "人员姓名必须在1~20字符之间")

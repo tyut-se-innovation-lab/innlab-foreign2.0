@@ -16,10 +16,9 @@ import tyut.selab.common.utils.StringUtils;
 import tyut.selab.common.utils.http.IpUtil;
 import tyut.selab.common.utils.http.ServletUtils;
 import tyut.selab.framework.domain.entity.AccessLogEntity;
-import tyut.selab.framework.mapper.AccessMapper;
+import tyut.selab.framework.mapper.AccessLogMapper;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 /**
  * @ClassName: AccessLogAspect
@@ -33,7 +32,7 @@ import java.util.Arrays;
 @Slf4j
 public class AccessLogAspect {
     @Autowired
-    private AccessMapper accessMapper;
+    private AccessLogMapper accessLogMapper;
     @Pointcut("@annotation(tyut.selab.common.annotation.AccessLogAnnotation)")
     public void accessLogPoinCut() {
     }
@@ -59,7 +58,7 @@ public class AccessLogAspect {
             }
             accessLogEntity.setAccessIp(IpUtil.getIpAddress(request));
             accessLogEntity.setAccessUrl(request.getRequestURI());
-            accessMapper.insert(accessLogEntity);
+            accessLogMapper.insert(accessLogEntity);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("日志记录异常!");

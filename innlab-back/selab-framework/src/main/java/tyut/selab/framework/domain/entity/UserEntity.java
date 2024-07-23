@@ -68,7 +68,14 @@ public class UserEntity {
      */
     @Schema(description = "用户部门")
     @TableField("user_department")
+    @JsonIgnore
     private Integer userDepartment;
+    /**
+     * 用户部门
+     */
+    @Schema(description = "用户部门")
+    @TableField(exist = false)
+    private String userDepartmentName;
     /**
      * 角色id
      */

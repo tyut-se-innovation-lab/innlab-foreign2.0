@@ -25,6 +25,12 @@ public class UpdateItemDto {
     @NotNull(message = "项目id不能为空")
     private Integer itemId;
     /**
+     * 部门
+     */
+    @Schema(description = "部门")
+    @Size(min = 4,max = 4,message = "部门字符必须为4")
+    private String department;
+    /**
      * 项目标题
      */
     @Size(min = 1,max = 30,message = "标题在1~30字符之间")
