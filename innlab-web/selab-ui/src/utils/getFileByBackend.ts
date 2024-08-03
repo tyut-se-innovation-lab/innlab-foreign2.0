@@ -36,13 +36,16 @@ interface LanzouDownloadResponse {
 }
 
 export const parseLanzouLink = async (data: LanzouResponse): Promise<string> => {
-    console.log('data: ', data, data.url);
+    console.log('data: ', data);
 
     // 如果 url 不为空或空字符串，直接返回 url
     if (!data.pwd) {
+        console.log('return data');
+
         return data;
     }
     if (data.url && data.url !== '') {
+        console.log('return data.url');
         return data.url;
     }
 

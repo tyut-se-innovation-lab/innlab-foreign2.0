@@ -6,7 +6,7 @@
     </div>
 
     <!-- banner -->
-    <div class="banner" :class="{ 'hidden': isBannerHidden }" :style="{ height: isBannerHidden ? '0' : '100vh' }">
+    <div class="banner" :class="{ 'hidden': isBannerHidden }">
       <div class="slider">
         <div>
           <el-carousel class="slide active" ref="carousel" motion-blur indicator-position="none">
@@ -61,7 +61,6 @@
       <!-- people -->
       <People id="people"></People>
 
-      <!-- <Footer></Footer> -->
     </div>
 
   </div>
@@ -69,13 +68,12 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, computed, onBeforeUnmount, nextTick } from "vue"
 import Header from '@/components/header/header.vue'
-import Footer from '@/components/footer/index.vue'
 import Banner from "@/components/banner/banner.vue"
 import Desc from "@/views/home/components/description/index.vue"
 import History from "@/views/home/components/history/test.vue"
 import Act from "@/views/home/components/activity/index.vue"
 import People from "@/views/home/components/people/index.vue"
-import Part from "@/views/home/components/part/index.vue"
+import Part from "@/views/home/components/part/test.vue"
 import bus from '@/eventBus';
 
 import AOS from 'aos'
@@ -530,6 +528,47 @@ onBeforeUnmount(() => {
 
   .content .btn {
     display: none;
+  }
+
+}
+
+/* 移动端适配 */
+@media (max-width: 1284px) {
+
+  /* header */
+  .header {
+    display: none;
+  }
+
+  /* banner */
+  .banner {
+    height: 28vh;
+  }
+
+  .left-info .content {
+    display: none;
+  }
+
+  .left-info .penetrte-blur h1,
+  .right-info h1 {
+    font-size: 4em;
+  }
+
+  .right-info h3 {
+    font-size: 30px;
+  }
+
+  .content h3 {
+    font-size: 18px;
+  }
+
+  .content p {
+    font-size: 12px;
+  }
+
+  .content .btn {
+    font-size: 10px;
+    padding: 3px 8px;
   }
 
 }

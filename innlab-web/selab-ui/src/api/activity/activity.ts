@@ -7,7 +7,16 @@ export const getActs = (params: { pageNum: number; pageSize: number; activityTyp
     return http.post(`${prefix}/showActivitys`, {
         pageNum: params.pageNum,
         pageSize: params.pageSize,
-        activityType: params.activityType
+        // activityType: params.activityType
+    })
+}
+
+//获取活动标题
+export const getActTitles = (params: { pageNum: number; pageSize: number; }) => {
+    return http.post(`${prefix}/showActivitysTitle`, {
+        pageNum: params.pageNum,
+        pageSize: params.pageSize,
+      
     })
 }
 

@@ -1,42 +1,24 @@
 <template>
     <div class="people" v-loading="loading">
-        <div class="banner">
-            <el-carousel ref="carousel" motion-blur indicator-position="none">
-                <el-carousel-item v-for="item in actImgs" :key="item">
-                    <img class="elimg" :src="item" />
-                    <div class="left-info">
-                        <div class="penetrte-blur">
-                            <h1>Innov</h1>
-                        </div>
-                        <div class="content">
-                            <h3>The Innovation Laboratory</h3>
-                            <p>
-                                软件学院创新实验室位于软件学院行勉楼实验室一层,是隶属于软件学院的学生创新实践基地,宗旨在于丰富学生课外知识、提升学生创新实践能力。
-                            </p>
-                            <p>The Innovation Laboratory of the School of Software is located on the first
-                                floor
-                                of the Xingmian
-                                Building Laboratory of the School of Software. It is a student innovation
-                                practice base affiliated to
-                                the School of Software. The purpose is to enrich students' extracurricular
-                                knowledge and improve
-                                students' innovative practice ability.</p>
-                            <a href="#" class="btn">More Details</a>
-                        </div>
-                    </div>
-                    <div class="right-info">
-                        <h1>ation</h1>
-                        <h3>Laboratory</h3>
-                    </div>
-                </el-carousel-item>
-            </el-carousel>
+
+
+
+        <div class="header">
+            <router-link to="/">
+                <img lass="logo" width="200px" src="public/img/disImg/logo.png" alt="">
+            </router-link>
+            <span>人员介绍</span>
+
+
         </div>
+
         <div class="topTabs">
             <el-tabs v-model:active-name="activePartTab" @tab-click="handlePart" type="border-card" class="partTabs">
                 <el-tab-pane name="软件开发" label="软件开发"></el-tab-pane>
                 <el-tab-pane name="网络安全" label="网络安全"></el-tab-pane>
                 <el-tab-pane name="人工智能" label="人工智能"></el-tab-pane>
                 <el-tab-pane name="虚拟现实" label="虚拟现实"></el-tab-pane>
+                <el-tab-pane name="算法竞赛" label="算法竞赛"></el-tab-pane>
             </el-tabs>
         </div>
 
@@ -354,6 +336,43 @@ onMounted(async () => {
     /* padding-top: 10%; */
 }
 
+.header {
+    width: 100%;
+    height: 8em;
+    background-color: #002d72;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 8%;
+
+    a {
+        margin: 0 2% 0 10%;
+    }
+
+    span {
+        padding-left: 2%;
+        border-left: .0625em solid hsla(0, 0%, 100%, .2);
+        color: #fff;
+        font-size: 2em;
+        font-weight: 500;
+
+    }
+}
+
+.header:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 32px;
+    background-image: url(public/img/disImg/torn-paper-wall.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
 /* banner */
 .banner {
     width: 100%;
@@ -563,22 +582,26 @@ onMounted(async () => {
 
 .more {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
 .cards {
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .card {
     position: relative;
-    width: 320px;
-    height: 200px;
-    /* background-color: rgba(210, 204, 204, .8); */
-    background-image: url(/public/img/disImg/back1.png);
+    width: 21%;
+    height: 100%;
+    padding: 2% 0;
+    margin: 2%;
+    background-color: #5386ad;
+    /* background-image: url(/public/img/disImg/back1.png); */
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -587,7 +610,6 @@ onMounted(async () => {
     perspective: 1000px;
     box-shadow: 0 0 0 5px #ffffff80;
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    margin-bottom: 30px
 }
 
 .card svg {
@@ -640,23 +662,8 @@ onMounted(async () => {
 }
 
 /* 分页 */
-.demo-pagination-block+.demo-pagination-block {
-    width: 100%;
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-end;
-
-}
-
-.demo-pagination-block .demonstration {
-    margin-bottom: 16px;
-}
-
-:deep(.el-pager) {
-    margin: 0 6px;
-}
-
 :deep(.el-pagination) {
     justify-content: flex-end;
+    margin: 2% 0;
 }
 </style>

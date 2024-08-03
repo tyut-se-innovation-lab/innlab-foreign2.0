@@ -12,8 +12,8 @@
                         </div>
                     </div>
                     <swiper :autoplay="{ delay: 6000 }" :loop="true" :navigation="true" :slidesPerView="3" :pagination="{
-                        clickable: true,
-                    }" :spaceBetween="30" :modules="modules" class="mySwiper" :cssMode="true">
+                        clickable: false,
+                    }" :spaceBetween="30" :modules="modules" class="mySwiper">
                         <swiper-slide v-for="(slide, index) in slides" :key="index">
 
                             <div class="slideItem">

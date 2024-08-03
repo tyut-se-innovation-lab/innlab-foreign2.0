@@ -28,13 +28,9 @@
                     </div>
                 </div>
             </router-link>
-
-            <div class="demo-pagination-block">
-
-                <el-pagination v-model:current-page="params.pageNum" v-model:page-size="params.pageSize"
-                    :page-sizes="[3]" layout=" prev, pager, next" :total="total" @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange" />
-            </div>
+            <el-pagination background v-model:current-page="params.pageNum" v-model:page-size="params.pageSize"
+                layout=" prev, pager, next" :total="total" @size-change="handleSizeChange"
+                @current-change="handleCurrentChange" />
         </div>
 
 
@@ -159,8 +155,8 @@ const handleCurrentChange = () => {
     flex-direction: column;
     isolation: isolate;
     position: relative;
-    /* width: 18rem; */
-    min-height: 8rem;
+    width: 100%;
+    height: 11rem;
     border: 1px solid rgb(210, 210, 210);
     cursor: pointer;
     /* background: #29292c; */
@@ -203,7 +199,8 @@ const handleCurrentChange = () => {
 }
 
 .notmain {
-
+    width: 100%;
+    height: 100%;
     z-index: 10;
     display: flex;
 }
@@ -211,12 +208,13 @@ const handleCurrentChange = () => {
 .notimg {
 
     width: 22%;
-    height: 80%;
+    height: 100%;
     transition: transform 300ms ease;
 
     img {
         width: 100%;
-        height: 150px;
+        height: 100%;
+        object-fit: cover;
         border-radius: 6px;
     }
 }
@@ -304,23 +302,11 @@ const handleCurrentChange = () => {
 
 
 /* 分页 */
-.demo-pagination-block+.demo-pagination-block {
-    width: 100%;
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-end;
-
-}
-
-.demo-pagination-block .demonstration {
-    margin-bottom: 16px;
-}
-
-:deep(.el-pager) {
-    margin: 0 6px;
-}
-
 :deep(.el-pagination) {
     justify-content: flex-end;
+}
+
+:deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
+    background-color: #02406f;
 }
 </style>

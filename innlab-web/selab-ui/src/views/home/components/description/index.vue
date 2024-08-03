@@ -18,9 +18,7 @@
               在这里，你可以找到志同道合的伙伴，可以尽情提升和发挥自己
               的专业 能力，可以把学到的新奇的知识应用于实际中
             </span>
-            <Readmore link="/description" text="查看详情" color="white" style="position: absolute;
-    bottom: -20%;
-    right: 2%"></Readmore>
+            <Readmore link="/description" text="查看详情" color="white" style="margin-left: 53%;"></Readmore>
           </div>
 
         </main>
@@ -60,9 +58,10 @@ onMounted(() => {
   font-size: 50px;
   display: flex;
   flex-direction: column;
- align-items: center;
+  align-items: center;
 }
-.bigtitle span:nth-child(2){
+
+.bigtitle span:nth-child(2) {
   font-size: 30px;
 }
 
@@ -136,6 +135,41 @@ main {
 
   span {
     margin-top: 20px;
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 1248px) {
+
+  .content {
+    padding: 6%;
+  }
+
+  main {
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+
+    .text {
+      width: 100%;
+      padding: 3%;
+      font-size: 100%;
+    }
+  }
+
+  .bigtitle {
+    font-size: 2.5em;
+  }
+
+  .bigtitle span:nth-child(2) {
+    font-size: .6em;
+  }
+
+  .img {
+    width: 100% !important;
+    position: relative !important;
+    top: 0% !important;
+    left: 0% !important;
   }
 }
 </style>

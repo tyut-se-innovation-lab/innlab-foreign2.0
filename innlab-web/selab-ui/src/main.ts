@@ -28,7 +28,8 @@ import hljs from 'highlight.js'; // highlightjs
 // Optional video extension
 // jarallaxVideo();
 
-
+// social-share
+import vshare from 'vshare'
 
 VMdEditor.use(githubTheme, {
     Hljs: hljs,
@@ -53,5 +54,6 @@ app.use(createPinia())
 app.use(router)
 app.use(VMdEditor)
 app.use(VMdPreview)
+app.use(vshare)
 
 app.mount('#app')

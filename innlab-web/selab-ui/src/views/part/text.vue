@@ -204,7 +204,7 @@ onMounted(() => {
 
 .content {
     display: flex;
-    width: 1500px;
+    width: 90%;
     height: 760px;
 
     border-radius: 10px;

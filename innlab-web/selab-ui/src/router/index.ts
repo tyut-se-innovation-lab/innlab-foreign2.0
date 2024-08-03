@@ -37,7 +37,6 @@ const router = createRouter({
       meta: { header: true },
 
     },
-
     {
       path: '/blog',
       name: 'blog',
@@ -57,20 +56,18 @@ const router = createRouter({
       name: 'people',
       component: () => import('../views/people/test.vue'),
       // meta: { header_unhome: true, footer: true }
-      meta: { header: true }
+      meta: { sidebar: true }
     },
     {
       path: '/activity',
       name: 'activity',
       component: () => import('../views/activity/index.vue'),
-      // meta: { header_blue: true, footer_blue: true }
-      meta: { header: true }
+      // meta: { header: true }
     },
     {
       path: '/about',
       name: 'about',
       component: () => import('../views/about/index.vue'),
-      // meta: { header_blue: true, footer_blue: true }
     }
   ]
 })

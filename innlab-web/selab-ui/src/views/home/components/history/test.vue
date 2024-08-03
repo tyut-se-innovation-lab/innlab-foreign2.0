@@ -252,11 +252,7 @@ function updateClock(): void {
     border: #026bc3 30px solid;
 }
 
-@media(max-width:1000px) {
-    #clock {
-        right: -90%;
-    }
-}
+
 
 #clock-table {
     width: 96%;
@@ -300,5 +296,25 @@ function updateClock(): void {
     position: absolute;
     top: calc(50% - .5px);
     left: 0px;
+}
+
+@media(max-width:1284px) {
+
+    #clock {
+
+        display: none;
+    }
+
+    #clockcontent {
+        width: 75%;
+        left: 15%;
+    }
+
+    .iconfont {
+
+        left: 39%;
+
+    }
+
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <Header id="2" v-if="$route.meta.header"></Header>
-  <HeaderBlue id="2" v-if="$route.meta.header_blue"></HeaderBlue>
-  <headerUnhome id="2" v-if="$route.meta.header_unhome"></headerUnhome>
+  <Sidebar v-if="$route.meta.sidebar"></Sidebar>
   <RouterView :key="$route.fullPath" />
   <Footer></Footer>
   <!--loading加载-->
@@ -9,13 +8,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref, reactive, onMounted, onUnmounted } from "vue"
 import { RouterLink, RouterView } from 'vue-router'
 import Header from '@/components/header/header.vue'
-import HeaderBlue from '@/components/header/headerBlue.vue'
-import headerUnhome from '@/components/header/headUnhome.vue'
-import Footer from '@/components/footer/index.vue'
-import { ref, reactive, onMounted, onUnmounted } from "vue"
-
+import Sidebar from '@/components/header/sidebar.vue'
+import Footer from '@/components/footer/footer.vue'
 import Loading from "@/components/loading/loading.vue"
 
 onMounted(() => {

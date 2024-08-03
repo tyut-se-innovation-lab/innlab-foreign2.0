@@ -28,7 +28,7 @@
 
             </nav>
         </header>
-        <div class="crumb" v-show="currentPath !== '' && currentPath !== 'home'">
+        <!-- <div class="crumb" v-show="currentPath !== '' && currentPath !== 'home'">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{ path: '/' }" style="color: white !important;">返回</el-breadcrumb-item>
                 <el-breadcrumb-item>
@@ -36,7 +36,7 @@
                 </el-breadcrumb-item>
 
             </el-breadcrumb>
-        </div>
+        </div> -->
 
     </div>
 
@@ -62,13 +62,14 @@ const handleScroll = () => {
     isAtTop.value = window.scrollY === 0;
 };
 
-
-
-
 const scrollTo = (elementId: number, elementName: string) => {
     const routeInfo = elementIdMap[elementId];
 
-    router.push({ path: routeInfo.path, query: { id: elementId, name: routeInfo.name } });
+    if (!routeInfo.actId) {
+        router.push({ path: routeInfo.path, query: { id: elementId, name: routeInfo.name } });
+    } else {
+        router.push({ path: routeInfo.path, query: { id: elementId, name: routeInfo.name, actid: routeInfo.actId } });
+    }
     // bus.emit('loading', true);
 
     // setTimeout(function () {
@@ -83,7 +84,7 @@ onMounted(() => {
     window.addEventListener("scroll", handleScroll);
 
     currentPath.value = route.currentRoute.value.name;
-    if (route.currentRoute.value.name == 'about') {
+    if (route.currentRoute.value.name == 'about' || route.currentRoute.value.name == 'activity' || route.currentRoute.value.name == 'blog') {
         isBlue.value = true;
     }
 });
@@ -116,12 +117,12 @@ onUnmounted(() => {
     /* background: rgba(51, 183, 231, .2); */
     display: flex;
     align-items: center;
-    z-index: 10000;
+    z-index: 100;
     transition: all .6s;
 }
 
 .headUnTop {
-    background-color: #02406f;
+    background-color: #002d72;
 }
 
 .headOuter {
