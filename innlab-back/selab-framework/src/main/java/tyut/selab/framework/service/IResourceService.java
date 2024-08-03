@@ -29,4 +29,6 @@ public interface IResourceService {
 
     @Async
     CompletableFuture<String> getResourceByLz(Lz lz);
+
+    R getResourceByLz2(Lz lz);
 }

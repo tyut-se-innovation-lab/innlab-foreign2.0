@@ -103,6 +103,7 @@ public class PersonnelServiceImpl implements IPersonnelService {
                 }
                 personnelVo.setPersonnelId(personnelEntity.getPersonnelId());
                 personnelVo.setPersonnelAvatar(imageVo);
+                personnelVo.setPersonnelAvatarId(personnelEntity.getPersonnelAvatar());
             }
             personnelVoList.add(personnelVo);
         });

@@ -67,9 +67,9 @@ public class FigureBedUtils {
     public static String getLz(Lz lz){
         String url = lz.getIsNewd()+"/"+lz.getFId();
         String jsCode =HttpsUtils.sendGet(url);
-        String url1 = "https://wwd.lanzoue.com/ajaxm.php?file="+extractUrl(jsCode);
+        String url1 = lz.getIsNewd()+"/ajaxm.php?file="+extractUrl(jsCode);
         String skdklds = extractSkdklds(jsCode);
-        String xwwwfrom = "action=downprocess&sign="+skdklds+"&p="+lz.getPwd();
+        String xwwwfrom = "action=downprocess&sign="+skdklds+"&p="+lz.getPwd()+"&kd=1";
         String json = HttpsUtils.sendSSLPost(url1,url,null,xwwwfrom);
         JSONObject data = JSON.parseObject(json);
         String geturl = data.getString("url");

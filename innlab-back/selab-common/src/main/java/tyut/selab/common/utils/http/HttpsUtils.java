@@ -228,6 +228,7 @@ public class HttpsUtils
             }
             conn.setRequestProperty("Content-Type", contentType);
             conn.setDoOutput(true);
+            conn.setRequestProperty("User-Agent", "Mozilla/4.76");
 
             // 写入请求体
             OutputStream os = conn.getOutputStream();

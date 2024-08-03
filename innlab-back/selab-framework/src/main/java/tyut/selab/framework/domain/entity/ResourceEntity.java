@@ -45,6 +45,7 @@ public class ResourceEntity extends BaseEntity {
      */
     @TableField("resource_type")
     private Integer resourceType;
+
     @TableField("resource_url")
     private String resourceUrl;
     @TableField("lz_pwd")

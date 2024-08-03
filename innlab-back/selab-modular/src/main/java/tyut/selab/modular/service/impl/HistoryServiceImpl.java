@@ -96,8 +96,7 @@ public class HistoryServiceImpl implements IHistoryService {
     public R getHistoryList(PageParam pageParam){
         Page<HistoryEntity> page = new Page<>(pageParam.getPageNum(),pageParam.getPageSize());
         QueryWrapper<HistoryEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("state",true)
-                .orderByDesc("history_time");
+        queryWrapper.orderByDesc("history_time");
         Page<HistoryEntity> historyPage = historyMapper.selectPage(page,queryWrapper);
         return R.success(historyPage);
     }

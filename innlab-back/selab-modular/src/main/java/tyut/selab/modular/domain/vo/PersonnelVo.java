@@ -1,5 +1,6 @@
 package tyut.selab.modular.domain.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -23,9 +24,13 @@ public class PersonnelVo {
     @Schema(description = "人员姓名")
     @Size(min = 1, max = 20, message = "人员姓名必须在1~20字符之间")
     private String personnelName;
+
+    @Schema(description = "人员头像id")
+    private Integer personnelAvatarId;
     /**
      * 人员头像
      */
+    @Schema(description = "人员头像")
     private ImageVo personnelAvatar;
     /**
      * 年代（哪一届）
@@ -64,6 +69,17 @@ public class PersonnelVo {
 //    @Schema(description = "人员展示权重")
 //    @Size(min = 1, max = 1, message = "权重为1字符")
 //    private String personnelOrder;
+    /**
+     * 人员状态（1保留/0停用）
+     */
+    @TableField(value = "state")
+    private Boolean state;
+    /**
+     * 权重（默认1）
+     */
+    @TableField(value = "personnel_sort")
+    @Schema(description = "人员展示权重")
+    private Integer personnelSort;
 
     public PersonnelVo(PersonnelEntity personnelEntity){
         this.personnelName = personnelEntity.getPersonnelName();
@@ -72,5 +88,7 @@ public class PersonnelVo {
         this.personnelDepartment = EnumUtils.getDepartmentNameById(String.valueOf(personnelEntity.getPersonnelDepartment()));
         this.personnelPost = personnelEntity.getPersonnelPost();
         this.personnelPeriod = personnelEntity.getPersonnelPeriod();
+        this.state = personnelEntity.getState();
+        this.personnelSort = personnelEntity.getPersonnelSort();
     }
 }

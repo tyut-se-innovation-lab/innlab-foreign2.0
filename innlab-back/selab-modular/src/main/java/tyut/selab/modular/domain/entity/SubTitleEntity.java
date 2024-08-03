@@ -1,12 +1,11 @@
 package tyut.selab.modular.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @ClassName: SubTitleEntity
@@ -18,6 +17,7 @@ import lombok.Data;
 @TableName("tyut_subtitle")
 @Schema(description = "日常活动小标题")
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class SubTitleEntity {
     /**
@@ -44,10 +44,23 @@ public class SubTitleEntity {
      * 小标题内容
      */
     @TableField("subtitle_content")
-    private String subtitleContent;;
+    private String subtitleContent;
     /**
      * 小标题权重
      */
+    @JsonIgnore
     @TableField("subtitle_sort")
-    private String subtitleSort;;
+    private Integer subtitleSort;
+    /**
+     * 修改时间
+     */
+    @TableField("update_time")
+    private String updateTime;
+
+    /**
+     * 小标题权重
+     */
+    @TableLogic
+    @TableField("del_flag")
+    private Integer delFlag;
 }

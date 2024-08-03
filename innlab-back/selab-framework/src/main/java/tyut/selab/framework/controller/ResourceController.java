@@ -62,5 +62,6 @@ public class ResourceController {
     @Operation(summary = "通过蓝奏云三段获取资源")
     public R getResourceByLz(@RequestBody @Validated Lz lz) throws ExecutionException, InterruptedException {
         return R.success("获取成功！",iResourceService.getResourceByLz(lz).get());
+//        return iResourceService.getResourceByLz2(lz);
     }
 }

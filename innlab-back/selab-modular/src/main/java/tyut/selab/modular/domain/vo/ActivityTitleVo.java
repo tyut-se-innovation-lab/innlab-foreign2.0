@@ -31,7 +31,11 @@ public class ActivityTitleVo {
      */
     @Schema(description = "活动简介")
     private String activityIntroduction;
-
+    /**
+     * 标题图片
+     */
+    @Schema(description = "标题图片id")
+    private Integer headerImageId;
     /**
      * 标题图片
      */
