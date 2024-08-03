@@ -200,6 +200,7 @@ public class ItemServiceImpl implements IItemService {
             itemTitleVo.setItemTitle(itemEntity.getItemTitle());
             itemTitleVo.setItemIntroduction(itemEntity.getItemIntroduction());
             itemTitleVo.setIsTop(itemEntity.getIsTop());
+            itemTitleVo.setDepartment(EnumUtils.getDepartmentNameById(String.valueOf(itemEntity.getDepartmentId())));
             itemTitleVo.setState(itemEntity.getState());
             ResourceEntity resourceEntity = resourceMapper.selectById(itemEntity.getHeaderImage());
             if (ObjectUtils.isNotNull(resourceEntity)){
@@ -229,6 +230,9 @@ public class ItemServiceImpl implements IItemService {
             return R.error("项目不存在！");
         }
         ItemEntity itemEntity = new ItemEntity();
+        if(ObjectUtils.isNotNull(updateItemDto.getDepartment())){
+            itemEntity.setDepartmentId(EnumUtils.getDepartmentIdByName(updateItemDto.getDepartment()));
+        }
         itemEntity.setItemId(updateItemDto.getItemId());
         itemEntity.setState(updateItemDto.getState());
         itemEntity.setHeaderImage(updateItemDto.getHeaderImage());

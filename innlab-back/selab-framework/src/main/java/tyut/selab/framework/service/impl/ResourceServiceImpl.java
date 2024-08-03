@@ -145,8 +145,15 @@ public class ResourceServiceImpl implements IResourceService {
     public R getResourcelist(ResourceParam resourceParam){
         Page<ResourceEntity> page = new Page<>(resourceParam.getPageNum(),resourceParam.getPageSize());
         QueryWrapper<ResourceEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq(ObjectUtils.isNotNull(resourceParam.getResourceType()),"resource_type",resourceParam.getResourceType());
+        queryWrapper.eq(ObjectUtils.isNotNull(resourceParam.getResourceType()),"resource_type",resourceParam.getResourceType())
+                .orderByDesc("resource_id");
         IPage<ResourceEntity> resourceEntityIPage = resourceMapper.selectPage(page, queryWrapper);
+        resourceEntityIPage.getRecords().forEach( resourceEntity -> {
+            String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+resourceEntity.getFId());
+            if (StringUtils.isNotEmpty(lzLinkUrl)){
+                resourceEntity.setResourceUrl(lzLinkUrl);
+            }
+        });
         return R.success(resourceEntityIPage);
     }
 
@@ -157,7 +164,9 @@ public class ResourceServiceImpl implements IResourceService {
         String lzKey = KeyConstants.LZ_LINEURL_KEY + lz.getFId();
         if (redisUtils.hasKey(lzKey)) {
             lineUrl = (String) redisUtils.getCacheObject(lzKey);
-            return CompletableFuture.completedFuture(lineUrl);
+            if (StringUtils.isNotBlank(lineUrl)){
+                return CompletableFuture.completedFuture(lineUrl);
+            }
         }
 
         return CompletableFuture.supplyAsync(() -> {
@@ -165,6 +174,22 @@ public class ResourceServiceImpl implements IResourceService {
             redisUtils.setCacheObject(lzKey, newLineUrl, 10, TimeUnit.MINUTES);
             return newLineUrl;
         });
+    }
+
+    @Override
+    public R getResourceByLz2(Lz lz){
+        String lineUrl = null;
+        String lzKey = KeyConstants.LZ_LINEURL_KEY + lz.getFId();
+        if (redisUtils.hasKey(lzKey)) {
+            lineUrl = (String) redisUtils.getCacheObject(lzKey);
+            if (StringUtils.isNotBlank(lineUrl)){
+                return R.success(lineUrl);
+            }
+        }
+
+        String newLineUrl = FigureBedUtils.getLz(lz);
+        redisUtils.setCacheObject(lzKey, newLineUrl, 10, TimeUnit.MINUTES);
+        return R.success(lineUrl);
     }
     public R getResourceBase64(Integer resourceId){
         ResourceEntity resourceEntity = resourceMapper.selectById(resourceId);

@@ -18,6 +18,15 @@ import java.util.List;
 @Schema(description = "活动详细信息")
 public class ActivityMsgVo {
     /**
+     * 活动id
+     */
+    @Schema(description = "活动id")
+    private Integer activityId;
+    /**
+     * 标题图片
+     */
+    private ImageVo headerImage;
+    /**
      * 活动标题
      */
     @Schema(description = "活动标题")
@@ -35,9 +44,13 @@ public class ActivityMsgVo {
 
     @Schema(description = "创建时间")
     private String createTime;
+    @Schema(description = "作者")
+    private String author;
 
     @Schema(description = "更新时间")
     private String updateTime;
+    @Schema(description = "审核人")
+    private String auditor;
     /**
      * 活动内容
      */
@@ -50,5 +63,8 @@ public class ActivityMsgVo {
         this.pageView = activityEntity.getPageView();
         this.createTime = activityEntity.getCreateTime();
         this.updateTime = activityEntity.getUpdateTime();
+        this.author = activityEntity.getCreateUser();
+        this.auditor = activityEntity.getUpdateUser();
+        this.activityId = activityEntity.getActivityId();
     }
 }

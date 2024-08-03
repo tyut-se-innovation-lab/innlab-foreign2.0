@@ -1,6 +1,7 @@
 package tyut.selab.framework.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
@@ -68,7 +69,14 @@ public class UserEntity {
      */
     @Schema(description = "用户部门")
     @TableField("user_department")
+    @JsonIgnore
     private Integer userDepartment;
+    /**
+     * 用户部门
+     */
+    @Schema(description = "用户部门")
+    @TableField(exist = false)
+    private String userDepartmentName;
     /**
      * 角色id
      */
@@ -99,6 +107,7 @@ public class UserEntity {
      * 用户最后一次登陆时间
      */
     @TableField("last_login_time")
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastLoginTime;
     /**
      * 用户登陆状态

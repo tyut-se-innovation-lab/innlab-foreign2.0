@@ -48,7 +48,7 @@ import java.util.Map;
  * @Version: 1.0
  **/
 @Service
-public class UserServiceimpl implements IUserService {
+public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -190,6 +190,11 @@ public class UserServiceimpl implements IUserService {
             queryWrapper.eq("user_department", EnumUtils.getDepartmentIdByName(userParam.getUserDepartment()));
         }
         IPage<UserEntity> userIPage = userMapper.selectPage(page, queryWrapper);
+        userIPage.getRecords().forEach(userEntity -> {
+            if (ObjectUtils.isNotNull(userEntity.getUserDepartment())){
+                userEntity.setUserDepartmentName(EnumUtils.getDepartmentNameById(String.valueOf(userEntity.getUserDepartment())));
+            }
+        });
         return R.success(userIPage);
     }
     @Override

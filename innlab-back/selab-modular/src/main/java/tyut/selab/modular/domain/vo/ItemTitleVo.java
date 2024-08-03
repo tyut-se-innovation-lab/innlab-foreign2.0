@@ -20,6 +20,10 @@ public class ItemTitleVo {
      */
     private String itemTitle;
     /**
+     * 部门
+     */
+    private String department;
+    /**
      * 项目简介
      */
     private String itemIntroduction;

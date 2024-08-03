@@ -10,5 +10,5 @@ import tyut.selab.framework.domain.entity.AccessLogEntity;
  * @CreateTime: 2024-07-15 20:23
  * @Version: 1.0
  **/
-public interface AccessMapper extends BaseMapper<AccessLogEntity> {
+public interface AccessLogMapper extends BaseMapper<AccessLogEntity> {
 }

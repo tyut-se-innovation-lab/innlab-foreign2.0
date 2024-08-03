@@ -22,4 +22,10 @@ public class ActivityParam  extends PageParam {
      */
     @Schema(description = "活动类型")
     private String activityType;
+    /**
+     * 部门
+     */
+    @Schema(description = "部门")
+    @Size(min = 4,max = 4,message = "部门字符必须为4")
+    private String department;
 }
