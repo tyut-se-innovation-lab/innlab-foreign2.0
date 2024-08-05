@@ -1,6 +1,6 @@
 <template>
-  <Header id="2" v-if="$route.meta.header"></Header>
-  <Sidebar v-if="$route.meta.sidebar"></Sidebar>
+  <Header id="2" v-if="!isMobile && $route.meta.header"></Header>
+  <Sidebar v-if="isMobile && $route.meta.sidebar"></Sidebar>
   <RouterView :key="$route.fullPath" />
   <Footer></Footer>
   <!--loading加载-->
@@ -8,16 +8,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted } from "vue"
+import { ref, reactive, onMounted, onUnmounted, computed } from "vue"
 import { RouterLink, RouterView } from 'vue-router'
 import Header from '@/components/header/header.vue'
 import Sidebar from '@/components/header/sidebar.vue'
 import Footer from '@/components/footer/footer.vue'
 import Loading from "@/components/loading/loading.vue"
 
+// 创建一个响应式引用来保存是否是移动设备的状态
+const isMobile = ref(window.innerWidth <= 1248);
+// 定义处理窗口大小变化的函数
+function handleResize() {
+  isMobile.value = window.innerWidth <= 1248;
+}
 onMounted(() => {
+  // 在挂载时添加窗口大小变化的事件监听器
+  window.addEventListener('resize', handleResize);
+});
 
-})
+onUnmounted(() => {
+  // 在卸载时移除窗口大小变化的事件监听器
+  window.removeEventListener('resize', handleResize);
+});
 
 
 function clickEffect() {

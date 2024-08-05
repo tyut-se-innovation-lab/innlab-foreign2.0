@@ -11,22 +11,45 @@
                             <span>STRUCTURE</span>
                         </div>
                     </div>
-                    <swiper :autoplay="{ delay: 6000 }" :loop="true" :navigation="true" :slidesPerView="3" :pagination="{
-                        clickable: false,
-                    }" :spaceBetween="30" :modules="modules" class="mySwiper">
+
+                    <swiper id="swiper" :autoplay="{ delay: 6000 }" :loop="true" :navigation="true" :slidesPerView="3"
+                        :pagination="{
+                            clickable: true,
+                        }" :spaceBetween="30" :modules="modules" class="mySwiper" :cssMode="true">
                         <swiper-slide v-for="(slide, index) in slides" :key="index">
 
                             <div class="slideItem">
                                 <div class="slideImg" v-html="slide.icon"></div>
                                 <h2 class="slideTitle">{{ slide.title }}</h2>
                                 <p class="slideText">{{ slide.description }}</p>
-                                <router-link :to="{ path: '/part', query: { name: slide.title } }">
+                                <router-link class="slbtn" :to="{ path: '/part', query: { name: slide.title } }">
                                     <div class="slideBtn">READ MORE</div>
                                 </router-link>
 
                             </div>
                         </swiper-slide>
                     </swiper>
+
+                    <swiper id="mobileswiper" :autoplay="{ delay: 6000 }" :loop="true" :navigation="true"
+                        :slidesPerView="1" :pagination="{
+                            clickable: false,
+                        }" :spaceBetween="30" :modules="modules" class="mySwiper">
+                        <swiper-slide v-for="(slide, index) in slides" :key="index">
+
+                            <div class="slideItem">
+                                <div class="slideImg" v-html="slide.icon"></div>
+                                <h2 class="slideTitle">{{ slide.title }}</h2>
+                                <p class="slideText">{{ slide.description }}</p>
+                                <router-link class="slbtn" :to="{ path: '/part', query: { name: slide.title } }">
+                                    <div class="slideBtn">READ MORE</div>
+                                </router-link>
+
+                            </div>
+                        </swiper-slide>
+                    </swiper>
+
+
+
 
                 </div>
             </div>
@@ -118,6 +141,7 @@ const LinkTo = (elementId: number) => {
 
 <style scoped>
 .homePart {
+    width: 100vw;
     display: flex;
     align-items: center;
     background-color: white;
@@ -143,12 +167,13 @@ const LinkTo = (elementId: number) => {
     position: relative;
     padding: 0 120px;
 
-    .container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        z-index: 10;
-    }
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
 }
 
 
@@ -184,27 +209,40 @@ const LinkTo = (elementId: number) => {
     height: 100%;
 
     /* background-color: aliceblue; */
-    .descTitle {
-        border-left: 3px solid #729bba;
-        padding: 0 4%;
-        margin: 4%;
 
-        h2 {
-            font-size: 42px;
-            color: #333;
-            font-weight: bold;
-            margin-top: 0;
-        }
-
-        span {
-            font-size: 16px;
-            color: #333;
-            margin-top: 10px;
-        }
-    }
 
 }
 
+.descTitle {
+    border-left: 3px solid #729bba;
+    padding: 0 4%;
+    margin: 4%;
+
+
+
+
+}
+
+.descTitle h2 {
+    font-size: 42px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.descTitle span {
+    font-size: 16px;
+    color: #333;
+    margin-top: 10px;
+}
+
+#swiper {
+    display: block;
+}
+
+#mobileswiper {
+    display: none;
+}
 
 .swiper {
     width: 76%;
@@ -271,6 +309,13 @@ const LinkTo = (elementId: number) => {
     opacity: 0.9;
     overflow: hidden;
     transition: all .3s;
+
+}
+
+
+
+.slbtn {
+    min-height: 5em;
 }
 
 .slideBtn {
@@ -317,8 +362,13 @@ const LinkTo = (elementId: number) => {
 }
 
 :deep(.swiper-slide-active .slideText) {
-    display: flex;
+
     color: white;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
 }
 
 :deep(.swiper-slide-active .slideBtn) {
@@ -352,6 +402,7 @@ const LinkTo = (elementId: number) => {
     align-items: center;
     transition: all .2s;
     left: var(--swiper-navigation-sides-offset, -16%);
+    /* right: var(--swiper-navigation-sides-offset, 10%); */
     top: var(--swiper-navigation-sides-offset, 82%);
 }
 
@@ -401,80 +452,92 @@ const LinkTo = (elementId: number) => {
     width: 56%;
     height: 100%;
 
-    .part {
-        width: 100%;
-        height: 52%;
-        margin-top: 10%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
 
-        .partcontent {
-            width: 100%;
-            height: 100%;
-            background-image: url("public/img/partImg/leftbg.png");
-            background-size: contain;
-            position: relative;
+}
 
-            .partcontent_title {
-                font-size: 33px;
-                font-weight: 600;
-                color: white;
-                position: absolute;
-                top: 19%;
-                right: 26%;
-            }
+.partleft .part {
+    width: 100%;
+    height: 52%;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-            .partcontent_text {
-                font-size: 26px;
-                font-weight: 600;
-                color: white;
-                position: absolute;
-                top: 43%;
-                right: 18%;
-            }
-        }
-    }
+
+}
+
+.partleft .partcontent {
+    width: 100%;
+    height: 100%;
+    background-image: url("public/img/partImg/leftbg.png");
+    background-size: contain;
+    position: relative;
+
+
+}
+
+.partleft .partcontent_title {
+    font-size: 33px;
+    font-weight: 600;
+    color: white;
+    position: absolute;
+    top: 19%;
+    right: 26%;
+}
+
+.partleft .partcontent_text {
+    font-size: 26px;
+    font-weight: 600;
+    color: white;
+    position: absolute;
+    top: 43%;
+    right: 18%;
 }
 
 .partright {
     width: 56%;
     height: 100%;
 
-    .part {
-        width: 100%;
-        height: 52%;
-        margin-top: 10%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
 
-        .partcontent {
-            width: 100%;
-            height: 100%;
-            background-image: url("public/img/partImg/rightbg.png");
-            background-size: contain;
-            position: relative;
+}
 
-            .partcontent_title {
-                font-size: 33px;
-                font-weight: 600;
-                color: white;
-                position: absolute;
-                top: 19%;
-                left: 26%;
-            }
+.partright .part {
+    width: 100%;
+    height: 52%;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-            .partcontent_text {
-                font-size: 26px;
-                font-weight: 600;
-                color: white;
-                position: absolute;
-                top: 43%;
-                left: 18%;
-            }
-        }
-    }
+
+}
+
+.partright .partcontent {
+    width: 100%;
+    height: 100%;
+    background-image: url("public/img/partImg/rightbg.png");
+    background-size: contain;
+    position: relative;
+
+
+}
+
+.partright .partcontent .partcontent_title {
+    font-size: 33px;
+    font-weight: 600;
+    color: white;
+    position: absolute;
+    top: 19%;
+    left: 26%;
+}
+
+.partright .partcontent .partcontent_text {
+    font-size: 26px;
+    font-weight: 600;
+    color: white;
+    position: absolute;
+    top: 43%;
+    left: 18%;
 }
 
 .part {
@@ -503,10 +566,23 @@ const LinkTo = (elementId: number) => {
 
 /* 移动端适配 */
 @media (max-width: 1248px) {
+    #swiper {
+        display: none;
+    }
+
+    #mobileswiper {
+        display: block;
+    }
+    .descTitle h2{
+    font-size: 33px;
+   
+}
 
     .parts {
+        height: 120vh;
         padding: 6%;
     }
+
 
     .parts-bottom {
 
@@ -551,12 +627,18 @@ const LinkTo = (elementId: number) => {
     }
 
     :deep(.swiper-button-next) {
-        left: var(--swiper-navigation-sides-offset, 67%);
+        left:auto;
+        right:var(--swiper-navigation-sides-offset, 10%);
         top: var(--swiper-navigation-sides-offset, 109%);
     }
 
     :deep(.swiper-slide-active) {
         width: 100% !important;
+    }
+
+    :deep(.swiper-slide-active .slideText) {
+        display: flex;
+
     }
 
 }

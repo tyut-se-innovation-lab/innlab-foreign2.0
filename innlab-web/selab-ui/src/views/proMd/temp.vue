@@ -17,10 +17,47 @@
                     <span>{{ proPart }}</span>
                 </div>
                 <div class="content">
-                    <span>pro</span>
+                    <ul class="nots">
+                        <li class="not">
+                            <a href="javascript:;">
+
+                                <span>系统升级到2.0</span>
+                            </a>
+                        </li>
+                        <li class="not">
+                            <a href="javascript:;">
+
+                                <span>系统升级到2.0</span>
+                            </a>
+                        </li>
+                        <li class="not">
+                            <a href="javascript:;">
+
+                                <span>系统升级到2.0</span>
+                            </a>
+                        </li>
+                        <li class="not">
+                            <a href="javascript:;">
+
+                                <span>系统升级到2.0</span>
+                            </a>
+                        </li>
+                        <li class="not">
+                            <a href="javascript:;">
+
+                                <span>系统升级到2.0</span>
+                            </a>
+                        </li>
+                        <li class="not">
+                            <a href="javascript:;">
+
+                                <span>系统升级到2.0</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-
+            <el-backtop :right="100" :bottom="50" />
         </div>
 
 
@@ -73,7 +110,7 @@ const getActvityInfo = async () => {
 
         actInfo.value = result.data;
         proTitle.value = result.data.itemTitle;
-        proPart.value = result.data.itemIntroduction;
+        // proPart.value = result.data.itemIntroduction;
 
         const base64Content = result.data.markdownBase64;
         const byteArray = Uint8Array.from(atob(base64Content), c => c.charCodeAt(0));
@@ -124,7 +161,7 @@ onMounted(async () => {
 .info {
     display: flex;
     flex-direction: column;
-    width: 1100px;
+    width: 80%;
     min-height: 1000px;
     padding: 80px;
     /* background-color: rgba(28, 71, 119, .9); */
@@ -218,7 +255,6 @@ img.aligncenter {
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     /* position: fixed;
     right: 3%; */
@@ -244,17 +280,51 @@ img.aligncenter {
         height: 100%;
         display: flex;
         flex-direction: column;
-        background-image: url(public/img/disImg/border5.png);
+        /* background-image: url(public/img/disImg/border5.png); */
+        background-image: url(public/img/disImg/back1.png);
         background-size: 100% 100%;
-        padding: 12% 13%;
+        padding: 10% 10%;
+        margin: 6% 0 1% 0;
         align-items: flex-start;
-        padding-top: 20%;
         font-size: 22px;
         font-weight: 600;
 
-        span {
-            margin-bottom: 8%;
-        }
     }
+}
+
+.nots {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* padding: 0 5%; */
+    flex-direction: column;
+    /* justify-content: space-around; */
+}
+
+.not {
+    width: 100%;
+    margin: 5% 0;
+
+    a {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: .8em;
+        font-weight: normal;
+        position: relative;
+        padding-left: 17px;
+    }
+}
+
+.not a::before {
+    background-color: #2bf1fe;
+    content: '';
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    left: 0;
+    top: 10px;
+    border-radius: 10px;
 }
 </style>

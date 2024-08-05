@@ -275,12 +275,13 @@ main {
     border: 1px solid rgba(100, 103, 105, 0.1);
     box-shadow: 0px 0px 2px rgba(69, 85, 103, 0.1);
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 4px;
-    }
+}
+
+.hotAc img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
 }
 
 .hotAcText {
@@ -299,20 +300,21 @@ main {
     bottom: 0;
     left: 0;
 
-    h5 {
-        font-size: 1.4em;
-    }
+}
 
-    .hotAcDes {
-        font-size: .96em;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+.hotAcText h5 {
+    font-size: 1.4em;
+}
 
-    .hotAcTime {
-        font-size: .8em;
-    }
+.hotAcText .hotAcDes {
+    font-size: .96em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.hotAcText .hotAcTime {
+    font-size: .8em;
 }
 
 .notices {
@@ -370,15 +372,16 @@ main {
 .not {
     width: 100%;
 
-    a {
-        display: block;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        font-size: 12px;
-        position: relative;
-        padding-left: 17px;
-    }
+}
+
+.not a {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    position: relative;
+    padding-left: 17px;
 }
 
 .not a::before {
@@ -416,10 +419,12 @@ main {
     align-items: center;
     border-bottom: 1px solid #f5f6f7;
 
-    h3 {
-        font-size: 1.5em;
-        font-weight: normal;
-    }
+
+}
+
+.botHead h3 {
+    font-size: 1.5em;
+    font-weight: normal;
 }
 
 .botTags {
@@ -460,7 +465,7 @@ main {
     width: 100%;
     height: 13em;
     display: flex;
-    border-bottom: 1px solid #F5F6F7;
+    border-bottom: 1px solid #ebebeb;
     padding: 1% 0;
 }
 
@@ -468,11 +473,12 @@ main {
     width: 25%;
     height: 100%;
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+}
+
+.botImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .botText {
@@ -483,63 +489,73 @@ main {
     justify-content: space-between;
     padding: 1% 3%;
 
-    .botTextTag {
-        width: 100%;
-        display: flex;
 
-        span {
-            color: rgb(79, 157, 218);
-            letter-spacing: 1px;
-        }
-    }
+}
 
-    h3 {
-        font-size: 18px;
-        font-weight: normal;
-    }
+.botText .botTextTag {
+    width: 100%;
+    display: flex;
 
-    p {
-        width: 100%;
-        font-size: 14px;
-        color: #797C80;
-        /* 超过两行省略 */
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+}
 
-    .botDinner {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+.botText .botTextTag span {
+    color: rgb(79, 157, 218);
+    letter-spacing: 1px;
+}
 
-        .botWriter {
-            width: 30%;
-            display: flex;
-            align-items: center;
+.botText h3 {
+    font-size: 18px;
+    font-weight: normal;
+}
 
-            img {
-                width: 1.5em;
-                height: 1.5em;
-                border-radius: 50%;
-            }
+.botText p {
+    width: 100%;
+    font-size: 14px;
+    color: #797C80;
+    /* 超过两行省略 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
-            span {
-                color: #797C80;
-                font-size: 12px;
-                margin-left: .6em;
-            }
-        }
+.botText .botDinner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-        .botTime {
-            min-width: 15%;
-            color: #797C80;
-            font-size: 12px;
-            letter-spacing: 1px;
-        }
-    }
+
+
+
+}
+
+.botText .botDinner .botWriter {
+    width: 30%;
+    display: flex;
+    align-items: center;
+
+
+
+}
+
+.botText .botDinner .botWriter img {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+}
+
+.botText .botDinner .botWriter span {
+    color: #797C80;
+    font-size: 12px;
+    margin-left: .6em;
+}
+
+.botText .botDinner .botTime {
+    min-width: 15%;
+    color: #797C80;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
 
 /* 分页 */
@@ -550,5 +566,80 @@ main {
 
 :deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
     background-color: #579ad3;
+}
+
+/* 移动端适配 */
+@media (max-width: 1284px) {
+    .header {
+        display: none;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        padding: 6%;
+    }
+
+    .top {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .hotActs {
+        width: 100%;
+        height: 18em;
+        margin: 2% 0 6% 0;
+    }
+
+    .notices {
+        width: 100%;
+        height: 70%;
+        margin: 2% 0 6% 0;
+    }
+
+    .not {
+        margin: 3% 0;
+    }
+
+    .botHead h3 {
+
+        display: none;
+    }
+
+    .botTags {
+        width: 100%;
+        height: 100%;
+        justify-content: flex-start
+    }
+
+    :deep(.el-tag) {
+
+        width: 4em;
+        height: 2.8em;
+        margin-right: 0.7em;
+
+    }
+
+    .botlist {
+
+        height: 23em;
+        padding: 1% 0;
+        flex-direction: column;
+        margin: 1em 0;
+    }
+
+    .botImg {
+        width: 100%;
+
+    }
+
+    .botText {
+        width: 100%;
+        height: 100%;
+
+    }
 }
 </style>

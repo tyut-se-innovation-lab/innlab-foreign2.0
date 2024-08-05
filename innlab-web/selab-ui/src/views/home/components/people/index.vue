@@ -19,19 +19,7 @@
 
         </div>
 
-        <!-- <el-carousel :interval="4000" indicator-position="outside" type="card" height="500px"
-            style="height: 500px;margin-top: 30px;">
-            <el-carousel-item v-for="item in PeopleList" :key="item">
-                <div class="people">
-                    <Avatar :name="item.personnelName" :avatar="item.personnelAvatar" :period="item.personnelPeriod"
-                        :department="item.personnelDepartment" :post="item.personnelPost" :say="item.personnelSaying"
-                        :contribute="item.personnelContribute"></Avatar>
-                    <ReadMore class="readmore" :people="item" :link="linkprop" :period="item.personnelPeriod"
-                        :part="item.personnelDepartment"></ReadMore>
 
-                </div>
-            </el-carousel-item>
-        </el-carousel> -->
     </div>
 </template>
 
@@ -115,10 +103,11 @@ onMounted(() => {
     padding-top: 130px;
     background-color: white;
 
-    h1 {
-        color: black;
-        margin: 1% 0 5% 0;
-    }
+}
+
+.homePeople h1 {
+    color: black;
+    margin: 1% 0 5% 0;
 }
 
 .peoples {
@@ -155,10 +144,12 @@ onMounted(() => {
     right: 0;
     top: 0;
 
-    img {
-        width: 120px;
-        height: 120px;
-    }
+
+}
+
+.pImg img {
+    width: 120px;
+    height: 120px;
 }
 
 .block {
@@ -178,29 +169,23 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
 
-    h5 {
-        font-size: 20px;
-        line-height: 30px;
-        color: #0052d9;
-        margin-bottom: .6em;
-    }
-
-    span {
-        width: 100%;
-        margin-bottom: .6em;
-        font-size: 17px;
-        line-height: 21px;
-        color: #5f6464;
-    }
 }
 
-
-/* 头像 */
-.avatar {
-    width: 158px;
-    height: 158px;
-    border-radius: 50%;
+.pText h5 {
+    font-size: 20px;
+    line-height: 30px;
+    color: #0052d9;
+    margin-bottom: .6em;
 }
+
+.pText span {
+    width: 100%;
+    margin-bottom: .6em;
+    font-size: 17px;
+    line-height: 21px;
+    color: #5f6464;
+}
+
 
 
 
@@ -211,12 +196,6 @@ onMounted(() => {
 }
 
 
-
-@keyframes load89234 {
-    100% {
-        background-position: -100% 0;
-    }
-}
 
 /* 移动端适配 */
 @media (max-width: 1248px) {

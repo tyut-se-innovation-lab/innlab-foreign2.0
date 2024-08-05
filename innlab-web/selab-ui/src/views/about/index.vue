@@ -285,4 +285,32 @@ main {
     font-size: 1em;
     line-height: 1.95em;
 }
+
+/* 移动端适配 */
+@media (max-width: 1284px) {
+    .header {
+        display: none;
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    main {
+        width: 100%;
+        padding: 3em;
+        padding-top: .1em;
+    }
+
+    .contents {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .content {
+        width: 100%;
+        margin: 2% 0;
+    }
+}
 </style>

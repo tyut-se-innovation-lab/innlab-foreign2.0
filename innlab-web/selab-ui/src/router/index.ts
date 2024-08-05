@@ -9,7 +9,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home,
-      // meta: { footer: true },
+      meta: { sidebar: true },
       beforeEnter: (to, from, next) => {
         // 判断是否是从非首页跳转到首页，如果是则执行页面刷新逻辑
         bus.emit('loading', true);
@@ -27,14 +27,14 @@ const router = createRouter({
       path: '/description',
       name: 'description',
       component: () => import('../views/describe/index.vue'),
-      meta: { header: true }
+      meta: { header: true, sidebar: true }
     },
     {
       path: '/part',
       name: 'part',
       component: () => import('../views/part/text.vue'),
       // meta: { header_unhome: true, footer: true },
-      meta: { header: true },
+      meta: { header: true, sidebar: true },
 
     },
     {
@@ -42,14 +42,14 @@ const router = createRouter({
       name: 'blog',
       component: () => import('../views/blog/index.vue'),
       // meta: { header_unhome: true, footer: true }
-      meta: { header: true }
+      meta: { header: true, sidebar: true }
     },
     {
       path: '/proMd',
       name: 'proMd',
       component: () => import('../views/proMd/index.vue'),
       // meta: { header_unhome: true, footer: true }
-      meta: { header: true }
+      meta: { header: true, sidebar: true }
     },
     {
       path: '/people',
@@ -62,12 +62,13 @@ const router = createRouter({
       path: '/activity',
       name: 'activity',
       component: () => import('../views/activity/index.vue'),
-      // meta: { header: true }
+      meta: { sidebar: true }
     },
     {
       path: '/about',
       name: 'about',
       component: () => import('../views/about/index.vue'),
+      meta: { sidebar: true }
     }
   ]
 })

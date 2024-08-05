@@ -504,60 +504,60 @@ const LinkTo = (elementId: number) => {
 /* 移动端适配 */
 @media (max-width: 1248px) {
 
-    .parts {
-        padding: 6%;
-    }
+.parts {
+    padding: 6%;
+}
 
-    .parts-bottom {
+.parts-bottom {
 
-        flex-direction: column;
-        padding-right: 0;
-    }
+    flex-direction: column;
+    padding-right: 0;
+}
 
-    .partDesc {
-        width: 100%;
+.partDesc {
+    width: 100%;
 
-    }
+}
 
-    .descTitle {
-        margin-left: 0 !important;
-    }
+.descTitle {
+    margin-left: 0 !important;
+}
 
-    .swiper {
-        width: 100%;
-        margin-top: 8%;
-    }
+.swiper {
+    width: 100%;
+    margin-top: 8%;
+}
 
-    .swiper-slide {
-        width: 100% !important;
-    }
+.swiper-slide {
+    width: 100% !important;
+}
 
 
-    .slideImg {
-        min-height: 10em;
-    }
+.slideImg {
+    min-height: 10em;
+}
 
-    .slideText {
-        min-height: 15em;
-    }
+.slideText {
+    min-height: 15em;
+}
 
-    .slbtn {
-        min-height: 7em;
-    }
+.slbtn {
+    min-height: 7em;
+}
 
-    :deep(.swiper-button-prev) {
-        left: var(--swiper-navigation-sides-offset, 12%);
-        top: var(--swiper-navigation-sides-offset, 109%);
-    }
+:deep(.swiper-button-prev) {
+    left: var(--swiper-navigation-sides-offset, 12%);
+    top: var(--swiper-navigation-sides-offset, 109%);
+}
 
-    :deep(.swiper-button-next) {
-        left: var(--swiper-navigation-sides-offset, 67%);
-        top: var(--swiper-navigation-sides-offset, 109%);
-    }
+:deep(.swiper-button-next) {
+    left: var(--swiper-navigation-sides-offset, 67%);
+    top: var(--swiper-navigation-sides-offset, 109%);
+}
 
-    :deep(.swiper-slide-active) {
-        width: 100% !important;
-    }
+:deep(.swiper-slide-active) {
+    width: 100% !important;
+}
 
 }
 </style>

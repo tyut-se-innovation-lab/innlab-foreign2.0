@@ -84,7 +84,7 @@ onMounted(() => {
     window.addEventListener("scroll", handleScroll);
 
     currentPath.value = route.currentRoute.value.name;
-    if (route.currentRoute.value.name == 'about' || route.currentRoute.value.name == 'activity' || route.currentRoute.value.name == 'blog') {
+    if (route.currentRoute.value.name == 'about' || route.currentRoute.value.name == 'activity' || route.currentRoute.value.name == 'blog' || route.currentRoute.value.name == 'proMd') {
         isBlue.value = true;
     }
 });

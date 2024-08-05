@@ -6,6 +6,7 @@
                 <div class="text">
                     <span @click="linkTo(15)">侵权处理</span>
                     <span @click="linkTo(16)">版权声明</span>
+                    <span @click="linkTo(16)">开发人员致谢</span>
                 </div>
             </div>
         </header>
@@ -75,10 +76,6 @@ const linkTo = (item: number) => {
 <style scoped>
 .footer {
     width: 100%;
-    min-width: 1140px;
-    /* height: 50px; */
-    /* border-top: solid 1px #dedede; */
-    /* line-height: 50px; */
     display: flex;
     flex-direction: column;
     color: white;
@@ -97,19 +94,22 @@ header {
     align-items: center;
     justify-content: space-between;
 
-    img {
+ 
+}
+.logo    img {
         width: 160px;
     }
-}
 
 .text {
-    width: 10%;
+    width: 20%;
     display: flex;
     justify-content: space-between;
 
-    span {
-        cursor: pointer;
-    }
+
+}
+
+.text span {
+    cursor: pointer;
 }
 
 section {
@@ -203,7 +203,7 @@ span {
 @media (max-width: 1248px) {
     .footer {
         width: 100%;
-        min-width: 110%;
+
         /* height: 50px; */
         /* border-top: solid 1px #dedede; */
         /* line-height: 50px; */
@@ -220,10 +220,33 @@ span {
         align-items: center;
         justify-content: space-around;
 
-        img {
-            display: none;
-        }
     }
 
+    .logo img {
+        display: none;
+    }
+
+    .text {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .text span {
+        margin-right: 4%;
+    }
+
+    .main {
+        display: none;
+    }
+
+    .dinner {
+
+        flex-direction: column;
+    }
+
+    .dinner a {
+        display: none;
+    }
 }
 </style>

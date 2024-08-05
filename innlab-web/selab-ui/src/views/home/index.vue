@@ -201,6 +201,7 @@ onBeforeUnmount(() => {
   animation: slideTop 1s ease 1.3s forwards
 }
 
+
 @-webkit-keyframes slideTop {
   0% {
     opacity: 0;
@@ -489,6 +490,7 @@ onBeforeUnmount(() => {
 }
 
 #desc {
+  min-height: 107vh;
   background-color: white;
 }
 
@@ -543,6 +545,7 @@ onBeforeUnmount(() => {
   /* banner */
   .banner {
     height: 28vh;
+    margin-top: 4em;
   }
 
   .left-info .content {
@@ -571,5 +574,9 @@ onBeforeUnmount(() => {
     padding: 3px 8px;
   }
 
+  #desc {
+    min-height: 80vh;
+    font-size: 14px;
+  }
 }
 </style>

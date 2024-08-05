@@ -70,6 +70,7 @@
                 </div>
 
                 <div class="main">
+                    <div class="partAc_title">部门动态</div>
                     <div id="partsAc" class="row">
                         <div class="part">
 
@@ -401,6 +402,19 @@ onMounted(() => {
     display: flex;
     width: 120%;
     margin-top: 10%;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* part */
+.partAc_title {
+    text-transform: uppercase;
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #4474c4;
+    margin-bottom: 5em;
+    letter-spacing: 1em;
+    /* margin-left: 1em; */
 }
 
 #partsAc {
@@ -413,6 +427,7 @@ onMounted(() => {
 .part {
     /* min-width: 19em; */
     width: calc(100%/5);
+    min-height: 16em;
     height: 32em;
     padding: 2em 2em;
     background: linear-gradient(45deg, #a2c3df, transparent);
@@ -515,13 +530,13 @@ onMounted(() => {
     overflow: hidden;
     transition: all .2s;
 
-    img {
-        width: 60%;
-        height: 95%;
-        /* object-fit: cover; */
-        margin-left: 5%;
-    }
+}
 
+.seAcBigImg img {
+    width: 60%;
+    height: 95%;
+    /* object-fit: cover; */
+    margin-left: 5%;
 }
 
 .seAcBigImgBorder {
@@ -560,22 +575,24 @@ onMounted(() => {
     border-bottom: 8px solid #4474c4;
     transition: all .2s;
 
-    h5 {
-        color: black;
-        cursor: pointer;
-        margin-top: .10546875em;
-        font-size: 2.2352941176em;
-        font-family: alternate-gothic-extra-cond, tahoma, sans-serif;
-        line-height: 1.2;
-        display: block;
-        padding-bottom: 0;
-        padding-top: 0;
-        transition: all .1s;
-    }
 
-    h5:hover {
-        color: #4474c4;
-    }
+}
+
+.seAcBigText h5 {
+    color: black;
+    cursor: pointer;
+    margin-top: .10546875em;
+    font-size: 2.2352941176em;
+    font-family: alternate-gothic-extra-cond, tahoma, sans-serif;
+    line-height: 1.2;
+    display: block;
+    padding-bottom: 0;
+    padding-top: 0;
+    transition: all .1s;
+}
+
+.seAcBigText h5:hover {
+    color: #4474c4;
 }
 
 .seAcBigText:hover {
@@ -606,10 +623,12 @@ onMounted(() => {
     width: 100%;
     height: 100%;
 
-    img {
-        width: 100%;
-        height: 100%;
-    }
+
+}
+
+.seAcImg img {
+    width: 100%;
+    height: 100%;
 }
 
 .seAcText {
@@ -643,6 +662,9 @@ onMounted(() => {
     list-style: disc !important;
     list-style-position: outside !important;
 } */
+
+
+
 
 ul.style1 {}
 
@@ -761,10 +783,10 @@ ul.style1 span:hover {
         font-size: 1.75em;
     }
 
-    /* .selab {
-        width: 520px;
-        height: 60px;
-    } */
+    .partAc_title {
+        font-size: 1.75em;
+    }
+
 
     .seTitle {
         font-size: 1.1em;
@@ -790,7 +812,7 @@ ul.style1 span:hover {
 
     .homeActivity:after {
 
-        bottom: -1.8%;
+        bottom: -1.9%;
 
     }
 
@@ -800,6 +822,19 @@ ul.style1 span:hover {
 
     .mobileselab {
         display: flex;
+    }
+
+    .main {
+        /* padding: 3em 0em 0em 0em; */
+        display: flex;
+        width: 100%;
+        margin-top: 10%;
+        flex-direction: column;
+    }
+
+    .partAc_title {
+
+        margin-bottom: .3em;
     }
 
     .selabAc {
@@ -827,11 +862,13 @@ ul.style1 span:hover {
         width: 100%;
         height: 40%;
 
-        img {
-            width: 100%;
-            height: 100%;
-            margin-left: 0%;
-        }
+
+    }
+
+    .seAcBigImg img {
+        width: 100%;
+        height: 100%;
+        margin-left: 0%;
     }
 
     .seAcBigImgBorder {
@@ -852,13 +889,15 @@ ul.style1 span:hover {
     #partsAc {
         display: flex;
         flex-direction: column;
-        padding: 6%;
+
+        padding: 1% 6%;
+
     }
 
     .part {
         /* min-width: 19em; */
         width: 100%;
-        height: 32em;
+        height: 26em;
         padding: 2em 2em;
         margin-top: 13%;
     }

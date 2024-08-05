@@ -3,20 +3,40 @@
         <div class="clockMainTitle">
             发展历史
         </div>
-        <!-- 向上箭头 -->
-        <svg t="1721216671697" class="icon iconfont icon-arrow-up-bold" id="up-btn" @click="slideToNext()"
-            viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4265" width="48" height="48">
-            <path
-                d="M966.4 668.8l-435.2-432c-9.6-9.6-25.6-9.6-35.2 0l-441.6 432c-9.6 9.6-9.6 25.6 0 35.2 9.6 9.6 25.6 9.6 35.2 0l425.6-416 416 416c9.6 9.6 25.6 9.6 35.2 0S976 678.4 966.4 668.8z"
-                p-id="4266" fill="#ffffff"></path>
-        </svg>
-        <!-- 向下箭头 -->
-        <svg t="1721216777901" class="icon iconfont icon-arrow-down-bold" id="down-btn" @click="slideToPrev()"
-            viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1424" width="48" height="48">
-            <path
-                d="M966.4 323.2c-9.6-9.6-25.6-9.6-35.2 0l-416 416-425.6-416c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l441.6 432c9.6 9.6 25.6 9.6 35.2 0l435.2-432C976 345.6 976 332.8 966.4 323.2z"
-                p-id="1425" fill="#ffffff"></path>
-        </svg>
+        <div class="changebtn">
+            <!-- 向上箭头 -->
+            <svg t="1721216671697" class="icon iconfont icon-arrow-up-bold" id="up-btn" @click="slideToNext()"
+                viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4265" width="48"
+                height="48">
+                <path
+                    d="M966.4 668.8l-435.2-432c-9.6-9.6-25.6-9.6-35.2 0l-441.6 432c-9.6 9.6-9.6 25.6 0 35.2 9.6 9.6 25.6 9.6 35.2 0l425.6-416 416 416c9.6 9.6 25.6 9.6 35.2 0S976 678.4 966.4 668.8z"
+                    p-id="4266" fill="#ffffff"></path>
+            </svg>
+            <!-- 向下箭头 -->
+            <svg t="1721216777901" class="icon iconfont icon-arrow-down-bold" id="down-btn" @click="slideToPrev()"
+                viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1424" width="48"
+                height="48">
+                <path
+                    d="M966.4 323.2c-9.6-9.6-25.6-9.6-35.2 0l-416 416-425.6-416c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l441.6 432c9.6 9.6 25.6 9.6 35.2 0l435.2-432C976 345.6 976 332.8 966.4 323.2z"
+                    p-id="1425" fill="#ffffff"></path>
+            </svg>
+        </div>
+        <div class="mobilechangebtn">
+            <!-- 向左箭头 -->
+            <svg t="1722680567377" class="icon" id="up-btn" @click="slideToNext()" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="4245" width="48" height="48">
+                <path
+                    d="M401.066667 512l302.933333 302.933333-59.733333 59.733334L341.333333 571.733333 281.6 512 341.333333 452.266667l302.933334-302.933334 59.733333 59.733334L401.066667 512z"
+                    fill="#ffffff" p-id="4246"></path>
+            </svg>
+            <!-- 向右箭头 -->
+            <svg t="1722680652664" class="icon" id="down-btn" @click="slideToPrev()" viewBox="0 0 1024 1024"
+                version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6083" width="48" height="48">
+                <path
+                    d="M761.055557 532.128047c0.512619-0.992555 1.343475-1.823411 1.792447-2.848649 8.800538-18.304636 5.919204-40.703346-9.664077-55.424808L399.935923 139.743798c-19.264507-18.208305-49.631179-17.344765-67.872168 1.888778-18.208305 19.264507-17.375729 49.631179 1.888778 67.872168l316.960409 299.839269L335.199677 813.631716c-19.071845 18.399247-19.648112 48.767639-1.247144 67.872168 9.407768 9.791372 21.984142 14.688778 34.560516 14.688778 12.000108 0 24.000215-4.479398 33.311652-13.439914l350.048434-337.375729c0.672598-0.672598 0.927187-1.599785 1.599785-2.303346 0.512619-0.479935 1.056202-0.832576 1.567101-1.343475C757.759656 538.879828 759.199462 535.391265 761.055557 532.128047z"
+                    fill="#ffffff" p-id="6084"></path>
+            </svg>
+        </div>
         <div id="clockcontent" data-aos="fade-in" data-aos-duration="800" data-aos-delay="400">
             <div class="clockcard" v-for="(item, index) in historyList" :key="index"
                 :style="{ transform: `translateY(${(index - offset) * 100}%)` }">
@@ -185,6 +205,14 @@ function updateClock(): void {
     font-size: 32px;
 }
 
+.changebtn {
+    display: block;
+}
+
+.mobilechangebtn {
+    display: none;
+}
+
 .iconfont {
     width: 80px;
     height: 80px;
@@ -249,7 +277,7 @@ function updateClock(): void {
     top: -4%;
     border-radius: 50%;
     background-color: white;
-    border: #026bc3 30px solid;
+    border: #214d98 30px solid;
 }
 
 
@@ -275,7 +303,7 @@ function updateClock(): void {
 .clock-thick {
     width: 6%;
     height: 6px;
-    background-color: #5053fc;
+    background-color: #025db3;
     position: absolute;
     top: calc(50% - 3px);
     left: 0px;
@@ -286,23 +314,52 @@ function updateClock(): void {
     position: absolute;
     left: 140%;
     top: calc(50% - 30px);
-    color: #5053fc;
+    color: #025db3;
 }
 
 .clock-scale {
     width: 4%;
     height: 2px;
-    background-color: #5053fc;
+    background-color: #025db3;
     position: absolute;
     top: calc(50% - .5px);
     left: 0px;
 }
 
 @media(max-width:1284px) {
-
+    .clockmain {
+    width: 100vw;
+    height: 55vh;
+    min-height:55vh !important;
+    display: flex;
+    align-items: center;
+}
     #clock {
 
         display: none;
+    }
+
+    .changebtn {
+        display: none;
+    }
+
+    .mobilechangebtn {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: relative;
+    }
+
+    #up-btn {
+        top: 50%;
+        left: 0;
+        position: absolute;
+    }
+
+    #down-btn {
+        top: 50%;
+        right: 0;
+        position: absolute;
     }
 
     #clockcontent {
@@ -316,5 +373,29 @@ function updateClock(): void {
 
     }
 
+    .clockMainTitle {
+        color: white;
+        position: absolute;
+        top: 3%;
+        left: 5%;
+        font-size: 22px;
+    }
+
+    .clockcard {
+        width: 89%;
+    }
+
+    .clockcard-time {
+        font-size: 25px;
+    }
+
+    .clockcard-title {
+        font-size: 35px;
+    }
+
+    .clockcard-passage {
+        font-size: 18px;
+        font-weight: 300;
+    }
 }
 </style>

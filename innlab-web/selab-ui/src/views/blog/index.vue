@@ -161,15 +161,6 @@
 
                     </ul>
 
-                    <h3>活 动 一 览</h3>
-                    <div class="imgs">
-                        <div class="imgbox" v-for="(item, index) in ActivitiesList" v-show="index < 5">
-                            <img @click="linkTo(item.activityId)" :src="item.headerImage" alt="" />
-                        </div>
-                    </div>
-
-
-
                 </aside><!-- end of sidebar -->
             </div>
         </div>
@@ -192,6 +183,7 @@ import { parseLanzouLink } from '@/utils/getFileByBackend';
 import { toQQzone, toQQ, toWeibo, toWechat } from './share.js'
 import QRCode from 'qrcode';
 import useClipboard from 'vue-clipboard3'
+import { ElMessage } from 'element-plus'
 
 // 点击复制链接
 const { toClipboard } = useClipboard()
@@ -199,7 +191,11 @@ const copyLink = async () => {
     const link = window.location.href;
     try {
         await toClipboard(link)
-        alert('Copied to clipboard')
+        ElMessage({
+            message: '链接已成功复制',
+            type: 'success',
+            plain: true,
+        });
     } catch (e) {
         console.error(e)
     }
@@ -648,17 +644,14 @@ aside .imgs {
     display: flex;
     margin: 6% 0;
 
-    li {
-        margin-right: 1%;
-        display: flex;
-        align-items: center;
-        color: #bfbfbf;
-        cursor: pointer;
+}
 
-
-    }
-
-
+.acts li {
+    margin-right: 1%;
+    display: flex;
+    align-items: center;
+    color: #bfbfbf;
+    cursor: pointer;
 
 }
 
@@ -813,5 +806,93 @@ aside .imgs {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+/* 移动端适配 */
+@media (max-width: 1284px) {
+
+    .blog {
+        width: 100%;
+        display: flex;
+        padding: 6em 2em;
+
+    }
+
+    .bigtitle h1 {
+        font-size: 1.5em;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        /* height: 1200px; */
+        padding: 4%;
+        padding-top: 3%;
+        border-right: none;
+    }
+
+    .mzsm {
+        position: relative;
+        margin: 25px 0 15px;
+        padding: 3em 1em;
+    }
+
+    .mzsm p {
+        display: block;
+        line-height: 1.3em;
+        margin-bottom: .5em;
+        font-size: 0.6em;
+    }
+
+    .acts {
+
+        width: 100%;
+    }
+
+    .shareList {
+
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .shareList .icon-content {
+
+        margin: 0 .3em;
+
+    }
+
+    .shareList .icon-content a {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 50px;
+        border-radius: 50%;
+        color: #cdcdcd;
+        background-color: #fff;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .shareList .icon-content .tooltip {
+
+        z-index: 200;
+    }
+
+    .about {
+        width: 28%;
+        padding: .4em;
+        padding-top: 1.5em;
+        display: none;
+    }
+
+    aside h3 {
+        padding-left: 4%;
+        font-size: 0.6em;
+    }
+
+
 }
 </style>
