@@ -1,6 +1,7 @@
 package tyut.selab.framework.domain.dto.param;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -13,7 +14,8 @@ import lombok.Data;
 @Data
 @Schema(description = "用户分页信息")
 public class UserParam extends PageParam {
+    @Size(max = 20, message = "账号必须在5~20字符之间")
     private String userAccount;
+    @Size(min = 4, max = 4, message = "用户部门必须为4字符")
     private String userDepartment;
-//    private String userEmail;
 }

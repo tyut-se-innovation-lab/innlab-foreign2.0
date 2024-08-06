@@ -52,6 +52,7 @@ public class UpdateActivityDto {
     /**
      * 活动类型
      */
+    @Schema(description = "活动类型")
     @Size(min = 1,max = 20,message = "活动类型必须在1-20字符之间！")
     private String activityType;
 

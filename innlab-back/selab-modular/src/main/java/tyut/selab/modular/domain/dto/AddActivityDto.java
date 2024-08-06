@@ -47,6 +47,7 @@ public class AddActivityDto {
     /**
      * 活动类型
      */
-    @NotNull(message = "活动类型介不能为null")
+    @NotNull(message = "活动类型不能为null")
+    @Size(min = 1,max = 20,message = "活动类型必须在1-20字符之间！")
     private String activityType;
 }

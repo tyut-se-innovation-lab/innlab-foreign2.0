@@ -61,6 +61,9 @@ public class ActivityTitleVo {
     @Schema(description = "创建时间")
     private String createTime;
 
+    @Schema(description = "作者")
+    private String author;
+
     /**
      * 活动状态
      */
@@ -77,8 +80,10 @@ public class ActivityTitleVo {
         this.activityIntroduction = activityEntity.getActivityIntroduction();
         this.state = activityEntity.getState();
         this.isTop = activityEntity.getIsTop();
+        this.author = activityEntity.getCreateUser();
         this.createTime = activityEntity.getCreateTime();
         this.pageView = activityEntity.getPageView();
+
         if (ObjectUtils.isNotNull(activityEntity.getActivityDepartment())){
             this.activityDepartment = EnumUtils.getDepartmentNameById(String.valueOf(activityEntity.getActivityDepartment()));
         }

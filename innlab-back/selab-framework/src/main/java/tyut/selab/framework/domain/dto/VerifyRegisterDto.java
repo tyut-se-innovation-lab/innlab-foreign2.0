@@ -33,5 +33,6 @@ public class VerifyRegisterDto {
     @Schema(description = "用户注册邮箱")
     @Email(message = "邮箱格式异常")
     @NotBlank(message = "邮箱不能为空")
+    @Size(min = 5, max = 50, message = "邮箱必须在5~50字符之间")
     private String userEmail;
 }

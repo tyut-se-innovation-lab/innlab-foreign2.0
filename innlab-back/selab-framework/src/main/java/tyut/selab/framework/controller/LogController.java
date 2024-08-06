@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,12 +31,14 @@ public class LogController {
     private ILogService iLogService;
 
     @PostMapping("/getLoginLogList")
+    @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "获取登陆日志列表",description ="")
     public R getLoginLogList(@RequestBody @Validated LogParam logParam){
         return iLogService.getLoginLogList(logParam);
     }
 
     @PostMapping("/getSysLogList")
+    @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "获取系统日志列表",description ="")
     public R getSysLogList(@RequestBody @Validated LogParam logParam){
         return iLogService.getSysLogList(logParam);
@@ -43,6 +46,7 @@ public class LogController {
 
 
     @PostMapping("/getAccessLogList")
+    @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "获取访问日志列表",description ="")
     public R getAccessLogList(@RequestBody @Validated LogParam logParam){
         return iLogService.getAccessLogList(logParam);

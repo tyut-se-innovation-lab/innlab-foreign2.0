@@ -18,11 +18,11 @@ spring:
     #数据库驱动完整类名
     driver-class-name: com.mysql.cj.jdbc.Driver
     #数据库连接url
-    url: jdbc:mysql://49.232.217.248:3306/selab_foreign
+    url: jdbc:mysql://127.0.0.1:3306/selab_foreign
     #数据库用户名
     username: foreign
     #数据库密码
-    password: q482686291
+    password: ntptxKNRAFh8APpG
     # druid 连接池管理
     druid:
       filter:

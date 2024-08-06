@@ -10,6 +10,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import tyut.selab.common.domain.BaseEntity;
+import tyut.selab.modular.domain.vo.ImageVo;
+
 import java.util.Date;
 
 @Data
@@ -35,6 +37,9 @@ public class HistoryEntity extends BaseEntity {
     @Size(min = 1,max = 20,message = "历史标题必须在1-20字符之间！")
     @TableField(value = "history_title")
     private String historyTitle;
+
+    @TableField("header_image")
+    private Integer headerImage;
 
     /**
      * 具体事件
