@@ -49,11 +49,13 @@
       <!-- description -->
       <Desc id="desc" ref="desc"></Desc>
 
-      <!-- history -->
-      <History id="history"></History>
+
 
       <!-- part -->
       <Part id="part" class=""></Part>
+
+      <!-- history -->
+      <History id="history"></History>
 
       <!-- actvity -->
       <Act id="act"></Act>
@@ -70,7 +72,7 @@ import { ref, reactive, onMounted, computed, onBeforeUnmount, nextTick } from "v
 import Header from '@/components/header/header.vue'
 import Banner from "@/components/banner/banner.vue"
 import Desc from "@/views/home/components/description/index.vue"
-import History from "@/views/home/components/history/test.vue"
+import History from "@/views/home/components/history/index.vue"
 import Act from "@/views/home/components/activity/index.vue"
 import People from "@/views/home/components/people/index.vue"
 import Part from "@/views/home/components/part/test.vue"
@@ -473,8 +475,7 @@ onBeforeUnmount(() => {
 
 /* main */
 #main {
-  background-color: #010207;
-  background-image: url(public/img/homeImg/background2.png);
+  background-color: white;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0 0;
@@ -490,7 +491,7 @@ onBeforeUnmount(() => {
 }
 
 #desc {
-  min-height: 107vh;
+  min-height: 86vh;
   background-color: white;
 }
 

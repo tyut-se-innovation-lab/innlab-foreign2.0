@@ -28,44 +28,44 @@
 
                     <ul class="notices">
                         <li class="notTitle">
-                            <p>通知公告</p>
+                            <p>站内公告</p>
                             <p>所有的伟大，都源于一个勇敢的开始</p>
                         </li>
 
                         <ul class="nots">
                             <li class="not">
                                 <a href="javascript:;">
-                                    <b>通知：</b>
+                                    <b>公告：</b>
                                     <span>系统升级到2.0</span>
                                 </a>
                             </li>
                             <li class="not">
                                 <a href="javascript:;">
-                                    <b>通知：</b>
+                                    <b>公告：</b>
                                     <span>系统升级到2.0</span>
                                 </a>
                             </li>
                             <li class="not">
                                 <a href="javascript:;">
-                                    <b>通知：</b>
+                                    <b>公告：</b>
                                     <span>系统升级到2.0</span>
                                 </a>
                             </li>
                             <li class="not">
                                 <a href="javascript:;">
-                                    <b>通知：</b>
+                                    <b>公告：</b>
                                     <span>系统升级到2.0</span>
                                 </a>
                             </li>
                             <li class="not">
                                 <a href="javascript:;">
-                                    <b>通知：</b>
+                                    <b>公告：</b>
                                     <span>系统升级到2.0</span>
                                 </a>
                             </li>
                             <li class="not">
                                 <a href="javascript:;">
-                                    <b>通知：</b>
+                                    <b>公告：</b>
                                     <span>系统升级到2.0</span>
                                 </a>
                             </li>
@@ -84,12 +84,13 @@
                         <h3>列表</h3>
                         <div class="botTags">
                             <el-tag :class="{ 'el-tag-act': index == actTag }" v-for="(item, index) in [
-                                { label: 'Tag 1' },
-                                { label: 'Tag 2' },
-                                { label: 'Tag 3' },
-                                { label: 'Tag 4' },
-                                { label: 'Tag 5' },
-                            ]" :key="item.label" @click="handleTag(index)" type="info" effect="light" round>
+                                { label: '全部' },
+                                { label: '日常活动' },
+                                { label: '技术分享' },
+                                { label: '资料宝库' },
+                                { label: '软件分享' },
+                            ]" :key="item.label" @click="handleTag(index, item.label)" type="info" effect="light"
+                                round>
                                 {{ item.label }}
                             </el-tag>
                         </div>
@@ -108,9 +109,8 @@
                                 </p>
                                 <div class="botDinner">
                                     <div class="botWriter">
-                                        <img src="https://static.7b2.com/wp-content/uploads/2023/01/StockSnap_BTFENA5E5V_1_avatar_aQMZX13321.jpg?x-oss-process=image/resize,m_fill,h_120,w_120/sharpen,120/format,webp"
-                                            alt="">
-                                        <span>作者</span>
+                                        <span>作者：</span>
+                                        <span>{{ item.author ? item.author : '匿名' }}</span>
                                     </div>
                                     <div class="botTime"><span>{{ item.createTime }}</span></div>
                                 </div>
@@ -126,37 +126,63 @@
 
         </main>
 
-
     </div>
 </template>
 <script setup lang="ts">
 import { ref, reactive, onMounted, defineProps } from "vue"
 import Header from '@/components/header/header.vue'
 import bus from '@/eventBus';
-import { getActs } from '@/api/activity/activity'
+import { getAllActs, getActs } from '@/api/activity/activity'
 import { parseLanzouLink } from '@/utils/getFileByBackend';
 import router from '@/router';
 
+// 热门动态
+const hotparams = ref({
+    pageNum: 1,
+    pageSize: 10,
+    activityType: '热门'
+})
+const HotActivitiesList = ref<Array<{ itemId: number; itemTitle: string; itemIntroduction: string; createTime: string }>>([]);
+HotActivitiesList.value = [{}];
+const getHotActivitiesList = async () => {
+    try {
+        const result = await getActs(hotparams.value);
+        HotActivitiesList.value = result.data.records;
+        HotActivitiesList.value.forEach(async e => {
+            e.headerImage = await parseLanzouLink(e.headerImage);
+        })
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
+
+// 分类活动
 const params = ref({
     pageNum: 1,
     pageSize: 10,
-    // activityType: '软件开发'
+    activityType: '全部'
 })
 const total = ref(10);
+
 const ActivitiesList = ref<Array<{ itemId: number; itemTitle: string; itemIntroduction: string; createTime: string }>>([]);
-ActivitiesList.value = [{
-    "activityId": 6,
-    "activityTitle": "觉醒年代",
-    "activityIntroduction": "民国的故事不只是军阀阔太，才子佳人 ，更是那些撕裂黑暗的熊熊焰火。",
-    "headerImage": {
-        "pwd": "gqr7",
-        "isNewd": "https://www.lanzouh.com",
-        "url": null,
-        "fid": "i8wCU24r5hkb"
-    },
-    "pageView": 0,
-    "createTime": "2024-07-17 22:15:22"
-}]
+ActivitiesList.value = [{}];
+const getAllActivitiesList = async () => {
+    try {
+        const result = await getAllActs(params.value);
+        ActivitiesList.value = result.data.records;
+        ActivitiesList.value.forEach(async e => {
+            e.headerImage = await parseLanzouLink(e.headerImage);
+        })
+        total.value = result.data.total;
+
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
 const getActivitiesList = async () => {
     try {
         const result = await getActs(params.value);
@@ -173,11 +199,33 @@ const getActivitiesList = async () => {
     }
 };
 
+const actTag = ref(0);
+const handleTag = (index, type) => {
+    actTag.value = index;
+    params.value.activityType = type;
+
+    if (type == '全部') {
+        getAllActivitiesList();
+    } else {
+        getActivitiesList();
+    }
+}
+
+
 const handleSizeChange = () => {
-    getActivitiesList();
+    if (params.value.activityType == '全部') {
+        getAllActivitiesList();
+    } else {
+        getActivitiesList();
+    }
+
 }
 const handleCurrentChange = () => {
-    getActivitiesList();
+    if (params.value.activityType == '全部') {
+        getAllActivitiesList();
+    } else {
+        getActivitiesList();
+    }
 }
 
 
@@ -187,17 +235,12 @@ const linkTo = (item: number) => {
 
 }
 
-const actTag = ref(0);
-const handleTag = (index) => {
-    actTag.value = index;
-}
-
 onMounted(() => {
     setTimeout(() => {
         bus.emit('loading', false);
     }, 1200); // 将 setTimeout 的延迟设置为 0 毫秒，确保在下一个事件循环中执行
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    getActivitiesList();
+    getAllActivitiesList();
 })
 
 const props = defineProps<{
@@ -413,7 +456,7 @@ main {
 
 .botHead {
     width: 100%;
-    height: 4em;
+    min-height: 4em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -429,10 +472,11 @@ main {
 
 .botTags {
     width: 40%;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 :deep(.el-tag) {
@@ -548,7 +592,7 @@ main {
 .botText .botDinner .botWriter span {
     color: #797C80;
     font-size: 12px;
-    margin-left: .6em;
+    /* margin-left: .6em; */
 }
 
 .botText .botDinner .botTime {
@@ -611,13 +655,14 @@ main {
 
     .botTags {
         width: 100%;
-        height: 100%;
-        justify-content: flex-start
+        /* min-height: 100%; */
+        justify-content: flex-start;
+        margin: .1em;
     }
 
     :deep(.el-tag) {
 
-        width: 4em;
+        max-width: 5em;
         height: 2.8em;
         margin-right: 0.7em;
 
@@ -633,7 +678,7 @@ main {
 
     .botImg {
         width: 100%;
-
+        height: 12em;
     }
 
     .botText {

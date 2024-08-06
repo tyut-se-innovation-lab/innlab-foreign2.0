@@ -342,12 +342,12 @@ onMounted(() => {
     content: '';
     display: block;
     width: 100%;
-    height: 100px;
-    background-image: url(public/img/disImg/torn-paper-wall.png);
+    height: 7.8em;
+    background-image: url(/public/img/disImg/torn-paper-wall.png);
     background-repeat: no-repeat;
     background-size: cover;
     position: absolute;
-    top: -2%;
+    top: -1.5%;
     left: 0;
     z-index: 1;
 }
@@ -356,7 +356,7 @@ onMounted(() => {
     content: '';
     display: block;
     width: 100%;
-    height: 100px;
+    height: 7.8em;
     background-image: url(public/img/disImg/torn-paper-wall.png);
     background-repeat: no-repeat;
     background-size: cover;

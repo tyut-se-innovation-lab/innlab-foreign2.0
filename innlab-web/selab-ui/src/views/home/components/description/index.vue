@@ -1,8 +1,8 @@
 <template>
   <div class="outer">
-    <div class="bigtitle">
-      <span>组织介绍</span>
-      <span>Introduction</span>
+    <div class="descTitle">
+      <h2>组织介绍</h2>
+      <span>INTRODUCTION</span>
     </div>
     <div class="content">
 
@@ -53,16 +53,28 @@ onMounted(() => {
   position: relative;
 }
 
-.bigtitle {
+
+
+.descTitle {
+  /* border-left: 3px solid #729bba; */
+  padding: 0 4%;
   margin: 6%;
-  font-size: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.bigtitle span:nth-child(2) {
-  font-size: 30px;
+.descTitle h2 {
+  font-size: 42px;
+  color: #333;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.descTitle span {
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
 }
 
 .content {
@@ -80,12 +92,13 @@ onMounted(() => {
   width: 45%;
   margin-bottom: 6%;
 
- 
+
 }
-.title  img {
-    width: 86%;
-    height: auto;
-  }
+
+.title img {
+  width: 86%;
+  height: auto;
+}
 
 
 main {
@@ -99,15 +112,16 @@ main {
   background-color: #02406f;
   background: linear-gradient(to right, #99b7ce, #002d72);
 
- 
-}
-main .text {
-    width: 50%;
-    font-size: 20px;
-    font-weight: 500;
-    color: white;
 
-  }
+}
+
+main .text {
+  width: 50%;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+
+}
 
 .img {
   width: 42%;
@@ -137,17 +151,22 @@ main .text {
 
 /* 移动端适配 */
 @media (max-width: 1248px) {
+  .descTitle h2 {
+    font-size: 33px;
+  }
 
   .content {
     padding: 2em;
 
   }
 
+
+
   main {
     width: 100%;
     justify-content: center;
     flex-direction: column;
-    
+
   }
 
   .text {

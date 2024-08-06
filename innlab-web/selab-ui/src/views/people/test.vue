@@ -772,8 +772,14 @@ onUnmounted(() => {
         font-size: 1em;
     }
 
+    .peoImg {
+        width: 8em;
+        height: 11em;
+    }
+
     .peoImg img {
-        width: 9em;
+        width: 100%;
+        height: 100%;
     }
 
     .style2 {

@@ -218,7 +218,7 @@ function updateClock(): void {
     height: 80px;
     position: absolute;
     left: 27%;
-    z-index: 999;
+    z-index: 2;
     font: 900 80px '';
     color: #fff;
 }
@@ -328,12 +328,13 @@ function updateClock(): void {
 
 @media(max-width:1284px) {
     .clockmain {
-    width: 100vw;
-    height: 55vh;
-    min-height:55vh !important;
-    display: flex;
-    align-items: center;
-}
+        width: 100vw;
+        height: 55vh;
+        min-height: 55vh !important;
+        display: flex;
+        align-items: center;
+    }
+
     #clock {
 
         display: none;

@@ -50,18 +50,8 @@
 
             <div class="bottom">
                 <div class="botHead">
-                    <h3>列表</h3>
-                    <div class="botTags">
-                        <el-tag :class="{ 'el-tag-act': index == actTag }" v-for="(item, index) in [
-                            { label: 'Tag 1' },
-                            { label: 'Tag 2' },
-                            { label: 'Tag 3' },
-                            { label: 'Tag 4' },
-                            { label: 'Tag 5' },
-                        ]" :key="item.label" @click="handleTag(index)" type="info" effect="light" round>
-                            {{ item.label }}
-                        </el-tag>
-                    </div>
+                    <h3>项目列表</h3>
+
                 </div>
                 <div v-if="total !== 0" class="botlists">
                     <div class="botlist" v-for="item in ProList" @click="linkTo(item.itemId)">
@@ -77,9 +67,8 @@
                             </p>
                             <div class="botDinner">
                                 <div class="botWriter">
-                                    <img src="https://static.7b2.com/wp-content/uploads/2023/01/StockSnap_BTFENA5E5V_1_avatar_aQMZX13321.jpg?x-oss-process=image/resize,m_fill,h_120,w_120/sharpen,120/format,webp"
-                                        alt="">
-                                    <span>作者</span>
+                                    <span>作者：</span>
+                                    <span>{{ item.author ? item.author : '匿名' }}</span>
                                 </div>
                                 <div class="botTime"><span>{{ item.createTime }}</span></div>
                             </div>
@@ -214,7 +203,9 @@ const ProList = ref<Array<{ itemId: number; itemTitle: string; itemIntroduction:
 
 
 const getProList = async () => {
+    console.log('partpara: ', params.value);
     try {
+
         const result = await getPros(params.value);
         ProList.value = result.data.records;
 
@@ -263,7 +254,7 @@ onMounted(async () => {
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    await getProList;
+    await getProList();
 });
 
 </script>
@@ -683,8 +674,6 @@ onMounted(async () => {
     display: flex;
     align-items: center;
 
-
-
 }
 
 .botText .botDinner .botWriter img {
@@ -696,7 +685,7 @@ onMounted(async () => {
 .botText .botDinner .botWriter span {
     color: #797C80;
     font-size: 12px;
-    margin-left: .6em;
+    /* margin-left: .6em; */
 }
 
 .botText .botDinner .botTime {
@@ -757,12 +746,11 @@ onMounted(async () => {
 
     .pros {
 
-        padding: 2em 3em;
+        padding: 2em 2em;
     }
 
     .botHead h3 {
-
-        display: none;
+        font-size: 1.2em;
     }
 
     .botTags {

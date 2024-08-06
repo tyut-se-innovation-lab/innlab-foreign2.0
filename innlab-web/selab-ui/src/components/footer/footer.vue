@@ -6,7 +6,7 @@
                 <div class="text">
                     <span @click="linkTo(15)">侵权处理</span>
                     <span @click="linkTo(16)">版权声明</span>
-                    <span @click="linkTo(16)">开发人员致谢</span>
+                    <span @click="linkTo(21)">开发人员致谢</span>
                 </div>
             </div>
         </header>
@@ -25,15 +25,12 @@
                     </div>
                 </div>
                 <div class="mainCon">
-                    <h1 class="mainTitle">网站主要建设人</h1>
+                    <h1 class="mainTitle">联系我们</h1>
                     <div class="mainMain">
-                        <span>乔璟润</span>
-                        <span>武慧东</span>
-                        <span>赵耀鑫</span>
-                        <span>赵艺强</span>
-                        <span>王振毅</span>
-                        <span>张嫣然</span>
-                        <span>曹泽仪</span>
+                        <span>地址：中国山西省晋中市榆次区大学街209号太原理工大学行勉楼</span>
+                        <span>联系方式：12345678900</span>
+                        <span>邮箱：tyutxcb@tyut.edu.cn</span>
+                        <span>邮编：030600</span>
                     </div>
                 </div>
             </div>
@@ -94,11 +91,12 @@ header {
     align-items: center;
     justify-content: space-between;
 
- 
+
 }
-.logo    img {
-        width: 160px;
-    }
+
+.logo img {
+    width: 160px;
+}
 
 .text {
     width: 20%;
@@ -143,6 +141,7 @@ section {
 
 
 .contact {
+    display: none;
     text-align: left;
 }
 
@@ -239,7 +238,10 @@ span {
     .main {
         display: none;
     }
+    .contact {
+    display: block;
 
+}
     .dinner {
 
         flex-direction: column;

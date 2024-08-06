@@ -217,10 +217,6 @@ const LinkTo = (elementId: number) => {
     border-left: 3px solid #729bba;
     padding: 0 4%;
     margin: 4%;
-
-
-
-
 }
 
 .descTitle h2 {
@@ -573,10 +569,10 @@ const LinkTo = (elementId: number) => {
     #mobileswiper {
         display: block;
     }
-    .descTitle h2{
-    font-size: 33px;
-   
-}
+
+    .descTitle h2 {
+        font-size: 33px;
+    }
 
     .parts {
         height: 120vh;
@@ -627,8 +623,8 @@ const LinkTo = (elementId: number) => {
     }
 
     :deep(.swiper-button-next) {
-        left:auto;
-        right:var(--swiper-navigation-sides-offset, 10%);
+        left: auto;
+        right: var(--swiper-navigation-sides-offset, 10%);
         top: var(--swiper-navigation-sides-offset, 109%);
     }
 
