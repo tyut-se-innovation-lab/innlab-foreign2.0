@@ -4,6 +4,7 @@ import groovy.util.logging.Slf4j;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.common.annotation.SysLogAnnotation;
@@ -29,43 +30,51 @@ public class ActivityController {
     private IActivityService iActivityService;
     @PostMapping("/addActivity")
     @Operation(summary = "添加机构动态")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R addActivity(@RequestBody @Validated AddActivityDto addActivityDto){
         return iActivityService.addActivity(addActivityDto);
     }
     @PostMapping("/activityList")
     @Operation(summary = "获取机构动态列表")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R activityList(@RequestBody @Validated ActivityParam activityParam){
         return iActivityService.getActivityList(activityParam);
     }
     @PostMapping("/updateActivity")
     @Operation(summary = "修改机构动态")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R updateActivity(@RequestBody @Validated UpdateActivityDto updateActivityDto){
         return iActivityService.updateActivity(updateActivityDto);
     }
     @PostMapping("/deleteActivity")
     @Operation(summary = "删除机构动态")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R deleteActivity(@RequestParam("activityId")Integer activityId){
         return iActivityService.deleteActivity(activityId);
     }
 
     @PostMapping("/addSubTitle")
     @Operation(summary = "添加小标题")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R addSubTitle(@RequestBody @Validated AddSubTitleDto addSubTitleDto){
         return iActivityService.addSubTitle(addSubTitleDto);
     }
 
     @PostMapping("/updateSubTitle")
     @Operation(summary = "修改小标题")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R updateSubTitle(@RequestBody @Validated UpdateSubTitleDto updateSubTitleDto){
         return iActivityService.updateSubTitle(updateSubTitleDto);
     }
     @PostMapping("/getActivityMsg1")
     @Operation(summary = "获取活动内容")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R getActivityMsg1(@RequestParam("activityId")Integer activityId){
         return iActivityService.getActivityMsg1(activityId);
     }
     @PostMapping("/deleteSubTitle")
     @Operation(summary = "删除小标题")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R deleteSubTitleById(@RequestParam("subTitleId")Integer subTitleId){
         return iActivityService.deleteSubTitleById(subTitleId);
     }

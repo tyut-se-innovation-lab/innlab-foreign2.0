@@ -27,6 +27,7 @@ public class UpdatePersonDto {
      * 隶属部门
      */
     @Schema(description = "人员所属部门")
+    @Size(min = 4,max = 4,message = "部门字符必须为4")
     private String personnelDepartment;
     /**
      * 人员姓名
@@ -37,7 +38,6 @@ public class UpdatePersonDto {
     /**
      * 人员头像
      */
-    @TableField(value = "personnel_avatar")
     private Integer personnelAvatar;
     /**
      * 年代（哪一届）
@@ -66,8 +66,8 @@ public class UpdatePersonDto {
     /**
      * 权重（默认1）
      */
-    @TableField(value = "personnel_sort")
     @Schema(description = "人员展示权重")
+    @Max(value = 9,message = "权重异常！")
     private Integer personnelSort;
 
     /**

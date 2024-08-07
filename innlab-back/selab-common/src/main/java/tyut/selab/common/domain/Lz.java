@@ -22,6 +22,8 @@ import java.io.Serializable;
 public class Lz implements Serializable  {
 
     @TableField("lz_pwd")
+    @NotNull(message = "资源pwd不能为空")
+    @Size(min = 4,max = 4,message = "资源fId格式错误！")
     private String pwd;
     @TableField("lz_f_id")
     @NotNull(message = "资源fId不能为空")

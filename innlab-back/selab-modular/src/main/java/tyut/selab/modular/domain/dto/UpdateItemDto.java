@@ -60,6 +60,7 @@ public class UpdateItemDto {
      * 项目地址
      */
     @Schema(description = "项目url")
+    @Size(min = 1,max = 200,message = "项目url在1~200字符之间")
     private String githubUrl;
     /**
      * 是否置顶

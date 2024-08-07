@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import tyut.selab.common.exception.ServiceException;
 import tyut.selab.common.utils.EnumUtils;
 import tyut.selab.common.utils.ObjectUtils;
+import tyut.selab.framework.domain.entity.RoleEntity;
 import tyut.selab.framework.domain.entity.UserEntity;
 import tyut.selab.framework.domain.model.LoginUser;
+import tyut.selab.framework.mapper.RoleMapper;
 import tyut.selab.framework.mapper.UserMapper;
 
 /**
@@ -26,8 +28,8 @@ import tyut.selab.framework.mapper.UserMapper;
 public class AccountUserDetailsService implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
-//    @Autowired
-//    private RoleMapper roleMapper;
+    @Autowired
+    private RoleMapper roleMapper;
     @Override
     public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
@@ -43,8 +45,10 @@ public class AccountUserDetailsService implements UserDetailsService {
         return createLoginUser(userEntity);
     }
     public UserDetails createLoginUser(UserEntity userEntity) {
-        LoginUser loginUser = new LoginUser();
-        return new LoginUser(userEntity.getUserId(),null,userEntity.getUserState(),userEntity.getUserAccount(), userEntity.getUserPassword(), EnumUtils.getDepartmentNameById(String.valueOf(userEntity.getUserDepartment())),userEntity.getUserNickname(),null,null);
+        LoginUser loginUser = new LoginUser(userEntity.getUserId(),null,userEntity.getUserState(),userEntity.getUserAccount(), userEntity.getUserPassword(), EnumUtils.getDepartmentNameById(String.valueOf(userEntity.getUserDepartment())),userEntity.getUserNickname(),null,null);
+        RoleEntity roleEntity = roleMapper.selectById(userEntity.getRoleId());
+        loginUser.setPermission(roleEntity.getRoleKey());
+        return loginUser;
     }
 
 }

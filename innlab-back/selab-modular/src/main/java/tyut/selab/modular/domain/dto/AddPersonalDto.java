@@ -21,6 +21,7 @@ public class AddPersonalDto {
      */
     @Schema(description = "人员所属部门")
     @NotBlank(message = "所属部门不能为空")
+    @Size(min = 4,max = 4,message = "部门字符必须为4")
     private String personnelDepartment;
     /**
      * 人员姓名
@@ -58,12 +59,11 @@ public class AddPersonalDto {
 
     @Schema(description = "人员语录")
     @Size(min = 1, max = 100, message = "语录不能超过200字")
-    @TableField(value = "personnel_saying")
     private String personnelSaying;
     /**
      * 权重（默认1）
      */
-    @TableField(value = "personnel_sort")
     @Schema(description = "人员展示权重")
+    @Max(value = 9,message = "权重异常！")
     private Integer personnelSort;
 }

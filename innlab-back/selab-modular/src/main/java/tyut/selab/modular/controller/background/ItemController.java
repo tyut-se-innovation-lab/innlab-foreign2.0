@@ -4,6 +4,7 @@ import groovy.util.logging.Slf4j;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tyut.selab.common.annotation.SysLogAnnotation;
@@ -33,11 +34,13 @@ public class ItemController {
     @SysLogAnnotation(operModul = "项目管理",operType = "新增",operDesc = "新增项目")
     @PostMapping("/addItem")
     @Operation(summary = "添加项目介绍")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R addItem(@RequestBody @Validated AddItemDto addItemDto){
         return iItemService.addItem(addItemDto);
     }
     @PostMapping("/getItemList")
     @Operation(summary = "获取项目列表")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R getItemlist(@RequestBody @Validated ItemParam itemParam){
         return iItemService.getItemList(itemParam);
     }
@@ -45,11 +48,13 @@ public class ItemController {
     @SysLogAnnotation(operModul = "项目管理",operType = "修改",operDesc = "修改项目")
     @PostMapping("/updateItem")
     @Operation(summary = "修改项目")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R updateItem(@RequestBody @Validated UpdateItemDto updateItemDto){
         return iItemService.updateItem(updateItemDto);
     }
 
     @PostMapping("/getItemMsg")
+    @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "获取项目详细信息")
     public R getItemMsgById(@RequestParam("itemId") Integer itemId){
         return iItemService.getItemMsg1(itemId);
@@ -58,6 +63,7 @@ public class ItemController {
     @SysLogAnnotation(operModul = "项目管理",operType = "删除",operDesc = "删除项目")
     @PostMapping("/deleteItem")
     @Operation(summary = "删除项目")
+    @PreAuthorize("@ss.hasPermission('admin')")
     public R deleteItemById(@RequestParam("itemId") Integer itemId){
         return iItemService.deleteItemById(itemId);
     }

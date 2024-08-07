@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,8 +33,10 @@ public class ResourceController {
     @Autowired
     private IResourceService iResourceService;
     @PostMapping("/cachexookie")
+    @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "缓存蓝奏云Cookie",description = "缓存蓝奏云Cookie")
     public R cacheCookie(@RequestBody @Validated CookieVo cookieVo){
+        Integer folderId = Integer.valueOf(cookieVo.getFolderId());
         return iResourceService.cacheCookie(cookieVo);
     }
 
@@ -41,11 +44,13 @@ public class ResourceController {
     @Parameter(name="file",description="上传文件",required=true)
     @Parameter(name="description",description="文件描述")
     @PostMapping("/addImage")
+    @PreAuthorize("@ss.hasPermission('admin')")
     @SysLogAnnotation(operModul = "资源管理",operType = "新增",operDesc = "添加图片")
     public R handleFileUploadImage(MultipartFile file,String description){
         return iResourceService.addResource(file,description,1);
     }
     @PostMapping("/addvideo")
+    @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "添加视频",description ="添加资源仅支持.mp4文件，调用本接口后需根据返回信息调用添加资源接口")
     @SysLogAnnotation(operModul = "资源管理",operType = "新增",operDesc = "添加视频")
     @Parameter(name="file",description="上传文件",required=true)
@@ -54,6 +59,7 @@ public class ResourceController {
         return iResourceService.addResource(file,description,2);
     }
     @PostMapping("/resourceList")
+    @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "资源列表",description ="获取资源列表方便管理")
     public R getResourceList(@RequestBody @Validated ResourceParam resourceParam){
         return iResourceService.getResourcelist(resourceParam);

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -42,5 +43,6 @@ public class UpdateSubTitleDto {
     /**
      * 小标题权重
      */
+    @Max(value = 99,message = "小标题权重异常！")
     private Integer subtitleSort;
 }

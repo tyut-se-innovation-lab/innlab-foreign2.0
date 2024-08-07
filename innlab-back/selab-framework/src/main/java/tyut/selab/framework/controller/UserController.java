@@ -83,27 +83,27 @@ public class UserController {
         return r;
     }
 
-    @PostMapping("/test")
-    @Operation(summary = "测试")
-    @SysLogAnnotation(operModul = "用户管理>>登陆管理", operType = "新增", operDesc = "测试接口")
-    public R test(HttpServletRequest httpServletRequest) {
-
-        UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader("User-Agent"));
-        //获取IP地址
-        String ip = IpUtil.getIpAddress(httpServletRequest);
-        System.out.println(ip);
-        //获取操作系统
-        String osName = userAgent.getOperatingSystem().getName();
-        System.out.println(osName);
-        //获取浏览器类型
-        String browser = userAgent.getBrowser().getName();
-        System.out.println(browser);
-        //获取登录地址
-        String location = AddressUtil.getAddressByIP(ip);
-        System.out.println(location);
-
-        return R.success();
-    }
+//    @PostMapping("/test")
+//    @Operation(summary = "测试")
+//    @SysLogAnnotation(operModul = "用户管理>>登陆管理", operType = "新增", operDesc = "测试接口")
+//    public R test(HttpServletRequest httpServletRequest) {
+//
+//        UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader("User-Agent"));
+//        //获取IP地址
+//        String ip = IpUtil.getIpAddress(httpServletRequest);
+//        System.out.println(ip);
+//        //获取操作系统
+//        String osName = userAgent.getOperatingSystem().getName();
+//        System.out.println(osName);
+//        //获取浏览器类型
+//        String browser = userAgent.getBrowser().getName();
+//        System.out.println(browser);
+//        //获取登录地址
+//        String location = AddressUtil.getAddressByIP(ip);
+//        System.out.println(location);
+//
+//        return R.success();
+//    }
     @PostMapping("/getSelfMag")
     @Operation(summary = "获取自己的登陆信息",description = "登陆成功后第一时间通过token调取，可以获得用户自己的信息")
     public R getSelfMsg() {

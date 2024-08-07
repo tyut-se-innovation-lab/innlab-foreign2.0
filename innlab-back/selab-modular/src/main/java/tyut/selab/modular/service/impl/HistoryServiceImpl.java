@@ -4,14 +4,20 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tyut.selab.common.constant.KeyConstants;
 import tyut.selab.common.domain.R;
 import tyut.selab.common.utils.ObjectUtils;
+import tyut.selab.common.utils.RedisUtils;
+import tyut.selab.common.utils.StringUtils;
 import tyut.selab.framework.domain.PageParam;
+import tyut.selab.framework.domain.entity.ResourceEntity;
+import tyut.selab.framework.mapper.ResourceMapper;
 import tyut.selab.framework.web.SecurityUtils;
 import tyut.selab.modular.domain.dto.AddHistoryDto;
 import tyut.selab.modular.domain.dto.UpdateHistoryDto;
 import tyut.selab.modular.domain.entity.HistoryEntity;
 import tyut.selab.modular.domain.vo.HistoryVo;
+import tyut.selab.modular.domain.vo.ImageVo;
 import tyut.selab.modular.mapper.HistoryMapper;
 import tyut.selab.modular.service.IHistoryService;
 
@@ -29,6 +35,10 @@ import java.util.List;
 public class HistoryServiceImpl implements IHistoryService {
     @Autowired
     private HistoryMapper historyMapper;
+    @Autowired
+    private ResourceMapper resourceMapper;
+    @Autowired
+    private RedisUtils redisUtils;
     @Override
     public R getHistoryForeign(PageParam pageParam){
         Page<HistoryEntity> page = new Page<>(pageParam.getPageNum(),pageParam.getPageSize());
@@ -38,10 +48,21 @@ public class HistoryServiceImpl implements IHistoryService {
         Page<HistoryEntity> historyPage = historyMapper.selectPage(page,queryWrapper);
         List<HistoryVo> historyVoList = new ArrayList<>();
         historyPage.getRecords().forEach(historyEntity -> {
-            HistoryVo historyVo = new HistoryVo();
-            historyVo.setHistoryContent(historyEntity.getHistoryContent());
-            historyVo.setHistoryTitle(historyEntity.getHistoryTitle());
-            historyVo.setHistoryTime(historyEntity.getHistoryTime());
+            HistoryVo historyVo = new HistoryVo(historyEntity);
+            ResourceEntity resourceEntity = resourceMapper.selectById(historyEntity.getHeaderImage());
+            if (ObjectUtils.isNotNull(resourceEntity)){
+                ImageVo imageVo = new ImageVo();
+                imageVo.setIsNewd(resourceEntity.getIsNewd());
+                imageVo.setPwd(resourceEntity.getPwd());
+                imageVo.setFId(resourceEntity.getFId());
+                String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+                if (StringUtils.isNotEmpty(lzLinkUrl)){
+                    imageVo.setUrl(lzLinkUrl);
+                }else {
+                    imageVo.setUrl(resourceEntity.getResourceUrl());
+                }
+                historyVo.setHeaderImage(imageVo);
+            }
             historyVoList.add(historyVo);
         });
         Page<HistoryVo> historyVoPage = new Page<>(historyPage.getCurrent(),historyPage.getSize(),historyPage.getTotal());

@@ -57,9 +57,7 @@ public class ItemServiceImpl implements IItemService {
         Page<ItemEntity> itemEntityPage = itemMapper.selectPage(page,itemEntityQueryWrapper);
         List<ItemTitleVo> itemTitleVos = new ArrayList<>();
         itemEntityPage.getRecords().forEach(itemEntity -> {
-            ItemTitleVo itemTitleVo = new ItemTitleVo();
-            itemTitleVo.setItemId(itemEntity.getItemId());
-            itemTitleVo.setItemTitle(itemEntity.getItemTitle());
+            ItemTitleVo itemTitleVo = new ItemTitleVo(itemEntity);
             itemTitleVos.add(itemTitleVo);
         });
         Page<ItemTitleVo> itemTitleVoPage = new Page<>(itemEntityPage.getCurrent(),itemEntityPage.getSize(),itemEntityPage.getTotal());
@@ -79,10 +77,7 @@ public class ItemServiceImpl implements IItemService {
         Page<ItemEntity> itemEntityPage = itemMapper.selectPage(page,itemEntityQueryWrapper);
         List<ItemTitleVo> itemTitleVos = new ArrayList<>();
         itemEntityPage.getRecords().forEach(itemEntity -> {
-            ItemTitleVo itemTitleVo = new ItemTitleVo();
-            itemTitleVo.setItemId(itemEntity.getItemId());
-            itemTitleVo.setItemTitle(itemEntity.getItemTitle());
-            itemTitleVo.setItemIntroduction(itemEntity.getItemIntroduction());
+            ItemTitleVo itemTitleVo = new ItemTitleVo(itemEntity);
             ResourceEntity resourceEntity = resourceMapper.selectById(itemEntity.getHeaderImage());
             if (ObjectUtils.isNotNull(resourceEntity)){
                 ImageVo imageVo = new ImageVo();
@@ -195,13 +190,7 @@ public class ItemServiceImpl implements IItemService {
         Page<ItemEntity> itemEntityPage = itemMapper.selectPage(page,itemEntityQueryWrapper);
         List<ItemTitleVo> itemTitleVos = new ArrayList<>();
         itemEntityPage.getRecords().forEach(itemEntity -> {
-            ItemTitleVo itemTitleVo = new ItemTitleVo();
-            itemTitleVo.setItemId(itemEntity.getItemId());
-            itemTitleVo.setItemTitle(itemEntity.getItemTitle());
-            itemTitleVo.setItemIntroduction(itemEntity.getItemIntroduction());
-            itemTitleVo.setIsTop(itemEntity.getIsTop());
-            itemTitleVo.setDepartment(EnumUtils.getDepartmentNameById(String.valueOf(itemEntity.getDepartmentId())));
-            itemTitleVo.setState(itemEntity.getState());
+            ItemTitleVo itemTitleVo = new ItemTitleVo(itemEntity);
             ResourceEntity resourceEntity = resourceMapper.selectById(itemEntity.getHeaderImage());
             if (ObjectUtils.isNotNull(resourceEntity)){
                 ImageVo imageVo = new ImageVo();

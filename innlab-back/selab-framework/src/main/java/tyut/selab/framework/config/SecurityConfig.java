@@ -53,9 +53,11 @@ public class SecurityConfig {
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Autowired
     private AccountUserDetailsService accountUserDetailsService;
-    private static final String[] URL_WHITELIST = {"foreign/*","/background/login","/background/register","/background/register/verify","/background/resource/getResourceByLz","/favicon.ico","/doc.html","/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs/**", "/druid/**","/foreign/**"};
+    private static final String[] URL_WHITELIST = {"foreign/*","/background/login","/background/register","/background/register/verify","/background/resource/getResourceByLz","/favicon.ico","/doc.html","/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs/**", "/druid/**"};
 
+//    private static final String[] URL_WHITELIST = {"foreign/*","/background/login","/background/register","/background/register/verify","/background/resource/getResourceByLz"};
     private static final String[] URL_WHITELIST_GET = {"/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**","/webjars/**"};
+//    private static final String[] URL_WHITELIST_GET = {};
 
 
     @Bean
