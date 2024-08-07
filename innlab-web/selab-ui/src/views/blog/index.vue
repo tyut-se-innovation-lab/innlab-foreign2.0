@@ -4,7 +4,8 @@
             <div class="info">
                 <div class="bigtitle">
                     <h1>{{ actInfo.activityTitle ? actInfo.activityTitle : 'title' }}</h1>
-                    <span>{{ actInfo.activityIntroduction ? actInfo.activityIntroduction : 'description' }}</span>
+                    <span v-show="actInfo.activityIntroduction">{{ actInfo.activityIntroduction ?
+                        actInfo.activityIntroduction : 'description' }}</span>
                     <div class="dinnerInfo">
                         <span v-show="actInfo.author">
                             <svg t="1722909503672" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -15,7 +16,7 @@
                             </svg>
                             {{ actInfo.author }}
                         </span>
-                        <span>
+                        <span v-show="actInfo.createTime">
                             <svg style="margin-right: .5%;" t="1721456104580" class="icon" viewBox="0 0 1024 1024"
                                 version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4312" width="18" height="18">
                                 <path
@@ -59,8 +60,8 @@
                             <!-- 空的占位符，延迟到视频资源加载完成后显示视频 -->
                         </article>
                         <article v-if="item.subtitleType == 3">
-                            <h2><a href="#">{{ item.subtitleName }}</a></h2>
-                            <a :href="item.resource"></a>
+                            <h2>{{ item.subtitleName }}</h2>
+                            <a class="link" v-for="linkItem in item.resource" :href="linkItem">点此跳转链接</a>
                         </article>
 
                     </div>
@@ -519,6 +520,11 @@ article img {
     border: none;
     -webkit-box-shadow: 3px 3px 7px #777;
     -moz-box-shadow: 3px 3px 7px #777;
+}
+
+article .link {
+    cursor: pointer;
+    color: #63a7f0;
 }
 
 :deep(.el-image) {

@@ -75,7 +75,7 @@
                         <div class="part">
 
                             <h2>软件开发</h2>
-                            <p class="subtitle">Condimentum nisl</p>
+                            <p class="subtitle">Software development</p>
                             <ul class="style1">
                                 <li v-for="item in rkPros"><span href="#" @click="linkProTo(item.itemId)">{{
                                     item.itemTitle }}</span></li>
@@ -98,7 +98,7 @@
                         <div class="part">
 
                             <h2>网络安全</h2>
-                            <p class="subtitle">luctus lectus</p>
+                            <p class="subtitle">Cybersecurity</p>
                             <ul class="style1">
                                 <li v-for="item in waPros"><span @click="linkProTo(item.itemId)">{{
                                     item.itemTitle }}</span></li>
@@ -119,7 +119,7 @@
                         <div class="part">
 
                             <h2>人工智能</h2>
-                            <p class="subtitle">luctus eleifend</p>
+                            <p class="subtitle">artificial intelligence</p>
                             <ul class="style1">
                                 <li v-for="item in aiPros"><span href="#" @click="linkProTo(item.itemId)">{{
                                     item.itemTitle }}</span></li>
@@ -140,7 +140,7 @@
                         <div class="part">
 
                             <h2>虚拟现实</h2>
-                            <p class="subtitle">dictum metus</p>
+                            <p class="subtitle">virtual reality</p>
                             <ul class="style1">
                                 <li v-for="item in vrPros"><span href="#" @click="linkProTo(item.itemId)">{{
                                     item.itemTitle }}</span></li>
@@ -161,7 +161,7 @@
                         <div class="part">
 
                             <h2>算法竞赛</h2>
-                            <p class="subtitle">dictum metus</p>
+                            <p class="subtitle">Algorithm competition</p>
                             <ul class="style1">
                                 <li v-for="item in vrPros"><span href="#" @click="linkProTo(item.itemId)">{{
                                     item.itemTitle }}</span></li>

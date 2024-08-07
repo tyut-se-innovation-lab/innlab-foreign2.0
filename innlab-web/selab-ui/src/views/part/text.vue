@@ -784,7 +784,7 @@ onMounted(async () => {
 
     .botImg {
         width: 100%;
-
+        height: 12em;
     }
 
     .botText {

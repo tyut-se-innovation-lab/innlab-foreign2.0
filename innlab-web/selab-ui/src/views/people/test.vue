@@ -256,7 +256,7 @@ const PeopleList = ref<Array<{}>>([]);
 const total = ref(0)
 const PeopleListParams = ref({
     pageNum: 1,
-    pageSize: 10,
+    pageSize: 8,
     period: "2022",
     department: "软件开发"
 })

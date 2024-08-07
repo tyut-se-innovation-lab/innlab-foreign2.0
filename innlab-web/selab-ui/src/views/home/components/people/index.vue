@@ -16,7 +16,19 @@
                         :period="item.personnelPeriod" :part="item.personnelDepartment"></ReadMore>
                 </div>
             </div>
-
+            <div class="mobilepeople" v-for="item in MobilePeopleList">
+                <div class="pImg">
+                    <img :src="item.personnelAvatar" alt="">
+                    <i class="block"></i>
+                </div>
+                <div class="pText">
+                    <h5>{{ item.personnelName }}</h5>
+                    <span>{{ item.personnelPeriod }}年</span>
+                    <span>{{ item.personnelDepartment }}</span>
+                    <ReadMore class="readmore" color="#6e7272" :people="item" :link="linkprop"
+                        :period="item.personnelPeriod" :part="item.personnelDepartment"></ReadMore>
+                </div>
+            </div>
         </div>
 
 
@@ -47,15 +59,36 @@ const PeopleList = ref<Array<{
 
 const PeopleListParams = ref({
     pageNum: 1,
-    pageSize: 10,
-    department: "软件开发",
-    period: 2022
+    pageSize: 8
 })
+
+const MobilePeopleList = ref<Array<{
+    personnelName: string;
+    personnelAvatar: string;
+    personnelPeriod: string;
+    personnelDepartment: string;
+    personnelPost: string;
+    personnelContribute: string;
+    personnelSaying: string;
+    personnelOrder: number;
+}>>([]);
+
+const MobilePeopleListParams = ref({
+    pageNum: 1,
+    pageSize: 4
+})
+
 const getPeopleList = async () => {
     try {
         const result = await getPeoples(PeopleListParams.value);
         PeopleList.value = result.data.records;
         PeopleList.value.forEach(async e => {
+            e.personnelAvatar = await parseLanzouLink(e.personnelAvatar);
+        })
+
+        const mobileresult = await getPeoples(MobilePeopleListParams.value);
+        MobilePeopleList.value = mobileresult.data.records;
+        MobilePeopleList.value.forEach(async e => {
             e.personnelAvatar = await parseLanzouLink(e.personnelAvatar);
         })
 
@@ -139,6 +172,30 @@ onMounted(() => {
     bottom: 0px;
 }
 
+.mobilepeople {
+    display: none;
+    width: 25%;
+    float: left;
+    height: 22em;
+    padding-left: 32px;
+    box-sizing: border-box;
+    position: relative;
+    background: #FBFBFB;
+    cursor: pointer;
+    transition: all .4s;
+}
+
+.mobilepeople:hover {
+    background: #F2F3F5;
+}
+
+.mobilepeople:hover .block {
+    left: 0px;
+    bottom: 0px;
+}
+
+
+
 .pImg {
     position: absolute;
     right: 0;
@@ -216,6 +273,11 @@ onMounted(() => {
     }
 
     .people {
+        display: none;
+    }
+
+    .mobilepeople {
+        display: block;
         width: 100%;
         margin: 3% 0;
         float: left;

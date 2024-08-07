@@ -12,7 +12,7 @@
 
                     <div class="hotActs">
                         <el-carousel ref="carousel" motion-blur indicator-position="none">
-                            <el-carousel-item v-for="item in ActivitiesList" :key="item">
+                            <el-carousel-item v-for="item in HotActivitiesList" :key="item">
                                 <div class="hotAc" @click="linkTo(item.activityId)">
                                     <img :src="item.headerImage" alt="">
                                     <div class="hotAcText">
@@ -33,42 +33,13 @@
                         </li>
 
                         <ul class="nots">
-                            <li class="not">
+                            <li class="not" v-for="item in NoticeList">
                                 <a href="javascript:;">
-                                    <b>公告：</b>
-                                    <span>系统升级到2.0</span>
+                                    <b>{{ item.activityTitle }}：</b>
+                                    <span>{{ item.activityIntroduction }}</span>
                                 </a>
                             </li>
-                            <li class="not">
-                                <a href="javascript:;">
-                                    <b>公告：</b>
-                                    <span>系统升级到2.0</span>
-                                </a>
-                            </li>
-                            <li class="not">
-                                <a href="javascript:;">
-                                    <b>公告：</b>
-                                    <span>系统升级到2.0</span>
-                                </a>
-                            </li>
-                            <li class="not">
-                                <a href="javascript:;">
-                                    <b>公告：</b>
-                                    <span>系统升级到2.0</span>
-                                </a>
-                            </li>
-                            <li class="not">
-                                <a href="javascript:;">
-                                    <b>公告：</b>
-                                    <span>系统升级到2.0</span>
-                                </a>
-                            </li>
-                            <li class="not">
-                                <a href="javascript:;">
-                                    <b>公告：</b>
-                                    <span>系统升级到2.0</span>
-                                </a>
-                            </li>
+                       
                         </ul>
 
 
@@ -149,6 +120,29 @@ const getHotActivitiesList = async () => {
         const result = await getActs(hotparams.value);
         HotActivitiesList.value = result.data.records;
         HotActivitiesList.value.forEach(async e => {
+            e.headerImage = await parseLanzouLink(e.headerImage);
+        })
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
+
+// 公告
+// 热门动态
+const notparams = ref({
+    pageNum: 1,
+    pageSize: 6,
+    activityType: '站内公告'
+})
+const NoticeList = ref<Array<{ itemId: number; itemTitle: string; itemIntroduction: string; createTime: string }>>([]);
+NoticeList.value = [{}];
+const getNoticeList = async () => {
+    try {
+        const result = await getActs(notparams.value);
+        NoticeList.value = result.data.records;
+        NoticeList.value.forEach(async e => {
             e.headerImage = await parseLanzouLink(e.headerImage);
         })
     } catch (error) {
@@ -240,6 +234,8 @@ onMounted(() => {
         bus.emit('loading', false);
     }, 1200); // 将 setTimeout 的延迟设置为 0 毫秒，确保在下一个事件循环中执行
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    getHotActivitiesList();
+    getNoticeList();
     getAllActivitiesList();
 })
 
@@ -664,8 +660,8 @@ main {
 
         max-width: 5em;
         height: 2.8em;
-        margin-right: 0.7em;
-
+        /* margin-right: 0.7em; */
+        margin: .6em;
     }
 
     .botlist {

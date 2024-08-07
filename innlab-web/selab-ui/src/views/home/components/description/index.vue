@@ -18,7 +18,7 @@
             在这里，你可以找到志同道合的伙伴，可以尽情提升和发挥自己
             的专业 能力，可以把学到的新奇的知识应用于实际中
           </span>
-          <Readmore link="/blog?actid=18" text="查看详情" color="white" style="margin-left: 30%;"></Readmore>
+          <Readmore link="/blog" actid="18" text="查看详情" color="white" style="margin-left: 30%;"></Readmore>
         </div>
 
       </main>
