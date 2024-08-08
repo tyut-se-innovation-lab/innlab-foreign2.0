@@ -7,6 +7,7 @@
                     <span @click="linkTo(15)">侵权处理</span>
                     <span @click="linkTo(16)">版权声明</span>
                     <span @click="linkTo(21)">开发人员致谢</span>
+                    <span @click="linkTo(27)">官网App</span>
                 </div>
             </div>
         </header>
@@ -51,9 +52,9 @@
     </div>
     <div class="dinner">
         <p>版权所有：太原理工大学软件学院创新实验室</p>
-        <a href="https://beian.mps.gov.cn/#/query/webSearch" class="a1" target="_blank">
-            晋公网安备</a>
-        <p>晋ICP备2024044169号</p>
+        <a href="https://beian.miit.gov.cn/" class="a1" target="_blank">
+            晋ICP备2024044169号</a>
+
 
     </div>
 </template>
@@ -99,10 +100,10 @@ header {
 }
 
 .text {
-    width: 20%;
+    width: 23%;
     display: flex;
     justify-content: space-between;
-
+    font-size: .9em;
 
 }
 
@@ -185,17 +186,25 @@ span {
 .dinner p {
     float: left;
     font-size: 12px;
-    margin-right: 1%;
+    margin-right: 3%;
 }
 
 .dinner a {
     cursor: pointer;
     float: left;
     font-size: 12px;
-    margin-right: 1%;
+    padding-right: 1.6rem;
 
     padding-left: 1.6rem;
     background: url(public/img/disImg/police.png) no-repeat left center;
+}
+
+.dinner .a2 {
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    padding-left: 0;
+    background: none;
 }
 
 /* 移动端适配 */
@@ -229,6 +238,7 @@ span {
         width: 100%;
         display: flex;
         justify-content: flex-start;
+        font-size: 0.8em;
     }
 
     .text span {
@@ -238,10 +248,12 @@ span {
     .main {
         display: none;
     }
-    .contact {
-    display: block;
 
-}
+    .contact {
+        display: block;
+
+    }
+
     .dinner {
 
         flex-direction: column;

@@ -3,7 +3,7 @@
         <div class="part">
 
 
-            <div class="content">
+            <div v-if="partName == '软件开发'" class="content">
                 <div class="content-r">
                     <div class="img">
                         <img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.u_8q93mlpEMKqdpRRazXfQHaDc?w=319&h=162&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
@@ -40,12 +40,153 @@
                 </div>
 
             </div>
+            <div v-if="partName == '网络安全'" class="content">
+                <div class="content-r">
+                    <div class="img">
+                        <img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.u_8q93mlpEMKqdpRRazXfQHaDc?w=319&h=162&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.Ds8ploTR614jC_Hmbg_3YgHaEm?w=273&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.HtdQx6r5hLlk_TSEn1pC2wHaDW?w=320&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.Sy-2NQoygS0cKqAyrMYadAHaEJ?w=312&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                </div>
+                <div class="content-l">
+
+                    <h2>{{ partName }}</h2>
+
+                    <span> 软件开发作为创新实验室的一个部门，会不定期参与专业性
+                        比赛、接手实验室负责老师提供的实践项目等活动。对于刚进入
+                        开发小组的新生，主要以了解、学习专业知识为主。期间会有学
+                        长学姐们专门指导，规划学习路线，提供实战项目来巩固同学们
+                        的专业知识。随着学习的深入，按照学习情况与自身兴趣，会为
+                        同学们提供更加明确的学习方向，主要分为后端、前端、运维、
+                        算法以及产品 5 个方向，在学习一段时间后会提供实际开发项目，
+                        以此来积累项目开发经验 、提升团队合作能力，实践项目也可
+                        列在简历中作为项目经历。</span>
+                    <div class="circle"></div>
+
+                </div>
+
+            </div>
+            <div v-if="partName == '人工智能'" class="content">
+                <div class="content-r">
+                    <div class="img">
+                        <img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.u_8q93mlpEMKqdpRRazXfQHaDc?w=319&h=162&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.Ds8ploTR614jC_Hmbg_3YgHaEm?w=273&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.HtdQx6r5hLlk_TSEn1pC2wHaDW?w=320&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.Sy-2NQoygS0cKqAyrMYadAHaEJ?w=312&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                </div>
+                <div class="content-l">
+
+                    <h2>{{ partName }}</h2>
+
+                    <span> 软件开发作为创新实验室的一个部门，会不定期参与专业性
+                        比赛、接手实验室负责老师提供的实践项目等活动。对于刚进入
+                        开发小组的新生，主要以了解、学习专业知识为主。期间会有学
+                        长学姐们专门指导，规划学习路线，提供实战项目来巩固同学们
+                        的专业知识。随着学习的深入，按照学习情况与自身兴趣，会为
+                        同学们提供更加明确的学习方向，主要分为后端、前端、运维、
+                        算法以及产品 5 个方向，在学习一段时间后会提供实际开发项目，
+                        以此来积累项目开发经验 、提升团队合作能力，实践项目也可
+                        列在简历中作为项目经历。</span>
+                    <div class="circle"></div>
+
+                </div>
+
+            </div>
+            <div v-if="partName == '虚拟现实'" class="content">
+                <div class="content-r">
+                    <div class="img">
+                        <img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.u_8q93mlpEMKqdpRRazXfQHaDc?w=319&h=162&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.Ds8ploTR614jC_Hmbg_3YgHaEm?w=273&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.HtdQx6r5hLlk_TSEn1pC2wHaDW?w=320&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.Sy-2NQoygS0cKqAyrMYadAHaEJ?w=312&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                </div>
+                <div class="content-l">
+
+                    <h2>{{ partName }}</h2>
+
+                    <span> 软件开发作为创新实验室的一个部门，会不定期参与专业性
+                        比赛、接手实验室负责老师提供的实践项目等活动。对于刚进入
+                        开发小组的新生，主要以了解、学习专业知识为主。期间会有学
+                        长学姐们专门指导，规划学习路线，提供实战项目来巩固同学们
+                        的专业知识。随着学习的深入，按照学习情况与自身兴趣，会为
+                        同学们提供更加明确的学习方向，主要分为后端、前端、运维、
+                        算法以及产品 5 个方向，在学习一段时间后会提供实际开发项目，
+                        以此来积累项目开发经验 、提升团队合作能力，实践项目也可
+                        列在简历中作为项目经历。</span>
+                    <div class="circle"></div>
+
+                </div>
+
+            </div>
+            <div v-if="partName == '算法竞赛'" class="content">
+                <div class="content-r">
+                    <div class="img">
+                        <img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.u_8q93mlpEMKqdpRRazXfQHaDc?w=319&h=162&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.Ds8ploTR614jC_Hmbg_3YgHaEm?w=273&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.HtdQx6r5hLlk_TSEn1pC2wHaDW?w=320&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                    <div class="img">
+                        <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.Sy-2NQoygS0cKqAyrMYadAHaEJ?w=312&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+                            alt="">
+                    </div>
+                </div>
+                <div class="content-l">
+
+                    <h2>{{ partName }}</h2>
+
+                    <span>
+                        什么是算法？第一次听到这个词是否大脑一片空白？算法是计算机处理信息的本质，学习算法可以让我们更高效地使用计算机来解决各种问题，包括但不限于数学问题，从各种排序问题，最优解问题到图论，博弈论等，随着学习的逐步深入，你会发现算法领域的博大，学习各种算法的原理，惊叹其巧妙的构思，享受ac算法的快乐。大学生算法竞赛,例如ICPC(国际大学生程序设计竞赛)、CCPC(中国大学生程序设计竞赛),蓝桥杯、天梯赛、百度之星等算法竞赛，是以数据结构与算法为主要考察对象的竞赛，其中
+                        ICPC 竞赛（国际大学生程序设计竞赛，又称ACM）是公认为全球计算机领域规模最大、影响力最广的赛事之一，被誉为计算机软件领域的奥林匹克。</span>
+                    <div class="circle"></div>
+
+                </div>
+
+            </div>
 
 
         </div>
         <div class="pros">
             <h1 class="prosTitle">日常动态</h1>
-
 
 
             <div class="bottom">
@@ -784,7 +925,7 @@ onMounted(async () => {
 
     .botImg {
         width: 100%;
-
+        height: 12em;
     }
 
     .botText {

@@ -4,7 +4,8 @@
             <div class="info">
                 <div class="bigtitle">
                     <h1>{{ proTitle ? proTitle : 'title' }}</h1>
-                    <span>{{ proInfo.itemIntroduction ? proInfo.itemIntroduction : 'description' }}</span>
+                    <span v-show="proInfo.itemIntroduction">{{ proInfo.itemIntroduction ? proInfo.itemIntroduction :
+                        'description' }}</span>
                     <div class="dinnerInfo">
                         <span v-show="proInfo.author">
                             <svg t="1722909503672" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -15,7 +16,7 @@
                             </svg>
                             {{ proInfo.author }}
                         </span>
-                        <span>
+                        <span v-show="proInfo.createTime">
                             <svg style="margin-right: .5%;" t="1721456104580" class="icon" viewBox="0 0 1024 1024"
                                 version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4312" width="18" height="18">
                                 <path

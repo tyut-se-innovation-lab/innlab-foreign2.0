@@ -23,24 +23,35 @@ import { encrypt } from '@/utils/crypto';
 
 const props = defineProps<{
     link: string,
+    actid: number,
     period: string,
     part: string,
-    people: Record<string, any>, // 使用 Record 类型来定义对象
+    people: Record<string, any>,
     text: string,
     color: string
 }>();
 
 const linkTo = () => {
-    const encryptedPeople = encrypt(JSON.stringify(props.people));//参数加密
-    router.push({
-        path: props.link,
-        query: {
-            period: props.period,
-            part: props.part,
-            people: encryptedPeople
-        }
-    });
-    sessionStorage.setItem('isDetail', 'true');
+    if (props.people) {
+        const encryptedPeople = encrypt(JSON.stringify(props.people));//参数加密
+        router.push({
+            path: props.link,
+            query: {
+                actid: props.actid,
+                period: props.period,
+                part: props.part,
+                people: encryptedPeople
+            }
+        });
+        sessionStorage.setItem('isDetail', 'true');
+    } else {
+        router.push({
+            path: props.link,
+            query: {
+                actid: props.actid
+            }
+        });
+    }
 }
 
 const getarrowStyle = () => {
