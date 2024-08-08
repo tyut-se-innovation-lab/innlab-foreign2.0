@@ -158,7 +158,7 @@
                             </router-link>
 
                         </div>
-                        <div class="part">
+                        <div class="part" style="margin-bottom: 6em;">
 
                             <h2>算法竞赛</h2>
                             <p class="subtitle">Algorithm competition</p>
@@ -166,7 +166,7 @@
                                 <li v-for="item in vrPros"><span href="#" @click="linkProTo(item.itemId)">{{
                                     item.itemTitle }}</span></li>
                             </ul>
-                            <router-link :to="{ path: '/part', query: { name: '虚拟现实' } }">
+                            <router-link :to="{ path: '/part', query: { name: '算法竞赛' } }">
                                 <button class="cta">
                                     <span class="hover-underline-animation"> Read More </span>
                                     <svg id="arrow-horizontal" xmlns="http://www.w3.org/2000/svg" width="30" height="10"

@@ -1,7 +1,10 @@
 <template>
     <div class="homePeople">
-        <h1>人员介绍</h1>
 
+        <div class="bigtitle">
+            <h1>人员介绍</h1>
+            <ReadMore class="readall" color="#6e7272" text="查看全部" :link="linkprop"></ReadMore>
+        </div>
         <div class="peoples">
             <div class="people" v-for="item in PeopleList">
                 <div class="pImg">
@@ -138,9 +141,14 @@ onMounted(() => {
 
 }
 
-.homePeople h1 {
+.bigtitle {
+    display: flex;
+    align-items: baseline;
+}
+
+.bigtitle h1 {
     color: black;
-    margin: 1% 0 5% 0;
+    margin: 1% 3% 5% 0;
 }
 
 .peoples {
@@ -245,6 +253,7 @@ onMounted(() => {
 
 
 
+.readall {}
 
 .readmore {
     position: absolute;

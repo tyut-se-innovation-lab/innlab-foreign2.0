@@ -576,7 +576,7 @@ onBeforeUnmount(() => {
   }
 
   #desc {
-    min-height: 80vh;
+    min-height: 60vh;
     font-size: 14px;
   }
 }

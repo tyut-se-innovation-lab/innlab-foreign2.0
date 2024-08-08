@@ -88,12 +88,19 @@
                 </div>
             </div>
             <div class="rightparts">
-                <el-breadcrumb :separator-icon="ArrowRight">
+                <el-breadcrumb v-if="!isCheckAll" :separator-icon="ArrowRight">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>人员介绍</el-breadcrumb-item>
                     <el-breadcrumb-item>{{ PeopleListParams.department }}</el-breadcrumb-item>
                     <el-breadcrumb-item>{{ PeopleListParams.period }}</el-breadcrumb-item>
                     <el-breadcrumb-item v-if="people.personnelName">{{ people.personnelName }}</el-breadcrumb-item>
+
+                </el-breadcrumb>
+                <el-breadcrumb v-else :separator-icon="ArrowRight">
+                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                    <el-breadcrumb-item>人员介绍</el-breadcrumb-item>
+                    <el-breadcrumb-item>全部</el-breadcrumb-item>
+
 
                 </el-breadcrumb>
 
@@ -171,7 +178,7 @@ import { useRoute } from 'vue-router';
 import { watch } from 'vue';
 import Sidebar from '@/components/header/sidebar.vue'
 
-import { getPeoples } from "@/api/people/people"
+import { getPeoples, getAllPeoples } from "@/api/people/people"
 import { parseLanzouLink } from '@/utils/getFileByBackend';
 import bus from '@/eventBus';
 import type { TabsInstance } from 'element-plus'
@@ -196,28 +203,15 @@ const showMore = ref(false);
 
 const updateVisibility = async () => {
     await nextTick();
-    console.log('iiis: ', isDetail.value);
 
     showInfo.value = isDetail.value;
-    console.log('iiisshowInfo: ', showInfo.value);
     showMore.value = !isDetail.value;
-    console.log('iiisshowMore: ', showMore.value);
+
 };
 
 watch(isDetail, async () => {
     await updateVisibility();
 });
-
-const actImgs = ref([
-    "img/bannerImg/banner1.jpg",
-    "img/bannerImg/banner2.jpg",
-    "img/bannerImg/banner3.jpg",
-    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/0b812143bfbbf673dfe8b16704c7ab7728aeac73c1039e31955cba84abe71fd0c3d17ccdd08a3f885bd5fb6fe36db22b?pictype=scale&from=30113&version=3.3.3.3&fname=jingtaiziyuan.jpg&size=750",
-    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/c951d90e6913552328b07448020ec877a6f70a1024901065ff8530221a02c88c21bb7cf66c754b9566af68fb483e0c54?pictype=scale&from=30113&version=3.3.3.3&fname=154928-yi_shu-chuang_kou-guang-zi_se_de-azure-1366x768.jpg&size=750",
-    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f670b4b15d9186612e895d916bca6fd49caf113a22ee951cbd2b6640dd99c08603c40c531acc75571bc5a172bfe5499b?pictype=scale&from=30113&version=3.3.3.3&fname=shouye.jpg&size=750",
-    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/8e62988df6d5300d965775e34ef70400ca4fa14c3f65b6680a8ce09585af2ef04379d3e1e79daa8dff43f1c8682ba2d3?pictype=scale&from=30113&version=3.3.3.3&fname=start.jpg&size=750",
-])
-
 
 // 初始标签
 const activePartTab = ref(''); // 保存当前选中的部门标签
@@ -238,18 +232,21 @@ const initializeTabs = async () => {
     PeopleListParams.value.period = period;
     PeopleListParams.value.department = department;
 
-    await getPeopleList();
+    if (!isCheckAll.value) {
+        await getPeopleList();
+    } else {
+        await getAllPeopleList();
+    }
 
     const detail = sessionStorage.getItem('isDetail');
     showInfo.value = isDetail.value;
     if (detail === 'false') {
         isDetail.value = false;
     }
-    console.log('detaie: ', isDetail.value);
 };
 
 
-
+const isCheckAll = ref(false);
 const people = ref<Record<string, any>>({});
 const PeopleList = ref<Array<{}>>([]);
 
@@ -274,11 +271,36 @@ const getPeopleList = async () => {
 
     }
 };
+
+const getAllPeopleList = async () => {
+    try {
+        const result = await getAllPeoples(PeopleListParams.value);
+        PeopleList.value = result.data.records;
+        PeopleList.value.forEach(async e => {
+            e.personnelAvatar = await parseLanzouLink(e.personnelAvatar);
+        })
+        total.value = result.data.total;
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
+
 const handleSizeChange = () => {
-    getPeopleList();
+    if (!isCheckAll.value) {
+        getPeopleList();
+    } else {
+        getAllPeopleList();
+    }
+
 }
 const handleCurrentChange = () => {
-    getPeopleList();
+    if (!isCheckAll.value) {
+        getPeopleList();
+    } else {
+        getAllPeopleList();
+    }
 }
 
 
@@ -292,7 +314,6 @@ const handleClose = (key: string, keyPath: string[]) => {
 }
 
 const handleSelect = (param) => {
-    console.log('!~: ', param);
     switch (param) {
         case '1-1':
             handlePart('软件开发')
@@ -334,7 +355,7 @@ const handleSelect = (param) => {
 const handlePart = async (part: any) => {
     PeopleListParams.value.department = part;
     isDetail.value = false;
-
+    isCheckAll.value = false;
     router.push({
         query: {
             part: part,
@@ -351,6 +372,7 @@ const handlePeriod = async (period: any) => {
 
     PeopleListParams.value.period = period;
     isDetail.value = false;
+    isCheckAll.value = false;
 
     router.push({
         query: {
@@ -367,6 +389,7 @@ const handlePeriod = async (period: any) => {
 const toDetail = (peopleitem) => {
 
     isDetail.value = true;
+    isCheckAll.value = false;
 
     router.push({
         query: {
@@ -409,18 +432,14 @@ onMounted(async () => {
     // 在挂载时添加窗口大小变化的事件监听器
     window.addEventListener('resize', handleResize);
 
-    console.log('routeQuery.query: ', routeQuery.query);
+    // 根据路由获取查询参数
     if (routeQuery.query.part) {
         PeopleListParams.value.department = routeQuery.query.part;
-
     }
     if (routeQuery.query.period) {
         PeopleListParams.value.period = routeQuery.query.period;
     }
-
     if (routeQuery.query.people) {
-
-
         try {
             const encryptedPeople = routeQuery.query.people as string;
             people.value = JSON.parse(decrypt(encryptedPeople));
@@ -431,6 +450,18 @@ onMounted(async () => {
             console.error('Error parsing people parameter:', error);
         }
     }
+    // 没有查看人员详情时
+    if (!routeQuery.query.people) {
+        isDetail.value = false;
+        sessionStorage.setItem('isDetail', JSON.stringify(isDetail.value));
+    }
+    // 查看全部
+    if (!routeQuery.query.part && !routeQuery.query.period && !routeQuery.query.people) {
+        isCheckAll.value = true;
+        isDetail.value = false;
+        sessionStorage.setItem('isDetail', JSON.stringify(isDetail.value));
+    }
+
 
     await initializeTabs(); // 初始化标签选中项
 
