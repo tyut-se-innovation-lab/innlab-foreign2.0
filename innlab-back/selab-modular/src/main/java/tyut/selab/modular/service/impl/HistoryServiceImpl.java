@@ -49,7 +49,7 @@ public class HistoryServiceImpl implements IHistoryService {
         List<HistoryVo> historyVoList = new ArrayList<>();
         historyPage.getRecords().forEach(historyEntity -> {
             HistoryVo historyVo = new HistoryVo(historyEntity);
-            ResourceEntity resourceEntity = resourceMapper.selectById(historyEntity.getHeaderImage());
+            ResourceEntity resourceEntity = resourceMapper.selectById(historyEntity.getHeaderImageId());
             if (ObjectUtils.isNotNull(resourceEntity)){
                 ImageVo imageVo = new ImageVo();
                 imageVo.setIsNewd(resourceEntity.getIsNewd());
@@ -82,6 +82,7 @@ public class HistoryServiceImpl implements IHistoryService {
         historyEntity.setHistoryTitle(addHistoryDto.getHistoryTitle());
         historyEntity.setHistoryContent(addHistoryDto.getHistoryContent());
         historyEntity.setState(false);
+        historyEntity.setHeaderImageId(addHistoryDto.getHeaderImageId());
         historyEntity.setDelFlag(0);
         historyEntity.setCreateUser(SecurityUtils.getUserNickName());
         historyMapper.insert(historyEntity);
@@ -99,6 +100,7 @@ public class HistoryServiceImpl implements IHistoryService {
         historyEntity.setHistoryTitle(updateHistoryDto.getHistoryTitle());
         historyEntity.setHistoryContent(updateHistoryDto.getHistoryContent());
         historyEntity.setState(updateHistoryDto.getState());
+        historyEntity.setHeaderImageId(updateHistoryDto.getHeaderImageId());
         historyEntity.setUpdateUser(SecurityUtils.getUserNickName());
         historyMapper.updateById(historyEntity);
         return R.success("修改成功！");
@@ -119,6 +121,22 @@ public class HistoryServiceImpl implements IHistoryService {
         QueryWrapper<HistoryEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("history_time");
         Page<HistoryEntity> historyPage = historyMapper.selectPage(page,queryWrapper);
+        historyPage.getRecords().forEach(historyEntity -> {
+            ResourceEntity resourceEntity = resourceMapper.selectById(historyEntity.getHeaderImageId());
+            if (ObjectUtils.isNotNull(resourceEntity)){
+                ImageVo imageVo = new ImageVo();
+                imageVo.setIsNewd(resourceEntity.getIsNewd());
+                imageVo.setPwd(resourceEntity.getPwd());
+                imageVo.setFId(resourceEntity.getFId());
+                String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+                if (StringUtils.isNotEmpty(lzLinkUrl)){
+                    imageVo.setUrl(lzLinkUrl);
+                }else {
+                    imageVo.setUrl(resourceEntity.getResourceUrl());
+                }
+                historyEntity.setHeaderImage(imageVo);
+            }
+        });
         return R.success(historyPage);
     }
 }

@@ -35,6 +35,11 @@ public class UpdateHistoryDto {
     @Size(min = 1,max = 20,message = "历史标题必须在1-20字符之间！")
     private String historyTitle;
 
+
+    @Schema(description = "标题图片id")
+    @NotNull(message = "标题图片id不能为null")
+    private Integer headerImageId;
+
     /**
      * 具体事件
      */

@@ -142,7 +142,9 @@ public class PersonnelServiceImpl implements IPersonnelService {
         }
         PersonnelEntity personnelEntity = new PersonnelEntity();
         personnelEntity.setPersonnelId(updatePersonDto.getPersonnelId());
-        personnelEntity.setPersonnelPeriod(String.valueOf(updatePersonDto.getPersonnelPeriod()));
+        if(ObjectUtils.isNotNull(updatePersonDto.getPersonnelPeriod())){
+            personnelEntity.setPersonnelPeriod(String.valueOf(updatePersonDto.getPersonnelPeriod()));
+        }
         personnelEntity.setPersonnelSaying(updatePersonDto.getPersonnelSaying());
         personnelEntity.setPersonnelPost(updatePersonDto.getPersonnelPost());
         personnelEntity.setPersonnelAvatar(updatePersonDto.getPersonnelAvatar());
