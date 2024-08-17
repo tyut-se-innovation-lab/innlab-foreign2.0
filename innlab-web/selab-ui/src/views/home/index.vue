@@ -29,7 +29,7 @@
                     the School of Software. The purpose is to enrich students' extracurricular
                     knowledge and improve
                     students' innovative practice ability.</p>
-                  <a href="#" class="btn">More Details</a>
+                  <a href="javascript:;" class="btn" @click="linkTo()">More Details</a>
                 </div>
               </div>
               <div class="right-info">
@@ -48,8 +48,6 @@
 
       <!-- description -->
       <Desc id="desc" ref="desc"></Desc>
-
-
 
       <!-- part -->
       <Part id="part" class=""></Part>
@@ -75,20 +73,17 @@ import Desc from "@/views/home/components/description/index.vue"
 import History from "@/views/home/components/history/index.vue"
 import Act from "@/views/home/components/activity/index.vue"
 import People from "@/views/home/components/people/index.vue"
-import Part from "@/views/home/components/part/test.vue"
+import Part from "@/views/home/components/part/index.vue"
 import bus from '@/eventBus';
-
+import router from '@/router';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
+
 const actImgs = ref([
-  "img/bannerImg/banner1.jpg",
-  "img/bannerImg/banner2.jpg",
-  "img/bannerImg/banner3.jpg",
-  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/0b812143bfbbf673dfe8b16704c7ab7728aeac73c1039e31955cba84abe71fd0c3d17ccdd08a3f885bd5fb6fe36db22b?pictype=scale&from=30113&version=3.3.3.3&fname=jingtaiziyuan.jpg&size=750",
-  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/c951d90e6913552328b07448020ec877a6f70a1024901065ff8530221a02c88c21bb7cf66c754b9566af68fb483e0c54?pictype=scale&from=30113&version=3.3.3.3&fname=154928-yi_shu-chuang_kou-guang-zi_se_de-azure-1366x768.jpg&size=750",
-  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f670b4b15d9186612e895d916bca6fd49caf113a22ee951cbd2b6640dd99c08603c40c531acc75571bc5a172bfe5499b?pictype=scale&from=30113&version=3.3.3.3&fname=shouye.jpg&size=750",
-  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/8e62988df6d5300d965775e34ef70400ca4fa14c3f65b6680a8ce09585af2ef04379d3e1e79daa8dff43f1c8682ba2d3?pictype=scale&from=30113&version=3.3.3.3&fname=start.jpg&size=750",
+  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/6fd8182ad2deeef079926afb865af7ea29a6d545ef19bd1a76f1815eae30e932b56e67e9f36cddab99d50dafabe1534a?pictype=scale&from=30013&version=3.3.3.3&fname=banner3.jpg&size=750",
+  // "public/img/banner.jpg",
+  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/ec5f6cb7a3e8492f3648c2688b82b81b31d32bb27926ec114a5e34190ca350accc59fc5def77c588fff2bb7f2a2a5eb1?pictype=scale&from=30013&version=3.3.3.3&fname=banner2.jpg&size=750",
 ])
 
 // 轮播图切换
@@ -97,7 +92,6 @@ const carousel = ref();
 const next = () => {
   carousel.value?.next();
 };
-
 const prev = () => {
   carousel.value?.prev();
 };
@@ -105,48 +99,18 @@ const prev = () => {
 const headerColor = ref('white');
 const logoWhite = ref(true);
 
-
+const linkTo = () => {
+  router.push({
+    path: '/blog',
+    query: {
+      actid: 18
+    }
+  });
+}
 
 // banner展开收起动画
 const isBannerHidden = ref(false);
 const lastScrollY = ref(0);
-// const handleScroll = () => {
-//   const currentScroll = window.scrollY;
-
-//   const descElement = document.getElementById('desc');
-
-//   if (descElement) {
-//     const bannerHeight = document.querySelector('.banner')?.clientHeight ?? 0;
-//     const descOffset = descElement.getBoundingClientRect().top + window.scrollY - bannerHeight;
-
-//     if (currentScroll > lastScrollY.value) {
-//       isBannerHidden.value = true;
-
-//       // smoothScrollToDesc(descOffset);
-//     } else if (currentScroll < descOffset - 20) {
-
-//       isBannerHidden.value = false;
-//       console.log('currentScroll', currentScroll);
-
-//       if (currentScroll < 60) {
-//         smoothScrollToTop();
-//       }
-
-//     }
-//     lastScrollY.value = currentScroll;
-//   }
-// };
-// const smoothScrollToTop = () => {
-//   const scrollDuration = 800; // duration in ms
-//   const scrollStep = -window.scrollY / (scrollDuration / 15);
-//   const scrollInterval = setInterval(() => {
-//     if (window.scrollY != 0) {
-//       window.scrollBy(0, scrollStep);
-//     } else {
-//       clearInterval(scrollInterval);
-//     }
-//   }, 15);
-// };
 
 
 onMounted(() => {
@@ -409,6 +373,7 @@ onBeforeUnmount(() => {
 }
 
 .content .btn {
+  cursor: pointer;
   display: inline-block;
   padding: 13px 28px;
   background: #fff;

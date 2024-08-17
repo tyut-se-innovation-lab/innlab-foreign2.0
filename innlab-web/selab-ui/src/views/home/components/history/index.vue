@@ -47,8 +47,8 @@
                             <h4 class="year"> {{ item.historyTime }}</h4>
                             <h2 class="title">{{ item.historyTitle }}</h2>
                             <div class="content">
-                                <el-image :src="item.headerImage" :zoom-rate="1.2" :max-scale="7" :min-scale="0.2"
-                                    :preview-src-list="[item.headerImage]" fit="cover" />
+                                <el-image :src="item.headerImage" preview-teleported :zoom-rate="1.2" :max-scale="7"
+                                    :min-scale="0.2" :preview-src-list="[item.headerImage]" fit="cover" />
                                 <p> {{ item.historyContent }}</p>
                             </div>
                         </section>
@@ -607,7 +607,7 @@ onMounted(() => {
 
 .periods-container section .title {
     color: #4A4A4A;
-    font-size: 28px;
+    font-size: 2em;
     font-weight: 400;
     display: none;
 }
@@ -751,7 +751,7 @@ onMounted(() => {
 
 .cards-container section {
     width: 70%;
-    height: 45em;
+    min-height: 45em;
     position: absolute;
     margin-left: 15%;
     margin-bottom: 2em;

@@ -34,9 +34,10 @@
                     <div class="contentItem" v-for="item in actInfo.activityContent">
                         <article v-if="item.subtitleType == 0">
                             <h2><a href="#">{{ item.subtitleName }}</a></h2>
-
+                            <!-- md文档展示 -->
                             <v-md-preview v-if="decodeBase64(item.subtitleContent)"
                                 :text="decodeBase64(item.subtitleContent)"></v-md-preview>
+
 
                         </article>
                         <article v-if="item.subtitleType == 1">
@@ -61,7 +62,7 @@
                         </article>
                         <article v-if="item.subtitleType == 3">
                             <h2>{{ item.subtitleName }}</h2>
-                            <a class="link" v-for="linkItem in item.resource" :href="linkItem">点此跳转链接</a>
+                            <a class="link" v-for="linkItem in item.resource" :href="linkItem">点此下载/跳转链接</a>
                         </article>
 
                     </div>
@@ -77,7 +78,7 @@
                     <ul class="acts">
 
                         <ul class="shareList">
-                            <li class="icon-content" @click="shareTo('qq')">
+                            <li class="icon-content" @mouseover="shareTo('qq')">
                                 <a href="javascript:;" aria-label="Spotify" data-social="qq">
                                     <div class="filled"></div>
                                     <svg t="1722070846852" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -87,7 +88,13 @@
                                             p-id="2340" fill="currentColor"></path>
                                     </svg>
                                 </a>
-                                <div class="tooltip">转发到QQ</div>
+                                <div class="tooltip wxtooltip">
+                                    <span>手机QQ扫描二维码</span>
+                                    <span>点击右上角 ··· 按钮分享到QQ</span>
+                                    <img class="qrImg" :src="qrcodeUrlqq" alt="二维码" v-if="qrcodeUrlqq" />
+
+                                </div>
+
                             </li>
                             <li class="icon-content" @click="shareTo('qqkj')">
                                 <a href="javascript:;" aria-label="Pinterest" data-social="qqkj">
@@ -198,6 +205,8 @@ import QRCode from 'qrcode';
 import useClipboard from 'vue-clipboard3'
 import { ElMessage } from 'element-plus'
 
+import { encodeBase64, decodeBase64 } from '@/utils/base64Utils';
+
 // 点击复制链接
 const { toClipboard } = useClipboard()
 const copyLink = async () => {
@@ -266,6 +275,7 @@ const getActvityInfo = async () => {
                 );
                 element.resource = updatedResources; // 更新资源数组
             }
+
         }
 
         console.log(actInfo.value); // 输出更新后的数据
@@ -301,22 +311,26 @@ const linkTo = (item: number) => {
 
 }
 
+
 // Base64 decode utility
-function decodeBase64(base64Str: string): string {
+// function decodeBase64(base64Str: string): string {
 
-    try {
-        const byteArray = Uint8Array.from(atob(base64Str), c => c.charCodeAt(0));
-        const decoder = new TextDecoder('utf-8');
-        const decodedContent = decoder.decode(byteArray);
-        console.log('decodedContent', decodedContent);
+//     try {
+//         const byteArray = Uint8Array.from(atob(base64Str), c => c.charCodeAt(0));
+//         const decoder = new TextDecoder('utf-8');
+//         const decodedContent = decoder.decode(byteArray);
+//         console.log('decodedContent', decodedContent);
 
-        return decodedContent;
-    } catch (error) {
-        console.log('decodeerror: ', error);
-        return base64Str;
-    }
+//         return decodedContent;
+//     } catch (error) {
+//         console.log('decoderror: ', error);
+//         return base64Str;
+//     }
 
-}
+// }
+
+
+
 
 const videoLoaded = ref(false);
 
@@ -336,7 +350,6 @@ const getLink = async (img) => {
 
 }
 
-const qrcodeUrl = ref('');
 
 const shareTo = (type) => {
     const url = window.location.href;
@@ -347,7 +360,7 @@ const shareTo = (type) => {
     // toWechat(url, title);
     switch (type) {
         case 'qq':
-            toQQ(url, title);
+            getQQCode();
             break;
         case 'qqkj':
             toQQzone(url, title);
@@ -364,7 +377,20 @@ const shareTo = (type) => {
             break;
     }
 }
-
+const qrcodeUrl = ref('');
+const qrcodeUrlqq = ref('');
+const getQQCode = () => {
+    const url = window.location.href;
+    if (url) {
+        QRCode.toDataURL(url, { width: 500, height: 500 }, (err, dataUrl) => {
+            if (err) {
+                console.error(err);
+            } else {
+                qrcodeUrlqq.value = dataUrl;
+            }
+        });
+    }
+}
 const getWxCode = () => {
     const url = window.location.href;
     if (url) {
@@ -408,8 +434,6 @@ onMounted(() => {
 .blog {
     display: flex;
     padding: 14em 12em;
-
-    /* background-image: url(public/img/homeImg/bg2.jpg); */
     background-color: #f5f6f7;
     background-image: linear-gradient(180deg, #f6f1ef 0, #f0f1f6 42%, #ebf3fb 100%);
 }
@@ -523,7 +547,18 @@ article img {
 }
 
 article .link {
+    width: 100%;
+    display: block;
     cursor: pointer;
+    letter-spacing: .1em;
+    color: #0366d6;
+    transition: all .2s;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+article .link:hover {
     color: #63a7f0;
 }
 
@@ -749,6 +784,7 @@ aside .imgs .imgbox img:hover {
     opacity: 1;
     visibility: visible;
     top: 110%;
+    left: 7em;
 }
 
 .shareList .icon-content a {
@@ -907,7 +943,7 @@ aside .imgs .imgbox img:hover {
         justify-content: center;
         align-items: center;
         width: 30px;
-        height: 50px;
+        height: 30px;
         border-radius: 50%;
         color: #cdcdcd;
         background-color: #fff;

@@ -204,6 +204,7 @@ const getPro = async () => {
         mdContent.value = decodedContent;
 
 
+
     } catch (error) {
         console.error('Error fetching data:');
     } finally {
@@ -361,8 +362,6 @@ onMounted(async () => {
 .blog {
     display: flex;
     padding: 14em 12em;
-
-    /* background-image: url(public/img/homeImg/bg2.jpg); */
     background-color: #f5f6f7;
     background-image: linear-gradient(180deg, #f6f1ef 0, #f0f1f6 42%, #ebf3fb 100%);
 }

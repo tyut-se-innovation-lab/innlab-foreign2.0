@@ -34,12 +34,12 @@
 
                         <ul class="nots">
                             <li class="not" v-for="item in NoticeList">
-                                <a href="javascript:;">
+                                <a href="javascript:;" @click="linkTo(item.activityId)">
                                     <b>{{ item.activityTitle }}：</b>
                                     <span>{{ item.activityIntroduction }}</span>
                                 </a>
                             </li>
-                       
+
                         </ul>
 
 
@@ -87,10 +87,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div v-if="total == 0" class="botlistnone">
+                            <span>暂无内容...</span>
+                        </div>
                     </div>
-                    <el-pagination background layout="prev, pager, next" v-model:current-page="params.pageNum"
-                        v-model:page-size="params.pageSize" :total="total" @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange" />
+                    <el-pagination v-show="total !== 0" background layout="prev, pager, next"
+                        v-model:current-page="params.pageNum" v-model:page-size="params.pageSize" :total="total"
+                        @size-change="handleSizeChange" @current-change="handleCurrentChange" />
                 </div>
 
             </div>
@@ -254,7 +257,6 @@ const props = defineProps<{
     /* margin: 100px 0; */
     padding-top: 100px;
     padding-bottom: 100px;
-    /* background-image: url(/public/img/homeImg/mohu.jpg); */
     background-color: #f5f6f7;
     background-image: linear-gradient(180deg, #f6f1ef 0, #f0f1f6 42%, #ebf3fb 100%);
 }
@@ -405,12 +407,12 @@ main {
     display: flex;
     padding: 0 5%;
     flex-direction: column;
-    justify-content: space-around;
+
 }
 
 .not {
     width: 100%;
-
+    margin: 3% 0;
 }
 
 .not a {
@@ -421,6 +423,7 @@ main {
     font-size: 12px;
     position: relative;
     padding-left: 17px;
+    transition: all .2s;
 }
 
 .not a::before {
@@ -434,6 +437,10 @@ main {
     border-radius: 10px;
 }
 
+.not:hover a {
+    cursor: pointer;
+    transform: translateX(.3em);
+}
 
 
 .bottom {
@@ -598,6 +605,19 @@ main {
     letter-spacing: 1px;
 }
 
+.botlistnone {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    margin: 3% 0;
+    /* background-color: #f1f1f1; */
+}
+
+
+
 /* 分页 */
 :deep(.el-pagination) {
     justify-content: flex-end;
@@ -662,6 +682,16 @@ main {
         height: 2.8em;
         /* margin-right: 0.7em; */
         margin: .6em;
+    }
+
+    .botlistnone {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5em;
+        margin: 11% 0;
     }
 
     .botlist {

@@ -1,68 +1,350 @@
 <template>
-    <div class="part">
+    <div class="outer">
+        <div class="part">
 
-        <div class="info">
-            <div class="introduction">
-                <div class="introTitle">
-                    <span>{{ partName }}</span>
+
+            <div v-if="partName == '软件开发'" class="content">
+                <div class="content-r">
+                    <div class="img" v-for="(item, index) in rkImgs">
+                        <el-image :src="item" :key="index" preview-teleported :zoom-rate="1.2" :max-scale="7"
+                            :min-scale="0.2" :preview-src-list="rkImgs" :initial-index="index" fit="cover" />
+                    </div>
                 </div>
-                <div class="introMain">
+                <div class="content-l">
 
-                    <div class="card">
-                        <div class="text">
-                            <span>软件开发作为创新实验室的一个部门，会不定期参与专业性
-                                比赛、接手实验室负责老师提供的实践项目等活动。对于刚进入
-                                开发小组的新生，主要以了解、学习专业知识为主。期间会有学
-                                长学姐们专门指导，规划学习路线，提供实战项目来巩固同学们
-                                的专业知识。随着学习的深入，按照学习情况与自身兴趣，会为
-                                同学们提供更加明确的学习方向，主要分为后端、前端、运维、
-                                算法以及产品 5 个方向，在学习一段时间后会提供实际开发项目，
-                                以此来积累项目开发经验 、提升团队合作能力，实践项目也可
-                                列在简历中作为项目经历。开发小组欢迎所有对学习抱有热情、
-                                团结友爱的同学，无论你之前是否拥有技术基础和专业知识，只
-                                要你抱有一颗勤奋学习的上进心，在开发小组你就可以学习到更
-                                多软件开发知识，收获志同道合的朋友。</span>
-                            <p class="subtitle">Vivamus nisi purus</p>
-                        </div>
-                     
+                    <h2>{{ partName }}</h2>
+
+                    <span> 软件开发作为创新实验室的一个部门，会不定期参与专业性
+                        比赛、接手实验室负责老师提供的实践项目等活动。对于刚进入
+                        开发小组的新生，主要以了解、学习专业知识为主。期间会有学
+                        长学姐们专门指导，规划学习路线，提供实战项目来巩固同学们
+                        的专业知识。随着学习的深入，按照学习情况与自身兴趣，会为
+                        同学们提供更加明确的学习方向，主要分为后端、前端、运维、
+                        算法以及产品 5 个方向，在学习一段时间后会提供实际开发项目，
+                        以此来积累项目开发经验 、提升团队合作能力，实践项目也可
+                        列在简历中作为项目经历。</span>
+                    <div class="circle"></div>
+
+                </div>
+
+            </div>
+            <div v-if="partName == '网络安全'" class="content">
+                <div class="content-r">
+                    <div class="img" v-for="(item, index) in waImgs">
+                        <el-image :src="item" :key="index" preview-teleported :zoom-rate="1.2" :max-scale="7"
+                            :min-scale="0.2" :preview-src-list="waImgs" :initial-index="index" fit="cover" />
+
                     </div>
 
                 </div>
+                <div class="content-l">
+
+                    <h2>{{ partName }}</h2>
+
+                    <span> 软件开发作为创新实验室的一个部门，会不定期参与专业性
+                        比赛、接手实验室负责老师提供的实践项目等活动。对于刚进入
+                        开发小组的新生，主要以了解、学习专业知识为主。期间会有学
+                        长学姐们专门指导，规划学习路线，提供实战项目来巩固同学们
+                        的专业知识。随着学习的深入，按照学习情况与自身兴趣，会为
+                        同学们提供更加明确的学习方向，主要分为后端、前端、运维、
+                        算法以及产品 5 个方向，在学习一段时间后会提供实际开发项目，
+                        以此来积累项目开发经验 、提升团队合作能力，实践项目也可
+                        列在简历中作为项目经历。</span>
+                    <div class="circle"></div>
+
+                </div>
 
             </div>
+            <div v-if="partName == '人工智能'" class="content">
+                <div class="content-r">
+                    <div class="img" v-for="(item, index) in aiImgs">
+                        <el-image :src="item" :key="index" preview-teleported :zoom-rate="1.2" :max-scale="7"
+                            :min-scale="0.2" :preview-src-list="aiImgs" :initial-index="index" fit="cover" />
+                    </div>
+                </div>
+                <div class="content-l">
 
-            <Programs></Programs>
+                    <h2>{{ partName }}</h2>
+
+                    <span> 软件开发作为创新实验室的一个部门，会不定期参与专业性
+                        比赛、接手实验室负责老师提供的实践项目等活动。对于刚进入
+                        开发小组的新生，主要以了解、学习专业知识为主。期间会有学
+                        长学姐们专门指导，规划学习路线，提供实战项目来巩固同学们
+                        的专业知识。随着学习的深入，按照学习情况与自身兴趣，会为
+                        同学们提供更加明确的学习方向，主要分为后端、前端、运维、
+                        算法以及产品 5 个方向，在学习一段时间后会提供实际开发项目，
+                        以此来积累项目开发经验 、提升团队合作能力，实践项目也可
+                        列在简历中作为项目经历。</span>
+                    <div class="circle"></div>
+
+                </div>
+
+            </div>
+            <div v-if="partName == '虚拟现实'" class="content">
+                <div class="content-r">
+                    <div class="img" v-for="(item, index) in vrImgs">
+                        <el-image :src="item" :key="index" preview-teleported :zoom-rate="1.2" :max-scale="7"
+                            :min-scale="0.2" :preview-src-list="vrImgs" :initial-index="index" fit="cover" />
+
+                    </div>
+                </div>
+                <div class="content-l">
+
+                    <h2>{{ partName }}</h2>
+
+                    <span> 虚拟现实技术（Virtual Reality, VR），又称灵境技术，是20
+                        世纪发展起来的一项全新的实用技术。虚拟现实技术囊括计算机、电子信息、仿真技术于一体，其基本实现方式是计算机模拟虚拟环境从而给人以环境沉浸感。随着社会生产力和科学技术的不断发展，各行各业对虚拟现实技术的需求日益旺盛。
+                        学院拥有山西省虚拟现实技术研究生教育创新中心，并与山西云极视界科技有限公司签订了虚拟现实人才合作培养协议，为该方向学生专业学习、项目实习等提供了技术支持与实践指导。如果你对虚拟现实感兴趣，想要探索虚拟现实相关的技术与知识，欢迎你加入虚拟现实小组!</span>
+                    <div class="circle"></div>
+
+                </div>
+
+            </div>
+            <div v-if="partName == '算法竞赛'" class="content">
+                <div class="content-r">
+                    <div class="img" v-for="(item, index) in sfImgs">
+                        <el-image :src="item" :key="index" preview-teleported :zoom-rate="1.2" :max-scale="7"
+                            :min-scale="0.2" :preview-src-list="sfImgs" :initial-index="index" fit="cover" />
+
+                    </div>
+                </div>
+                <div class="content-l">
+
+                    <h2>{{ partName }}</h2>
+
+                    <span>
+                        什么是算法？第一次听到这个词是否大脑一片空白？算法是计算机处理信息的本质，学习算法可以让我们更高效地使用计算机来解决各种问题，包括但不限于数学问题，从各种排序问题，最优解问题到图论，博弈论等，随着学习的逐步深入，你会发现算法领域的博大，学习各种算法的原理，惊叹其巧妙的构思，享受ac算法的快乐。大学生算法竞赛,例如ICPC(国际大学生程序设计竞赛)、CCPC(中国大学生程序设计竞赛),蓝桥杯、天梯赛、百度之星等算法竞赛，是以数据结构与算法为主要考察对象的竞赛，其中
+                        ICPC 竞赛（国际大学生程序设计竞赛，又称ACM）是公认为全球计算机领域规模最大、影响力最广的赛事之一，被誉为计算机软件领域的奥林匹克。</span>
+                    <div class="circle"></div>
+
+                </div>
+
+            </div>
 
 
         </div>
-        <div class="about">
-            <div class="aboutTitle">
-                <h1>About Us</h1>
-            </div>
-            <div class="aboutText">
-                <span>联系方式：62137891840-3</span>
+        <div class="pros">
+            <h1 class="prosTitle">日常动态</h1>
+
+
+            <div class="bottom">
+                <div class="botHead">
+                    <h3>项目列表</h3>
+
+                </div>
+                <div v-if="total !== 0" class="botlists">
+                    <div class="botlist" v-for="item in ProList" @click="linkTo(item.itemId)">
+                        <div class="botImg">
+                            <img :src="item.headerImage" alt="">
+                        </div>
+                        <div class="botText">
+                            <div class="botTextTag">
+                                <span>分类</span>
+                            </div>
+                            <h3>{{ item.itemTitle }}</h3>
+                            <p>{{ item.itemIntroduction }}
+                            </p>
+                            <div class="botDinner">
+                                <div class="botWriter">
+                                    <span>作者：</span>
+                                    <span>{{ item.author ? item.author : '匿名' }}</span>
+                                </div>
+                                <div class="botTime"><span>{{ item.createTime }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="botlistnone">
+                    <span>暂无内容...</span>
+                </div>
+                <el-pagination v-if="total !== 0" background layout="prev, pager, next"
+                    v-model:current-page="params.pageNum" v-model:page-size="params.pageSize" :total="total"
+                    @size-change="handleSizeChange" @current-change="handleCurrentChange" />
             </div>
         </div>
-
-
-
     </div>
+
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, nextTick } from "vue"
-import Programs from '@/views/part/components/programs/programs.vue'
 import { useRouter } from 'vue-router';
 import { useRoute } from 'vue-router';
 import { watch } from 'vue';
-
+import bus from '@/eventBus';
+import { getPros } from '@/api/pro/pro'
+import { parseLanzouLink } from '@/utils/getFileByBackend';
+import Bear from '@/components/animation/bear.vue';
 
 const router = useRouter();
 const routeQuery = useRoute();
 const partName = ref(router.currentRoute.value.query.name);
 
+const rkImgs = [
+    "https://tse3-mm.cn.bing.net/th/id/OIP-C.u_8q93mlpEMKqdpRRazXfQHaDc?w=319&h=162&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7",
+    "https://tse1-mm.cn.bing.net/th/id/OIP-C.Ds8ploTR614jC_Hmbg_3YgHaEm?w=273&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7",
+    "https://tse2-mm.cn.bing.net/th/id/OIP-C.HtdQx6r5hLlk_TSEn1pC2wHaDW?w=320&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7",
+    "https://tse2-mm.cn.bing.net/th/id/OIP-C.Sy-2NQoygS0cKqAyrMYadAHaEJ?w=312&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
+]
+const waImgs = [
+    "https://tse3-mm.cn.bing.net/th/id/OIP-C.u_8q93mlpEMKqdpRRazXfQHaDc?w=319&h=162&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7",
+    "https://tse1-mm.cn.bing.net/th/id/OIP-C.Ds8ploTR614jC_Hmbg_3YgHaEm?w=273&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f9ab20ec8efe553b58ea928c0d5f43f39c48d0a85fa02bec5fe489440d8b617f8e5d368f6495f2c35e0f0c18c078bd26?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%9B%BE%E7%89%875.png&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/322080e51da519907f73d46188107f6f3450524bdc8d6b4c075086a1ef7284c78f0b9f54c90d446c750be770dcde5a13?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%9B%BE%E7%89%876.png&size=750",
+]
+const aiImgs = [
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f87efe4b2a526e04a385dd674612f45853c4632719ad3706e3f009180778ff5c0eb4f4fd491a3dffa4e8ccb6c30d5121?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%9B%BE%E7%89%879.png&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/6b198156a6c0683511c307b68236cc9b41194377d837a3ec916ba1805cf8feefd62f5c5e53c2e6916e55c8a8067c3e1d?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%9B%BE%E7%89%8715.png&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/148cf6bdc75e9e480592e44d95cf37a22c389543b510f86d5528628b5ea993fdce81ab95e343d45ca5e55cbed3e438cb?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%9B%BE%E7%89%878.png&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/83c3039c09b29b68277d92ef1ed07937b421cc480ffb20314bc9602230cce69514acb9a95b018402c2241bb53feb86eb?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%9B%BE%E7%89%8711.png&size=750"
+]
+const vrImgs = [
+    "https://tse3-mm.cn.bing.net/th/id/OIP-C.u_8q93mlpEMKqdpRRazXfQHaDc?w=319&h=162&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7",
+    "https://tse1-mm.cn.bing.net/th/id/OIP-C.Ds8ploTR614jC_Hmbg_3YgHaEm?w=273&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/dbf1519ff8e8fe16069b4ee8549a23a33c12ac6e0a787436c856bb3e251433ca8ef0c7a192b299d41d4cebdea645fb22?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240808210647.jpg&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/566c234b3f518ecf80f3fb64b98fd7f2028759813081d4ee253049aa5497e2e44cf289cbeb3340f08c8c54fff2d72566?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240808210609.jpg&size=750"
+]
+const sfImgs = [
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/4f76917a5eba48a2f72043ca12eb1e9944fedc47f119529a6f0a9e84023b9eea10e76975a1c9c72c4061396ed86b0cf8?pictype=scale&from=30013&version=3.3.3.3&fname=QQ%E5%9B%BE%E7%89%8720240808211416.jpg&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/ee31a3ebcbff65f8ac34f4912243863876c357adcc66f427074119fe36f878691aca0ecb515f29d0cebbc196b94bbe67?pictype=scale&from=30013&version=3.3.3.3&fname=1722659793527.jpg&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/15b2e7561d18cbee0a071545bbb1314000693b2e90eb83cdc02bd3b97a046911576c8bdab461cf73dfef6da1a57f26c1?pictype=scale&from=30013&version=3.3.3.3&fname=1722660004702.jpg&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/c7b691f47255ae4e38e502dd3d1939846f5368044c8def9d3a8f4427b7c831d1ee092305f892155027f264bc404f27c1?pictype=scale&from=30013&version=3.3.3.3&fname=1722659889209.jpg&size=750"
+]
 
 
+
+let index = 0;
+document.querySelector('.content-l button')?.addEventListener('click', () => {
+    index++;
+    if (index % 2 === 1) {
+        document.querySelector('.content-l h2')?.setAttribute("style",
+            "transform: translate(-180px, 10px); width: 50%;");
+        document.querySelector('.content-l span')?.setAttribute("style",
+            "transform: translate(-180px, 10px); width: 50%; font: 400 25px 'Gochi Hand'; line-height: 1.5; ");
+        document.querySelector('.content-l button')?.setAttribute("style",
+            "width: 300px; height: 55px; top: 20%; background-position-x: 70px; transform: rotate(180deg);");
+        document.querySelector('.circle')?.setAttribute("style",
+            "width: 400px;height: 400px;left: 57%;top: 50%;border: 23px #ffffff dashed; ");
+        document.querySelector('.content-l img')?.setAttribute("style",
+            "bottom: 0px;");
+        document.querySelector('.content-l')?.setAttribute("style",
+            "width: 63%;");
+        document.querySelector('.content-r')?.setAttribute("style",
+            "width: 37%;");
+        document.querySelector('.img')?.setAttribute("style",
+            "padding: 10px; transform: scale(1);");
+        document.querySelector('.img img')?.setAttribute("style",
+            "transform: rotate(0);width: 100%;height: 100%;box-shadow: none;border-radius: 30px;");
+
+        // 伪元素
+        let style = document.createElement('style');
+        style.innerHTML = `
+            .content::before {
+                width: 900px;
+                height: 900px;
+                left: 49%;
+                bottom: -27%;
+            }
+        `;
+        document.head.appendChild(style);
+
+        style = document.createElement('style');
+        style.innerHTML = `
+            .content::after {
+                opacity: 0;
+            }
+        `;
+        document.head.appendChild(style);
+
+    } else {
+        document.querySelector('.content-l h2')?.setAttribute("style",
+            " transform: translateY(-30px); width: 80%;");
+        document.querySelector('.content-l span')?.setAttribute("style",
+            "transform: translateY(-30px); width: 80%; font: 100 20px 'Gochi Hand'; line-height: 2; ");
+        document.querySelector('.content-l button')?.setAttribute("style",
+            "width: 150px; height: 50px; top: 80%; background-position-x: 0; transform: rotate(0deg);");
+        document.querySelector('.circle')?.setAttribute("style",
+            "width: 800px;height: 800px;left: -440px;bottom: -440px;border: 43px #fff dashed; ");
+        document.querySelector('.content-l img')?.setAttribute("style",
+            "bottom: -500px;");
+        document.querySelector('.content-l')?.setAttribute("style",
+            "width: 40%;");
+        document.querySelector('.content-r')?.setAttribute("style",
+            "width: 60%;");
+        document.querySelector('.img')?.setAttribute("style",
+            "padding: 0px;  ");
+        document.querySelector('.img img')?.setAttribute("style",
+            "width: 60%;height: 90%;box-shadow: 10px 20px 28px #0c48888c;border-radius: 0px;");
+
+        // 伪元素
+        let style = document.createElement('style');
+        style.innerHTML = `
+            .content::before {
+                width: 700px;
+                height: 700px;
+                left: -420px;
+                bottom:-420px;
+            }
+        `;
+        document.head.appendChild(style);
+
+        style = document.createElement('style');
+        style.innerHTML = `
+            .content::after {
+                opacity: 1;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+});
+
+// 点击跳转
+const linkTo = (item: number) => {
+    router.push({ path: '/proMd', query: { id: item, part: partName.value } });
+}
+
+const total = ref(0)
+const params = ref({
+    pageNum: 1,
+    pageSize: 10,
+    department: partName.value
+})
+
+const ProList = ref<Array<{ itemId: number; itemTitle: string; itemIntroduction: string; headerImage: object; createTime: string }>>([]);
+const getProList = async () => {
+    console.log('partpara: ', params.value);
+    try {
+
+        const result = await getPros(params.value);
+        ProList.value = result.data.records;
+
+        ProList.value.forEach(async e => {
+
+            e.headerImage = await parseLanzouLink(e.headerImage);
+            console.log('e.headerImage: ', e.headerImage);
+
+        })
+
+        total.value = result.data.total;
+
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
+
+const handleSizeChange = () => {
+    getProList();
+}
+const handleCurrentChange = () => {
+    getProList();
+}
+
+const actTag = ref(0);
+const handleTag = (index) => {
+    actTag.value = index;
+}
 
 // 监视路由参数的变化
 watch(
@@ -74,132 +356,538 @@ watch(
     { deep: true } // 深度监视对象的变化
 );
 
-onMounted(() => {
-    console.log(partName.value);
+onMounted(async () => {
+    setTimeout(() => {
+        bus.emit('loading', false);
+    }, 200);
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    await getProList();
 });
 
 </script>
 
 <style scoped>
+.outer {
+    background-image: url(https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/218e0fb9ffff54547f62b13153c99abc4f36ee95ab29697d12dc78bfe38faa88f5e740f957cbef9707363b7ed826d05f?pictype=scale&from=30013&version=3.3.3.3&fname=bg5.jpg&size=750);
+    background-position: 10%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    padding-top: 60px;
+
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    transition: all 520ms cubic-bezier(0.000, 1.650, 0.635, 0.785);
+}
+
+::after,
+::before {
+    transition: .3s;
+}
+
 .part {
     display: flex;
-    padding: 160px 200px;
-    /* background-color: rgb(240, 240, 240); */
-    background-color: #dedede;
-
-}
-
-.info {
-    display: flex;
     flex-direction: column;
-    width: 1100px;
-    min-height: 1200px;
-    margin-right: 120px;
-    background-color: white;
-}
-
-.introduction {
-    height: 400px;
-    /* box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.3); */
-
-}
-
-.introTitle {
-    height: 60px;
-    background-color: white;
-    font-size: 26px;
-    font-weight: 700;
-    display: flex;
+    justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    padding: 5%;
+}
 
-    span {
-        margin-left: 20px;
+.content {
+    display: flex;
+    width: 90%;
+    height: 760px;
+
+    border-radius: 10px;
+    position: relative;
+}
+
+/* .content::after {
+    content: '';
+    width: 100px;
+    height: 200vh;
+    position: absolute;
+    top: -100vh;
+    right: 230px;
+    border: 100px solid #fff;
+    z-index: -999;
+} */
+
+.content::before {
+    content: '';
+    width: 770px;
+    height: 770px;
+    position: absolute;
+    bottom: -420px;
+    left: -420px;
+    border-radius: 50%;
+    border: 43px #074c97 dotted;
+    animation: rotate 100s infinite linear;
+    z-index: 0;
+}
+
+.content-l,
+.content-r {
+    position: relative;
+    transform-origin: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.content-l {
+    width: 40%;
+    background: linear-gradient(180deg, #76b5d5, #024794);
+    flex-direction: column;
+    color: #fff;
+}
+
+.content-l img {
+    position: absolute;
+    right: 20px;
+    width: 300px;
+    bottom: -500px;
+    transform: rotateY(180deg);
+}
+
+.content-r {
+    flex-wrap: wrap;
+    width: 60%;
+    background-color: #87c2e6b4;
+}
+
+.nav {
+    display: flex;
+    width: 95%;
+    height: 40px;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 0px;
+    transform: translateX(-2%);
+}
+
+.nav li {
+    position: relative;
+    width: 25%;
+    height: 100%;
+    text-align: center;
+    border-right: 1px dashed #000;
+    font: 100 24px 'Gochi Hand';
+}
+
+.nav li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 40px;
+    color: #fff;
+}
+
+.nav li:hover a {
+    color: #6AA8EC;
+    background-color: #ffffff;
+}
+
+.nav li:nth-child(4) {
+    border: none;
+}
+
+
+
+.content-l h2 {
+    font: 200 80px '';
+    font-family: 'Fredoka One', sans-serif;
+    position: relative;
+}
+
+.content-l span {
+    color: white;
+    font: 100 20px 'Gochi Hand';
+    line-height: 2;
+    transition: .3s;
+}
+
+.content-l h2,
+.content-l span {
+    z-index: 10;
+    width: 80%;
+    transform: translateY(-30px);
+
+}
+
+
+
+
+.circle {
+    width: 800px;
+    height: 800px;
+    position: absolute;
+    bottom: -440px;
+    left: -440px;
+    border-radius: 50%;
+    border: 43px #4486b9 dashed;
+    animation: rotate 100s infinite linear;
+}
+
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }
 
-.introMain {
-    display: flex;
-    justify-content: center;
-    height: 340px;
-    margin-top: 20px;
-}
 
-/* card */
-.card {
-    width: 1050px;
-    height: 330px;
-    border-radius: 15px;
-    background: #eeeeee;
-    display: flex;
-    flex-direction: column;
+
+.img {
+    perspective: 800px;
     position: relative;
-    overflow: hidden;
+    width: 50%;
+    height: 50%;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.card::before {
-    content: "";
-    height: 300px;
-    width: 300px;
-    position: absolute;
-    top: -20%;
-    left: 2%;
-    border-radius: 50%;
-    border: 35px solid rgba(255, 255, 255, 0.102);
-    transition: all .8s ease;
-    filter: blur(.5rem);
+.img:nth-child(1) {
+    transform: scale(1.3) translate(0px, 80px);
 }
 
-.text {
-    flex-grow: 1;
-    padding: 15px;
+.img:nth-child(2) {
+    transform: translate(-120px, 100px);
+}
+
+.img:nth-child(3) {
+    transform: translate(120px, -100px);
+}
+
+.img:nth-child(4) {
+    transform: scale(1.3) translate(-0px, -80px);
+}
+
+:deep(.img:nth-child(3) .el-image) {
+    transform: rotateY(-35deg);
+
+}
+
+:deep(.img:nth-child(4) .el-image) {
+    transform: rotateY(-35deg);
+
+}
+
+:deep(.img .el-image) {
+    transform: rotateY(35deg);
+    position: relative;
+    width: 70%;
+    height: 90%;
+    border: 10px #fff solid;
+    box-shadow: 10px 20px 28px #0c48888c;
+    object-fit: cover;
+}
+
+:deep(.img .el-image:hover) {
+    border: 10px #71aeee dashed;
+}
+
+.pros {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    color: rgb(136, 136, 136);
-    font-weight: 900;
-    font-size: 1.2em;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 2em 12em;
 }
 
-.subtitle {
-    font-size: .6em;
-    font-weight: 300;
-    color: rgba(240, 248, 255, 0.691);
+.prosTitle {
+    color: white;
+    margin: 0 auto;
 }
 
-.icons {
+/* bottom list */
+.bottom {
+    width: 100%;
+    min-height: 16em;
+    background-color: white;
     display: flex;
-    justify-items: center;
+    flex-direction: column;
+    padding: 2% 3%;
+    border-radius: 4px;
+    margin: 2% 0;
+    padding-top: 1%;
+    border: 1px solid rgba(100, 103, 105, 0.1);
+    box-shadow: 0px 0px 2px rgba(69, 85, 103, 0.1);
+}
+
+.botlistnone {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    width: 250px;
-    border-radius: 0px 0px 15px 15px;
+    font-size: 1.3em;
+    margin: 3% 0;
+    /* background-color: #f1f1f1; */
+}
+
+
+.botHead {
+    width: 100%;
+    height: 4em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f5f6f7;
+
+
+}
+
+.botHead h3 {
+    font-size: 1.5em;
+    font-weight: normal;
+}
+
+.botTags {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+:deep(.el-tag) {
+    cursor: pointer;
+    width: 6em;
+    height: 2.8em;
+    transition: all .2s;
+}
+
+:deep(.el-tag):hover {
+    color: white;
+    background-color: #5e8ed6;
+}
+
+:deep(.el-tag-act) {
+    color: white;
+    background-color: #5e8ed6;
+}
+
+.botlists {
+    width: 100%;
+    /* height: 80%; */
+    display: flex;
+    flex-direction: column;
+
+}
+
+.botlist {
+    cursor: pointer;
+    width: 100%;
+    height: 13em;
+    display: flex;
+    border-bottom: 1px solid #ebebeb;
+    padding: 1% 0;
+}
+
+.botImg {
+    width: 25%;
+    height: 100%;
+
+}
+
+.botImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.botText {
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1% 3%;
+
+
+}
+
+.botText .botTextTag {
+    width: 100%;
+    display: flex;
+
+}
+
+.botText .botTextTag span {
+    color: rgb(79, 157, 218);
+    letter-spacing: 1px;
+}
+
+.botText h3 {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.botText p {
+    width: 100%;
+    font-size: 14px;
+    color: #797C80;
+    /* 超过两行省略 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.btn {
-    border: none;
-    width: 84px;
-    height: 35px;
-    background-color: rgba(247, 234, 234, 0.589);
+.botText .botDinner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+
+
+}
+
+.botText .botDinner .botWriter {
+    width: 30%;
     display: flex;
     align-items: center;
-    justify-content: center;
+
 }
 
-.svg-icon {
-    width: 25px;
-    height: 25px;
-    stroke: rgb(38, 59, 126);
+.botText .botDinner .botWriter img {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
 }
 
-.btn:hover {
-    background-color: rgb(247, 234, 234);
+.botText .botDinner .botWriter span {
+    color: #797C80;
+    font-size: 12px;
+    /* margin-left: .6em; */
 }
 
-.card:hover::before {
-    width: 140px;
-    height: 140px;
-    top: -30%;
-    left: 70%;
-    filter: blur(0rem);
+.botText .botDinner .botTime {
+    min-width: 15%;
+    color: #797C80;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/* 分页 */
+:deep(.el-pagination) {
+    justify-content: flex-end;
+    margin: 2% 0;
+}
+
+:deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
+    background-color: #579ad3;
+}
+
+/* 移动端适配 */
+@media (max-width: 1284px) {
+    .content {
+
+        width: 90%;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .content-r {
+
+        width: 100%;
+        height: 20em;
+
+    }
+
+    .content-l {
+        width: 100%;
+
+    }
+
+    .content-l h2 {
+        z-index: 10;
+        width: 80%;
+        transform: none;
+        font-size: 2em;
+        text-align: center;
+        margin: 0.3em;
+    }
+
+    .content-l span {
+        z-index: 10;
+        width: 82%;
+        transform: none;
+        font-size: 1em;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+
+    .pros {
+
+        padding: 2em 2em;
+    }
+
+    .botHead h3 {
+        font-size: 1.2em;
+    }
+
+    .botTags {
+        width: 100%;
+    }
+
+    :deep(.el-tag) {
+
+        width: 4em;
+        height: 2.8em;
+
+    }
+
+    .botlistnone {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5em;
+        margin: 11% 0;
+    }
+
+    .botlist {
+
+        height: 23em;
+        padding: 1% 0;
+        flex-direction: column;
+        margin: 1em 0;
+    }
+
+    .botImg {
+        width: 100%;
+        height: 12em;
+    }
+
+    .botText {
+        width: 100%;
+        height: 100%;
+
+    }
+
 }
 </style>

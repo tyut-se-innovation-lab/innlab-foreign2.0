@@ -15,22 +15,13 @@
         <section>
 
             <div class="main">
-                <div class="mainCon">
-                    <h1 class="mainTitle">友情链接</h1>
-                    <div class="mainMain">
-                        <span>中华人民共和国教育部</span>
-                        <span>中华人民共和国科学技术部</span>
-                        <span>国家自然科学基金委</span>
-                        <span>国家国防科工局</span>
-                        <span>武器装备信息网</span>
-                    </div>
-                </div>
+
                 <div class="mainCon">
                     <h1 class="mainTitle">联系我们</h1>
                     <div class="mainMain">
                         <span>地址：中国山西省晋中市榆次区大学街209号太原理工大学行勉楼</span>
-                        <span>联系方式：12345678900</span>
-                        <span>邮箱：tyutxcb@tyut.edu.cn</span>
+                        <!-- <span>联系方式：12345678900</span> -->
+                        <span>邮箱：3135631305@qq.com</span>
                         <span>邮编：030600</span>
                     </div>
                 </div>
@@ -40,8 +31,8 @@
                 <h1 class="contactTitle">联系我们</h1>
                 <div class="contactMain">
                     <span>地址：中国山西省晋中市榆次区大学街209号太原理工大学行勉楼</span>
-                    <span>联系方式：12345678900</span>
-                    <span>邮箱：tyutxcb@tyut.edu.cn</span>
+                    <!-- <span>联系方式：12345678900</span> -->
+                    <span>邮箱：3135631305@qq.com</span>
                     <span>邮编：030600</span>
 
                 </div>

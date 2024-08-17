@@ -62,7 +62,8 @@ const PeopleList = ref<Array<{
 
 const PeopleListParams = ref({
     pageNum: 1,
-    pageSize: 8
+    pageSize: 8,
+    period: 2022,
 })
 
 const MobilePeopleList = ref<Array<{
@@ -78,7 +79,8 @@ const MobilePeopleList = ref<Array<{
 
 const MobilePeopleListParams = ref({
     pageNum: 1,
-    pageSize: 4
+    pageSize: 4,
+    period: 2022
 })
 
 const getPeopleList = async () => {

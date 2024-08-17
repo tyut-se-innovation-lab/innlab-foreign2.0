@@ -8,7 +8,9 @@
 
       <main>
         <div class="img">
-          <img class="imgit" data-aos="fade-right" data-aos-duration="800" src="public/img/homeImg/descimg.png" alt="">
+          <img class="imgit" data-aos="fade-right" data-aos-duration="800"
+            src="https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/d2cefd1b86790c531bdced83059e879276a544ec7d42dfe517bc177e3128df9e1b0bef1c9d4fcfbb39fa208bf46412f5?pictype=scale&from=30013&version=3.3.3.3&fname=descimg.png&size=750"
+            alt="">
 
         </div>
         <div class="text" data-aos="fade-left" data-aos-duration="800" data-aos-delay="500">

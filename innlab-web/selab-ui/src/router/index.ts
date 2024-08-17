@@ -24,15 +24,9 @@ const router = createRouter({
     },
     { path: '/error', name: 'error', component: () => import('../views/error/index.vue'), meta: { title: '404' } },
     {
-      path: '/description',
-      name: 'description',
-      component: () => import('../views/describe/index.vue'),
-      meta: { header: true, sidebar: true }
-    },
-    {
       path: '/part',
       name: 'part',
-      component: () => import('../views/part/text.vue'),
+      component: () => import('../views/part/index.vue'),
       // meta: { header_unhome: true, footer: true },
       meta: { header: true, sidebar: true },
 
@@ -54,7 +48,7 @@ const router = createRouter({
     {
       path: '/people',
       name: 'people',
-      component: () => import('../views/people/test.vue'),
+      component: () => import('../views/people/index.vue'),
       // meta: { header_unhome: true, footer: true }
       meta: { sidebar: true }
     },

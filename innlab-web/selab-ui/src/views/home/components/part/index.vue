@@ -11,22 +11,45 @@
                             <span>STRUCTURE</span>
                         </div>
                     </div>
-                    <swiper :autoplay="{ delay: 6000 }" :loop="true" :navigation="true" :slidesPerView="3" :pagination="{
-                        clickable: true,
-                    }" :spaceBetween="30" :modules="modules" class="mySwiper" :cssMode="true">
+
+                    <swiper id="swiper" :autoplay="{ delay: 6000 }" :loop="true" :navigation="true" :slidesPerView="3"
+                        :pagination="{
+                            clickable: true,
+                        }" :spaceBetween="30" :modules="modules" class="mySwiper" :cssMode="true">
                         <swiper-slide v-for="(slide, index) in slides" :key="index">
 
                             <div class="slideItem">
                                 <div class="slideImg" v-html="slide.icon"></div>
                                 <h2 class="slideTitle">{{ slide.title }}</h2>
                                 <p class="slideText">{{ slide.description }}</p>
-                                <router-link :to="{ path: '/part', query: { name: slide.title } }">
+                                <router-link class="slbtn" :to="{ path: '/part', query: { name: slide.title } }">
                                     <div class="slideBtn">READ MORE</div>
                                 </router-link>
 
                             </div>
                         </swiper-slide>
                     </swiper>
+
+                    <swiper id="mobileswiper" :autoplay="{ delay: 6000 }" :loop="true" :navigation="true"
+                        :slidesPerView="1" :pagination="{
+                            clickable: false,
+                        }" :spaceBetween="30" :modules="modules" class="mySwiper">
+                        <swiper-slide v-for="(slide, index) in slides" :key="index">
+
+                            <div class="slideItem">
+                                <div class="slideImg" v-html="slide.icon"></div>
+                                <h2 class="slideTitle">{{ slide.title }}</h2>
+                                <p class="slideText">{{ slide.description }}</p>
+                                <router-link class="slbtn" :to="{ path: '/part', query: { name: slide.title } }">
+                                    <div class="slideBtn">READ MORE</div>
+                                </router-link>
+
+                            </div>
+                        </swiper-slide>
+                    </swiper>
+
+
+
 
                 </div>
             </div>
@@ -77,14 +100,14 @@ const slides = ref([
         path: '/part',
         name: '虚拟现实',
         title: '虚拟现实',
-        description: '虚拟现实技术囊括计算机、电子信息、仿真技术，其基本实现方式是以计算机技术为主，利用并综合三维图形技术、多媒体技术、仿真技术、显示技术、伺服技术等多种高科技的最新发展成果，借助计算机等设备产生一个逼真的三维视觉、触觉、嗅觉等多种感官体验的虚拟世界，从而使处于虚拟世界中的人产生一种身临其境的感觉。',
+        description: '虚拟现实技术（Virtual Reality, VR），又称灵境技术，是20 世纪发展起来的一项全新的实用技术。虚拟现实技术囊括计算机、电子信息、仿真技术于一体，其基本实现方式是计算机模拟虚拟环境从而给人以环境沉浸感。随着社会生产力和科学技术的不断发展，各行各业对虚拟现实技术的需求日益旺盛。学院拥有山西省虚拟现实技术研究生教育创新中心，并与山西云极视界科技有限公司签订了虚拟现实人才合作培养协议，为该方向学生专业学习、项目实习等提供了技术支持与实践指导。如果你对虚拟现实感兴趣，想要探索虚拟现实相关的技术与知识，欢迎你加入虚拟现实小组!',
         icon: '<svg t="1721730539421" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9014" width="120" height="120"><path d="M518.12352 11.55072c-62.90432 7.9872-118.64064 30.74048-167.00416 68.64896-9.0112 7.168-19.67104 16.18944-23.35744 20.28544l-7.168 7.3728H142.52032l1.2288 21.92384c3.072 56.55552 29.10208 105.3184 73.35936 138.10688l14.14144 10.45504-9.0112 6.144c-4.9152 3.2768-11.47904 9.0112-14.55104 12.91264-5.3248 7.168-5.5296 7.168-20.89984 7.168-22.33344 0-30.33088 3.072-43.64288 16.39424-12.70784 12.50304-16.39424 21.51424-16.39424 39.34208v11.264l-8.6016 2.4576c-34.83648 10.24-64.74752 43.02848-71.31136 77.86496-1.2288 6.144-2.048 43.02848-2.048 84.00896 0 79.09376 0.8192 86.05696 11.47904 107.1616 6.5536 12.91264 25.20064 32.99328 37.29408 39.95648 18.03264 10.65984 28.69248 13.32224 57.98912 14.75584 22.94784 1.2288 29.30688 2.2528 37.70368 6.3488 12.70784 6.144 23.56224 17.00864 29.92128 29.92128 4.9152 9.8304 4.9152 11.0592 5.5296 73.56416l0.6144 63.72352-7.168 2.4576c-12.91264 4.7104-36.88448 22.12864-50.41152 36.47488-22.94784 24.79104-36.67968 53.89312-39.95648 85.248l-1.4336 13.93664h33.19808v-7.7824c0.2048-33.40288 25.20064-74.99776 54.91712-91.1872l10.65984-5.7344V1009.4592h32.78848V894.70976H400.3328l76.43136 59.62752L552.99072 1013.76l76.43136-59.42272 76.22656-59.62752h70.69696c79.50336 0 86.8864 1.024 111.06304 13.73184 33.19808 17.41824 58.80832 57.98912 59.01312 93.2352v7.7824h16.39424c19.05664 0 18.44224 1.024 13.52704-24.99584-6.144-31.54944-20.89984-58.19392-45.07648-80.93696-18.03264-17.00864-32.37888-25.61024-55.94112-34.22208l-18.03264-6.3488-70.08256-0.6144-70.28736-0.8192V805.9904l0.2048-55.73632 11.68384-6.9632c72.89856-43.85792 129.04448-124.18048 145.43872-208.60928 3.2768-16.18944 5.5296-22.33344 11.68384-31.35488 9.4208-13.73184 17.82784-31.76448 22.53824-48.15872 5.3248-18.23744 6.9632-109.83424 2.2528-127.86688-4.9152-19.67104-17.41824-37.49888-32.37888-46.51008-1.6384-1.024-5.3248-11.47904-8.3968-22.94784C837.98016 134.28736 737.57696 39.6288 612.98688 15.64672c-25.61024-4.9152-71.91552-6.9632-94.86336-4.096z m97.3312 36.88448c89.5488 19.26144 162.69312 76.84096 202.8544 160.03072 10.65984 22.33344 23.35744 60.03712 20.89984 62.49472-2.4576 2.6624-24.99584-3.2768-39.34208-10.24-29.50144-14.14144-39.95648-28.06784-64.74752-86.05696-9.43104-22.12864-17.62304-40.16128-18.23744-40.16128-0.6144 0-8.81664 18.03264-18.23744 40.16128-18.44224 43.02848-28.28288 59.83232-41.79968 71.72096-10.65984 9.216-33.40288 20.49024-47.54432 23.35744-7.168 1.4336-59.62752 2.048-163.10272 1.6384l-152.45312-0.6144-14.34624-4.9152c-26.01984-8.61184-41.79968-18.23744-60.44672-37.08928-23.15264-22.94784-36.27008-48.56832-41.79968-81.55136l-1.2288-6.5536h156.34432l15.98464-15.37024c46.91968-44.66688 103.0656-72.13056 165.96992-80.93696 22.34368-3.08224 78.08-0.82944 101.23264 4.08576z m105.3184 174.17216c3.2768 9.63584 15.57504 27.04384 27.24864 38.72768l10.45504 10.45504H675.49184l14.14144-15.16544c8.20224-8.81664 16.80384-20.69504 20.28544-27.65824 3.2768-6.7584 6.5536-12.50304 7.38304-12.50304 0.60416 0 2.24256 2.8672 3.47136 6.144z m148.76672 90.5728c3.6864 4.096 7.7824 10.8544 9.0112 15.37024 1.2288 4.5056 2.2528 28.27264 2.2528 56.14592 0 41.39008-0.6144 50.61632-4.096 64.13312-5.5296 21.51424-12.70784 34.01728-29.71648 51.23072-41.18528 41.59488-105.5232 45.48608-151.42912 9.216l-10.0352-7.9872H419.34848l-7.9872 6.9632c-18.64704 15.77984-45.69088 25.81504-70.69696 25.81504-16.18944 0-40.98048-6.3488-56.35072-14.55104-15.98464-8.61184-39.13728-32.99328-47.12448-49.59232-10.8544-22.94784-12.29824-35.65568-11.68384-94.0544 0.6144-49.37728 0.8192-52.86912 4.9152-58.39872 2.2528-3.072 7.3728-7.3728 11.27424-9.4208 6.5536-3.2768 24.79104-3.4816 313.91744-3.072l307.15904 0.6144 6.76864 7.58784z m-677.2224 73.35936v49.17248H180.0192c-20.49024 0-20.49024-0.2048-20.49024-49.18272s0-49.18272 20.49024-49.18272h12.29824v49.19296z m-65.57696 28.27264c0 14.34624 5.3248 27.65824 14.75584 37.29408 12.09344 12.70784 21.71904 16.39424 43.02848 16.39424h17.82784l4.9152 10.65984c2.6624 5.9392 8.3968 15.77984 12.50304 21.92384 6.144 9.0112 8.3968 15.16544 11.68384 32.37888 11.47904 59.21792 43.23328 119.25504 86.05696 162.28352 18.44224 18.85184 44.05248 39.13728 61.06112 48.77312l10.45504 5.7344v111.47264l-65.56672 0.6144-65.56672 0.6144V808.6528c0-59.01312-1.2288-68.22912-11.47904-88.5248-6.5536-12.91264-25.20064-32.99328-37.29408-39.95648-18.03264-10.6496-28.69248-13.32224-57.98912-14.75584-22.94784-1.2288-29.29664-2.2528-37.70368-6.3488-12.70784-6.144-23.56224-17.00864-29.92128-29.91104l-4.9152-10.04544V449.04448l4.9152-10.0352c6.144-12.50304 17.00864-23.56224 28.89728-29.51168 13.1072-6.57408 14.336-6.16448 14.336 5.31456z m556.94336 126.84288c41.39008 27.46368 98.9696 32.78848 141.17888 13.11744 6.9632-3.4816 12.91264-5.5296 12.91264-4.7104 0 5.12-12.29824 36.27008-20.49024 52.86912-19.46624 38.11328-51.42528 75.61216-85.23776 99.3792-27.87328 19.87584-106.14784 62.69952-127.86688 69.87776-18.23744 6.144-21.30944 6.5536-50.19648 6.5536-32.78848 0-45.48608-2.2528-67.62496-12.09344-18.44224-7.9872-95.2832-52.04992-112.49664-64.33792-34.22208-24.17664-68.03456-64.13312-86.4768-101.632-7.7824-16.18944-19.26144-46.10048-19.26144-50.40128 0-0.8192 5.7344 1.024 12.91264 4.3008 43.43808 19.67104 99.1744 14.75584 139.95008-12.29824l12.09344-7.9872 119.66464-0.2048h119.66464l11.27424 7.56736zM446.40256 782.41792c40.57088 21.92384 67.00032 29.29664 106.5472 29.29664 39.54688 0 65.98656-7.3728 106.5472-29.29664 11.88864-6.3488 22.12864-12.09344 23.15264-12.29824 0.8192-0.4096 1.4336 22.12864 1.2288 50.20672v50.82112l-65.56672 50.61632-65.37216 50.82112-65.36192-50.82112-65.56672-50.61632V820.3264c-0.2048-28.07808 0.4096-50.61632 1.4336-50.20672 0.82944 0.2048 11.06944 5.94944 22.95808 12.29824z" p-id="9015" fill="#ffffff"></path><path d="M290.67264 435.712v16.39424h442.59328v-32.78848H290.67264v16.39424zM766.06464 435.712v16.39424h49.17248v-32.78848h-49.17248v16.39424z" p-id="9016" fill="#ffffff"></path></svg>'
     },
     {
         path: '/part',
         name: '算法竞赛',
         title: '算法竞赛',
-        description: '算法（Algorithm）是指解题方案的准确而完整的描述，是一系列解决问题的清晰指令，算法代表着用系统的方法描述解决问题的策略机制。也就是说，能够对一定规范的输入，在有限时间内获得所要求的输出。',
+        description: '什么是算法？第一次听到这个词是否大脑一片空白？算法是计算机处理信息的本质，学习算法可以让我们更高效地使用计算机来解决各种问题，包括但不限于数学问题，从各种排序问题，最优解问题到图论，博弈论等，随着学习的逐步深入，你会发现算法领域的博大，学习各种算法的原理，惊叹其巧妙的构思，享受ac算法的快乐。大学生算法竞赛,例如ICPC(国际大学生程序设计竞赛)、CCPC(中国大学生程序设计竞赛),蓝桥杯、天梯赛、百度之星等算法竞赛，是以数据结构与算法为主要考察对象的竞赛，其中 ICPC 竞赛（国际大学生程序设计竞赛，又称ACM）是公认为全球计算机领域规模最大、影响力最广的赛事之一，被誉为计算机软件领域的奥林匹克。',
         icon: '<svg t="1721730565522" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10108" width="120" height="120"><path d="M849.8 510.4c3.5-4.5 6.8-9.1 10-13.6 57.1-80.4 71.2-154.7 39.8-209.3-31.4-54.6-102.8-79.6-201-70.6-5.7 0.5-11.4 1.2-17.2 1.9-2.2-5.4-4.6-10.7-6.9-15.9C633.4 113.3 576 64 513 64s-120.3 49.5-161.4 139c-2.4 5.1-4.6 10.4-6.9 15.7-5.7-0.7-11.4-1.4-17-1.9-98.1-9.2-169.6 15.8-201 70.4-31.5 54.6-17.4 128.9 39.6 209.3 3.2 4.5 6.6 9.1 10 13.6-3.5 4.5-6.8 9.1-10 13.6C109.2 604.1 95 678.4 126.5 733c27.2 47.3 84.4 72.4 162.9 72.4 12.2 0 24.9-0.6 38-1.8 5.7-0.5 11.4-1.2 17.2-1.9 2.2 5.4 4.6 10.7 6.9 15.9C392.6 907.2 450 956.5 513 956.5s120.3-49.3 161.5-138.9c2.4-5.1 4.6-10.4 6.9-15.7 5.7 0.7 11.4 1.4 17 1.9 13.3 1.2 26.1 1.9 38.4 1.9 78.4 0 135.4-25.1 162.7-72.2 31.5-54.6 17.4-128.9-39.6-209.3-3.3-4.7-6.6-9.2-10.1-13.8zM322.2 746.8c-73.6 6.8-127-8.6-146.4-42.3-19.4-33.7-6-87.6 36.9-147.8l1.5-2.1c25.4 27 54.5 53.2 86.7 78.1 5.4 40.2 13.6 78.4 24.2 113.8-0.9 0.1-1.9 0.2-2.9 0.3z m-28.4-194c-15.5-14-30-28.2-43.2-42.6 13.2-14.4 27.6-28.6 43.2-42.6-0.6 14.1-1 28.3-1 42.7 0 14.2 0.4 28.4 1 42.5z m7.2-165.1c-32.2 24.8-61.3 51.1-86.7 78-0.5-0.7-1.1-1.4-1.5-2.1-42.8-60.4-56.2-114.3-36.8-147.9 16.4-28.4 56.9-43.8 113.3-43.8 10.5 0 21.6 0.5 33.1 1.6 0.9 0.1 1.8 0.2 2.8 0.3-10.6 35.4-18.8 73.7-24.2 113.9z m358.3-46.2c-11.8-7.5-23.9-14.9-36.2-22-12.3-7.1-24.7-13.9-37.1-20.3 19.7-6.4 39.1-11.7 58-15.9 5.8 18.2 10.9 37.6 15.3 58.2zM513.1 121.1c38.6 0 79.4 39.9 110.6 108.5-35.9 8.5-73 20.5-110.4 35.8-37.5-15.4-74.7-27.5-110.6-36 31-68.5 71.8-108.3 110.4-108.3z m-131 162c19 4.2 38.4 9.5 58.2 16-12.4 6.4-24.8 13.2-37.2 20.3-12.4 7.1-24.5 14.5-36.3 22 4.4-20.6 9.5-40.1 15.3-58.3zM366.8 679c11.8 7.5 23.9 14.9 36.2 22 12.3 7.1 24.7 13.9 37.1 20.3-19.7 6.4-39.1 11.7-58 15.9-5.8-18.1-10.9-37.6-15.3-58.2z m146.3 220.5c-38.6 0-79.4-39.9-110.6-108.5 35.9-8.5 73-20.5 110.4-35.8 37.5 15.4 74.7 27.5 110.6 36-31.1 68.4-71.9 108.3-110.4 108.3zM644 737.4c-19-4.2-38.4-9.5-58.2-16 12.4-6.4 24.8-13.2 37.2-20.3 12.4-7.1 24.5-14.5 36.3-22-4.4 20.6-9.5 40.1-15.3 58.3z m27.5-135.5c-24.1 17.5-49.9 34.2-77 49.8-27 15.6-54.4 29.4-81.6 41.5-27.2-12.1-54.5-26-81.5-41.6-27-15.6-52.7-32.4-76.8-49.9-3.1-29-4.8-59.6-4.8-91.5 0-32 1.7-62.6 4.8-91.6 24.1-17.5 49.9-34.2 77-49.8 27-15.6 54.4-29.4 81.6-41.5 27.2 12.1 54.5 26 81.5 41.6 27 15.6 52.7 32.4 76.8 49.9 3.1 29 4.8 59.6 4.8 91.5 0 32-1.7 62.5-4.8 91.6z m32.4-328.2c11.4-1.1 22.4-1.6 32.8-1.6 56.6 0 97.2 15.4 113.6 43.9 19.4 33.7 6 87.6-36.9 147.8l-1.5 2.1c-25.4-27-54.5-53.2-86.7-78.1-5.4-40.2-13.6-78.4-24.2-113.8 1-0.1 1.9-0.2 2.9-0.3z m28.4 194.1c15.5 14 30 28.2 43.2 42.6-13.2 14.4-27.6 28.6-43.2 42.6 0.6-14.1 1-28.3 1-42.7 0-14.3-0.3-28.5-1-42.5z m117.8 237.1c-19.4 33.7-72.8 49-146.4 42.1-0.9-0.1-1.8-0.2-2.8-0.3 10.6-35.4 18.8-73.6 24.2-113.8 32.2-24.8 61.3-51.1 86.7-78 0.5 0.7 1.1 1.4 1.5 2.1 42.9 60.3 56.2 114.2 36.8 147.9z" fill="#ffffff" p-id="10109"></path><path d="M482.4 501.6h-25.6V476c0-6.6-6.8-12-15.3-12-8.4 0-15.3 5.4-15.3 12v25.6h-25.6c-6.6 0-12 6.8-12 15.3 0 8.4 5.4 15.3 12 15.3h25.6v25.6c0 6.6 6.8 12 15.3 12 8.4 0 15.3-5.4 15.3-12v-25.6h25.6c6.6 0 12-6.8 12-15.3s-5.4-15.3-12-15.3zM629 501.6h-81.7c-6.6 0-12 6.8-12 15.3 0 8.4 5.4 15.3 12 15.3H629c6.6 0 12-6.8 12-15.3 0.1-8.5-5.3-15.3-12-15.3z" fill="#ffffff" p-id="10110"></path></svg>'
     }
 ]);
@@ -118,6 +141,7 @@ const LinkTo = (elementId: number) => {
 
 <style scoped>
 .homePart {
+    width: 100vw;
     display: flex;
     align-items: center;
     background-color: white;
@@ -143,12 +167,13 @@ const LinkTo = (elementId: number) => {
     position: relative;
     padding: 0 120px;
 
-    .container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        z-index: 10;
-    }
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
 }
 
 
@@ -184,27 +209,36 @@ const LinkTo = (elementId: number) => {
     height: 100%;
 
     /* background-color: aliceblue; */
-    .descTitle {
-        border-left: 3px solid #729bba;
-        padding: 0 4%;
-        margin: 4%;
 
-        h2 {
-            font-size: 42px;
-            color: #333;
-            font-weight: bold;
-            margin-top: 0;
-        }
-
-        span {
-            font-size: 16px;
-            color: #333;
-            margin-top: 10px;
-        }
-    }
 
 }
 
+.descTitle {
+    border-left: 3px solid #729bba;
+    padding: 0 4%;
+    margin: 4%;
+}
+
+.descTitle h2 {
+    font-size: 42px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.descTitle span {
+    font-size: 16px;
+    color: #333;
+    margin-top: 10px;
+}
+
+#swiper {
+    display: block;
+}
+
+#mobileswiper {
+    display: none;
+}
 
 .swiper {
     width: 76%;
@@ -231,7 +265,7 @@ const LinkTo = (elementId: number) => {
     flex-shrink: 0;
     width: calc((100% - 90px) / 4);
     transition: all .3s;
-    background: url(public/img/homeImg/slide-bg-2.jpg)
+    background: url(https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/73916b00cca62a232d41e1c8ce1c422edf017632266fc2280882e6a76e3351d94fb83b92a0d63a9b0c0b1f975892919f?pictype=scale&from=30013&version=3.3.3.3&fname=slide-bg-2.jpg&size=750)
 }
 
 .slideItem {
@@ -271,6 +305,13 @@ const LinkTo = (elementId: number) => {
     opacity: 0.9;
     overflow: hidden;
     transition: all .3s;
+
+}
+
+
+
+.slbtn {
+    min-height: 5em;
 }
 
 .slideBtn {
@@ -302,7 +343,7 @@ const LinkTo = (elementId: number) => {
 :deep(.swiper-slide-active) {
     height: 100% !important;
     /* background-color: #729bba; */
-    background: url(public/img/homeImg/slide-bg-6.png);
+    background: url(https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/2fe498c0dbc6a57bc7e95bfcb2b113eb4c37bfc4c0de7ec9ac8a1354dfd0df798369e2375aee453f0da8dc987d0a373a?pictype=scale&from=30013&version=3.3.3.3&fname=slide-bg-6.png&size=750);
     background-size: cover;
 
 }
@@ -317,8 +358,14 @@ const LinkTo = (elementId: number) => {
 }
 
 :deep(.swiper-slide-active .slideText) {
-    display: flex;
+
     color: white;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 
 :deep(.swiper-slide-active .slideBtn) {
@@ -352,6 +399,7 @@ const LinkTo = (elementId: number) => {
     align-items: center;
     transition: all .2s;
     left: var(--swiper-navigation-sides-offset, -16%);
+    /* right: var(--swiper-navigation-sides-offset, 10%); */
     top: var(--swiper-navigation-sides-offset, 82%);
 }
 
@@ -380,103 +428,6 @@ const LinkTo = (elementId: number) => {
 
 
 
-
-.partmiddle {
-    width: 50%;
-    height: 80%;
-    background-image: url(/public/img/partImg/middlebg.png);
-    background-size: contain;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: 600;
-    /* padding-bottom: 20px; */
-    margin: 0 30px;
-    font-size: 180%;
-}
-
-.partleft {
-    width: 56%;
-    height: 100%;
-
-    .part {
-        width: 100%;
-        height: 52%;
-        margin-top: 10%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .partcontent {
-            width: 100%;
-            height: 100%;
-            background-image: url("public/img/partImg/leftbg.png");
-            background-size: contain;
-            position: relative;
-
-            .partcontent_title {
-                font-size: 33px;
-                font-weight: 600;
-                color: white;
-                position: absolute;
-                top: 19%;
-                right: 26%;
-            }
-
-            .partcontent_text {
-                font-size: 26px;
-                font-weight: 600;
-                color: white;
-                position: absolute;
-                top: 43%;
-                right: 18%;
-            }
-        }
-    }
-}
-
-.partright {
-    width: 56%;
-    height: 100%;
-
-    .part {
-        width: 100%;
-        height: 52%;
-        margin-top: 10%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .partcontent {
-            width: 100%;
-            height: 100%;
-            background-image: url("public/img/partImg/rightbg.png");
-            background-size: contain;
-            position: relative;
-
-            .partcontent_title {
-                font-size: 33px;
-                font-weight: 600;
-                color: white;
-                position: absolute;
-                top: 19%;
-                left: 26%;
-            }
-
-            .partcontent_text {
-                font-size: 26px;
-                font-weight: 600;
-                color: white;
-                position: absolute;
-                top: 43%;
-                left: 18%;
-            }
-        }
-    }
-}
-
 .part {
     cursor: pointer;
     transition: all .3s;
@@ -503,61 +454,80 @@ const LinkTo = (elementId: number) => {
 
 /* 移动端适配 */
 @media (max-width: 1248px) {
+    #swiper {
+        display: none;
+    }
 
-.parts {
-    padding: 6%;
-}
+    #mobileswiper {
+        display: block;
+    }
 
-.parts-bottom {
+    .descTitle h2 {
+        font-size: 33px;
+    }
 
-    flex-direction: column;
-    padding-right: 0;
-}
-
-.partDesc {
-    width: 100%;
-
-}
-
-.descTitle {
-    margin-left: 0 !important;
-}
-
-.swiper {
-    width: 100%;
-    margin-top: 8%;
-}
-
-.swiper-slide {
-    width: 100% !important;
-}
+    .parts {
+        height: 120vh;
+        padding: 6%;
+    }
 
 
-.slideImg {
-    min-height: 10em;
-}
+    .parts-bottom {
 
-.slideText {
-    min-height: 15em;
-}
+        flex-direction: column;
+        padding-right: 0;
+    }
 
-.slbtn {
-    min-height: 7em;
-}
+    .partDesc {
+        width: 100%;
 
-:deep(.swiper-button-prev) {
-    left: var(--swiper-navigation-sides-offset, 12%);
-    top: var(--swiper-navigation-sides-offset, 109%);
-}
+    }
 
-:deep(.swiper-button-next) {
-    left: var(--swiper-navigation-sides-offset, 67%);
-    top: var(--swiper-navigation-sides-offset, 109%);
-}
+    .descTitle {
+        margin-left: 0 !important;
+    }
 
-:deep(.swiper-slide-active) {
-    width: 100% !important;
-}
+    .swiper {
+        width: 100%;
+        margin-top: 8%;
+    }
+
+    .swiper-slide {
+        width: 100% !important;
+    }
+
+
+    .slideImg {
+        min-height: 10em;
+    }
+
+    .slideText {
+        min-height: 15em;
+    }
+
+    .slbtn {
+        min-height: 7em;
+    }
+
+    :deep(.swiper-button-prev) {
+        left: var(--swiper-navigation-sides-offset, 12%);
+        top: var(--swiper-navigation-sides-offset, 109%);
+    }
+
+    :deep(.swiper-button-next) {
+        left: auto;
+        right: var(--swiper-navigation-sides-offset, 10%);
+        top: var(--swiper-navigation-sides-offset, 109%);
+    }
+
+    :deep(.swiper-slide-active) {
+        width: 100% !important;
+    }
+
+    :deep(.swiper-slide-active .slideText) {
+        display: flex;
+
+    }
 
 }
 </style>

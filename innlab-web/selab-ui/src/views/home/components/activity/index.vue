@@ -163,7 +163,7 @@
                             <h2>算法竞赛</h2>
                             <p class="subtitle">Algorithm competition</p>
                             <ul class="style1">
-                                <li v-for="item in vrPros"><span href="#" @click="linkProTo(item.itemId)">{{
+                                <li v-for="item in sfPros"><span href="#" @click="linkProTo(item.itemId)">{{
                                     item.itemTitle }}</span></li>
                             </ul>
                             <router-link :to="{ path: '/part', query: { name: '算法竞赛' } }">
@@ -205,7 +205,7 @@ import 'aos/dist/aos.css'
 const actParams = ref({
     pageNum: 1,
     pageSize: 8,
-    // activityType: '软件开发'
+    // activityType: '热门'
 })
 const rkParams = ref({
     pageNum: 1,
@@ -226,6 +226,11 @@ const vrParams = ref({
     pageNum: 1,
     pageSize: 4,
     department: '虚拟现实'
+})
+const sfParams = ref({
+    pageNum: 1,
+    pageSize: 4,
+    department: '算法竞赛'
 })
 
 const ActivitiesList = ref<Array<{ activityId: number; activityTitle: string; createTime: string }>>([]);
@@ -292,6 +297,18 @@ const getVrPros = async () => {
 
     }
 };
+const sfPros = ref<Array<{ itemId: number; itemTitle: string; }>>([]);
+const getSfPros = async () => {
+    try {
+        const result = await getProTitles(sfParams.value);
+        sfPros.value = result.data.records;
+
+    } catch (error) {
+        console.error('Error fetching data:');
+    } finally {
+
+    }
+};
 
 // 点击跳转
 const linkTo = (item: number) => {
@@ -320,6 +337,7 @@ onMounted(() => {
     getWaPros();
     getAiPros();
     getVrPros();
+    getSfPros();
     AOS.init();
 });
 
@@ -330,7 +348,7 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     position: relative;
-    background-image: url(public/img/homeImg/actBg1.jpg);
+    background-image: url(https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/d906489631dca5ebd66e04bd524e24c0a4a7ac0443359556e72fc68a79eebebb60f34f8fe050c9c71645df6e72b6a7de?pictype=scale&from=30013&version=3.3.3.3&fname=actBg1.jpg&size=750);
     background-size: 500px 500px;
     background-color: #dddbd9;
     background-position: 50%;
@@ -535,7 +553,7 @@ onMounted(() => {
 .seAcBigImg img {
     width: 60%;
     height: 95%;
-    /* object-fit: cover; */
+    object-fit: cover;
     margin-left: 5%;
 }
 
@@ -670,7 +688,6 @@ ul.style1 {}
 
 ul.style1 li {
     padding: 0.75em 0 0.75em 0em;
-    /* background: url(images/bullet-icon.png) no-repeat left 50%; */
 }
 
 ul.style1 span {

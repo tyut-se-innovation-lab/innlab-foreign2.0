@@ -12,7 +12,8 @@ export function toQQzone(url, title) {
 export function toQQ(url, title) {
     url = encodeURIComponent(url)
     title = encodeURIComponent(title)
-    window.open(`https://connect.qq.com/widget/shareqq/index.html?url=${url}&title=${title}&source=${url}&desc=${title}&pics=`)
+
+    window.open(`http://connect.qq.com/widget/shareqq/index.html?url=${url}&sharesource=qzone&title=${title}&source=${url}&desc=${title}`)
 }
 
 export function toWeibo(url, title) {
