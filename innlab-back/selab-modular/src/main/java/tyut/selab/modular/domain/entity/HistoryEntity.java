@@ -39,7 +39,13 @@ public class HistoryEntity extends BaseEntity {
     private String historyTitle;
 
     @TableField("header_image")
-    private Integer headerImage;
+    private Integer headerImageId;
+    /**
+     * 标题图片
+     */
+    @TableField(exist = false)
+    @Schema(description = "标题图片")
+    private ImageVo headerImage;
 
     /**
      * 具体事件

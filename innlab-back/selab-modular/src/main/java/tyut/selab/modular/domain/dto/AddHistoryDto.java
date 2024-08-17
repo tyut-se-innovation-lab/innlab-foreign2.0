@@ -1,5 +1,6 @@
 package tyut.selab.modular.domain.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -30,6 +31,10 @@ public class AddHistoryDto {
     @NotNull(message = "历史标题不能为null")
     @Size(min = 1,max = 20,message = "历史标题必须在1-20字符之间！")
     private String historyTitle;
+
+    @Schema(description = "标题图片id")
+    @NotNull(message = "标题图片id不能为null")
+    private Integer headerImageId;
 
     /**
      * 具体事件

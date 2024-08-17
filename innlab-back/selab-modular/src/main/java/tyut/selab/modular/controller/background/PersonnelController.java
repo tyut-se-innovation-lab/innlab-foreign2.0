@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import tyut.selab.common.annotation.SysLogAnnotation;
 import tyut.selab.common.domain.R;
 import tyut.selab.modular.domain.dto.AddItemDto;
 import tyut.selab.modular.domain.dto.AddPersonalDto;
@@ -33,6 +34,7 @@ public class PersonnelController {
     @PostMapping("/addPersonal")
     @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "添加人员信息")
+    @SysLogAnnotation(operModul = "人员管理",operType = "新增",operDesc = "新增人员")
     public R addPersonal(@RequestBody @Validated AddPersonalDto addPersonalDto){
         return iPersonnelService.addPersoual(addPersonalDto);
     }
@@ -46,12 +48,14 @@ public class PersonnelController {
     @PostMapping("/updatePersonal")
     @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "修改人员信息")
+    @SysLogAnnotation(operModul = "人员管理",operType = "修改",operDesc = "修改人员")
     public R updatePersonal(@RequestBody @Validated UpdatePersonDto updatePersonDto){
         return iPersonnelService.updatePersoual(updatePersonDto);
     }
     @PostMapping("/deletePersonal")
     @Operation(summary = "删除人员")
     @PreAuthorize("@ss.hasPermission('admin')")
+    @SysLogAnnotation(operModul = "人员管理",operType = "删除",operDesc = "删除人员")
     public R deletePersonalById(@RequestParam("personalId") Integer personalId){
         return iPersonnelService.deletePersoual(personalId);
     }
