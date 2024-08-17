@@ -1,6 +1,7 @@
 package tyut.selab.modular.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import tyut.selab.common.utils.EnumUtils;
 import tyut.selab.common.utils.ObjectUtils;
 import tyut.selab.common.utils.RedisUtils;
 import tyut.selab.common.utils.StringUtils;
+import tyut.selab.framework.domain.PageParam;
 import tyut.selab.framework.domain.entity.ResourceEntity;
 import tyut.selab.framework.mapper.ResourceMapper;
 import tyut.selab.framework.web.SecurityUtils;
@@ -139,23 +141,25 @@ public class ActivityServiceImpl implements IActivityService {
             if (subTitleEntity.getSubtitleType()==0){
                 subTitleMo.setSubtitleContent(subTitleEntity.getSubtitleContent());
             }else {
-                String arr[] = subTitleEntity.getSubtitleContent().split("\\.");
-                List<ImageVo> resource = new ArrayList<>();
-                List<ResourceEntity> resourceEntityList = resourceMapper.selectBatchIds(Arrays.asList(arr));
-                for (ResourceEntity resourceEntity:resourceEntityList){
-                    ImageVo imageVo = new ImageVo();
-                    imageVo.setIsNewd(resourceEntity.getIsNewd());
-                    imageVo.setPwd(resourceEntity.getPwd());
-                    imageVo.setFId(resourceEntity.getFId());
-                    String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
-                    if (StringUtils.isNotEmpty(lzLinkUrl)){
-                        imageVo.setUrl(lzLinkUrl);
-                    }else {
-                        imageVo.setUrl(resourceEntity.getResourceUrl());
+                if(ObjectUtils.isNotNull(subTitleEntity.getSubtitleContent())){
+                    String arr[] = subTitleEntity.getSubtitleContent().split("\\.");
+                    List<ImageVo> resource = new ArrayList<>();
+                    List<ResourceEntity> resourceEntityList = resourceMapper.selectBatchIds(Arrays.asList(arr));
+                    for (ResourceEntity resourceEntity:resourceEntityList){
+                        ImageVo imageVo = new ImageVo();
+                        imageVo.setIsNewd(resourceEntity.getIsNewd());
+                        imageVo.setPwd(resourceEntity.getPwd());
+                        imageVo.setFId(resourceEntity.getFId());
+                        String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+                        if (StringUtils.isNotEmpty(lzLinkUrl)){
+                            imageVo.setUrl(lzLinkUrl);
+                        }else {
+                            imageVo.setUrl(resourceEntity.getResourceUrl());
+                        }
+                        resource.add(imageVo);
                     }
-                    resource.add(imageVo);
+                    subTitleMo.setResource(resource);
                 }
-                subTitleMo.setResource(resource);
             }
             subTitleMoList.add(subTitleMo);
         }
@@ -216,6 +220,7 @@ public class ActivityServiceImpl implements IActivityService {
         activityEntity.setActivityIntroduction(addActivityDto.getActivityIntroduction());
         activityEntity.setCreateUser(SecurityUtils.getUserNickName());
         activityEntity.setState(false);
+        activityEntity.setIsTop(false);
         activityEntity.setDelFlag(0);
         activityMapper.insert(activityEntity);
         return R.success("添加成功！");
@@ -259,9 +264,22 @@ public class ActivityServiceImpl implements IActivityService {
             return R.error("活动不存在！");
         }
         SubTitleEntity subTitleEntity = new SubTitleEntity();
+        PageParam param = new PageParam(1,1);
+        Page<SubTitleEntity> page = new Page<>(param.getPageNum(),param.getPageSize());
+        QueryWrapper<SubTitleEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("activity_id",addSubTitleDto.getActivityId())
+                .orderByDesc("subtitle_sort");
+        IPage<SubTitleEntity> subTitleEntityIPage = subTitleMapper.selectPage(page, queryWrapper);
+        List<SubTitleEntity> subTitleEntityList = subTitleEntityIPage.getRecords();
+        if (subTitleEntityList.size()==0){
+            subTitleEntity.setSubtitleSort(0);
+        }else {
+            subTitleEntity.setSubtitleSort(subTitleEntityList.get(0).getSubtitleSort()+1);
+        }
+        subTitleEntity.setSubtitleContent("");
+        subTitleEntity.setSubtitleName("");
         subTitleEntity.setActivityId(addSubTitleDto.getActivityId());
         subTitleEntity.setSubtitleType(addSubTitleDto.getSubtitleType());
-        subTitleEntity.setSubtitleSort(addSubTitleDto.getSubtitleSort());
         subTitleEntity.setDelFlag(0);
         subTitleMapper.insert(subTitleEntity);
         ActivityEntity activityEntity = new ActivityEntity();
@@ -276,17 +294,67 @@ public class ActivityServiceImpl implements IActivityService {
         if (ObjectUtils.isNull(subTitleEntity1)){
             return R.error("小标题不存在！");
         }
-        SubTitleEntity subTitleEntity = new SubTitleEntity();
-        subTitleEntity.setSubtitleId(updateSubTitleDto.getSubtitleId());
-        subTitleEntity.setSubtitleName(updateSubTitleDto.getSubtitleName());
-        subTitleEntity.setSubtitleSort(updateSubTitleDto.getSubtitleSort());
-        subTitleEntity.setSubtitleContent(updateSubTitleDto.getSubtitleContent());
-        subTitleMapper.updateById(subTitleEntity);
-        ActivityEntity activityEntity = new ActivityEntity();
-        activityEntity.setActivityId(subTitleEntity1.getActivityId());
-        activityEntity.setUpdateUser(SecurityUtils.getUserNickName());
-        activityMapper.updateById(activityEntity);
-        return R.success("修改成功！",subTitleEntity);
+        if (ObjectUtils.isNull(updateSubTitleDto.getSubtitleMove())){
+            SubTitleEntity subTitleEntity = new SubTitleEntity();
+            subTitleEntity.setSubtitleId(updateSubTitleDto.getSubtitleId());
+            subTitleEntity.setSubtitleName(updateSubTitleDto.getSubtitleName());
+            subTitleEntity.setSubtitleContent(updateSubTitleDto.getSubtitleContent());
+            subTitleMapper.updateById(subTitleEntity);
+            ActivityEntity activityEntity = new ActivityEntity();
+            activityEntity.setActivityId(subTitleEntity1.getActivityId());
+            activityEntity.setUpdateUser(SecurityUtils.getUserNickName());
+            activityMapper.updateById(activityEntity);
+            return R.success("修改成功！",subTitleEntity);
+        }else {
+            if (updateSubTitleDto.getSubtitleMove() == 1) {
+                PageParam param = new PageParam(1, 1);
+                Page<SubTitleEntity> page = new Page<>(param.getPageNum(), param.getPageSize());
+                QueryWrapper<SubTitleEntity> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("activity_id", subTitleEntity1.getActivityId())
+                        .lt("subtitle_sort", subTitleEntity1.getSubtitleSort())
+                        .orderByDesc("subtitle_sort");
+                IPage<SubTitleEntity> subTitleEntityIPage = subTitleMapper.selectPage(page, queryWrapper);
+                List<SubTitleEntity> subTitleEntityList = subTitleEntityIPage.getRecords();
+                if (subTitleEntityList.size() == 0) {
+                    return R.success("上移成功！");
+                } else {
+                    //上
+                    SubTitleEntity subTitleEntity = subTitleEntityList.get(0);
+                    //下
+                    SubTitleEntity subTitleEntity2 = new SubTitleEntity();
+                    subTitleEntity2.setSubtitleId(subTitleEntity1.getSubtitleId());
+                    subTitleEntity2.setSubtitleSort(subTitleEntity.getSubtitleSort());
+                    subTitleEntity.setSubtitleSort(subTitleEntity1.getSubtitleSort());
+                    subTitleMapper.updateById(subTitleEntity);
+                    subTitleMapper.updateById(subTitleEntity2);
+                    return R.success("上移成功！");
+                }
+            } else if (updateSubTitleDto.getSubtitleMove() == -1) {
+                PageParam param = new PageParam(1, 1);
+                Page<SubTitleEntity> page = new Page<>(param.getPageNum(), param.getPageSize());
+                QueryWrapper<SubTitleEntity> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("activity_id", subTitleEntity1.getActivityId())
+                        .gt("subtitle_sort", subTitleEntity1.getSubtitleSort())
+                        .orderByAsc("subtitle_sort");
+                IPage<SubTitleEntity> subTitleEntityIPage = subTitleMapper.selectPage(page, queryWrapper);
+                List<SubTitleEntity> subTitleEntityList = subTitleEntityIPage.getRecords();
+                if (subTitleEntityList.size() == 0) {
+                    return R.success("下移成功！");
+                } else {
+                    //下
+                    SubTitleEntity subTitleEntity = subTitleEntityList.get(0);
+                    //上
+                    SubTitleEntity subTitleEntity2 = new SubTitleEntity();
+                    subTitleEntity2.setSubtitleId(subTitleEntity1.getSubtitleId());
+                    subTitleEntity2.setSubtitleSort(subTitleEntity.getSubtitleSort());
+                    subTitleEntity.setSubtitleSort(subTitleEntity1.getSubtitleSort());
+                    subTitleMapper.updateById(subTitleEntity);
+                    subTitleMapper.updateById(subTitleEntity2);
+                    return R.success("下移成功！");
+                }
+            }
+            return R.error("非法输入！");
+        }
     }
     @Override
     public R deleteSubTitleById(Integer subTitleId){
@@ -296,6 +364,41 @@ public class ActivityServiceImpl implements IActivityService {
         }
         subTitleMapper.deleteById(subTitleId);
         return R.success("删除成功！");
+    }
+    @Override
+    public R getSubTitleMsg(Integer subTitleId){
+        SubTitleEntity subTitleEntity = subTitleMapper.selectById(subTitleId);
+        if (ObjectUtils.isNull(subTitleEntity)){
+            return R.error("小标题不存在！");
+        }
+        SubTitleMo subTitleMo = new SubTitleMo();
+        subTitleMo.setSubtitleId(subTitleEntity.getSubtitleId());
+        subTitleMo.setSubtitleName(subTitleEntity.getSubtitleName());
+        subTitleMo.setSubtitleType(subTitleEntity.getSubtitleType());
+        subTitleMo.setSubtitleContent(subTitleEntity.getSubtitleContent());
+        if (subTitleEntity.getSubtitleType()!=0){
+            if(ObjectUtils.isNotNull(subTitleEntity.getSubtitleContent())){
+                subTitleMo.setSubtitleContent(subTitleEntity.getSubtitleContent());
+                String arr[] = subTitleEntity.getSubtitleContent().split("\\.");
+                List<ImageVo> resource = new ArrayList<>();
+                List<ResourceEntity> resourceEntityList = resourceMapper.selectBatchIds(Arrays.asList(arr));
+                for (ResourceEntity resourceEntity:resourceEntityList){
+                    ImageVo imageVo = new ImageVo();
+                    imageVo.setIsNewd(resourceEntity.getIsNewd());
+                    imageVo.setPwd(resourceEntity.getPwd());
+                    imageVo.setFId(resourceEntity.getFId());
+                    String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+                    if (StringUtils.isNotEmpty(lzLinkUrl)){
+                        imageVo.setUrl(lzLinkUrl);
+                    }else {
+                        imageVo.setUrl(resourceEntity.getResourceUrl());
+                    }
+                    resource.add(imageVo);
+                }
+                subTitleMo.setResource(resource);
+            }
+        }
+        return R.success(subTitleMo);
     }
     @Override
     public R getActivityMsg1(Integer activityId) {
@@ -327,27 +430,28 @@ public class ActivityServiceImpl implements IActivityService {
             subTitleMo.setSubtitleId(subTitleEntity.getSubtitleId());
             subTitleMo.setSubtitleName(subTitleEntity.getSubtitleName());
             subTitleMo.setSubtitleType(subTitleEntity.getSubtitleType());
-            subTitleMo.setSubtitleSort(subTitleEntity.getSubtitleSort());
             subTitleMo.setSubtitleContent(subTitleEntity.getSubtitleContent());
             if (subTitleEntity.getSubtitleType()!=0){
-                subTitleMo.setSubtitleContent(subTitleEntity.getSubtitleContent());
-                String arr[] = subTitleEntity.getSubtitleContent().split("\\.");
-                List<ImageVo> resource = new ArrayList<>();
-                List<ResourceEntity> resourceEntityList = resourceMapper.selectBatchIds(Arrays.asList(arr));
-                for (ResourceEntity resourceEntity:resourceEntityList){
-                    ImageVo imageVo = new ImageVo();
-                    imageVo.setIsNewd(resourceEntity.getIsNewd());
-                    imageVo.setPwd(resourceEntity.getPwd());
-                    imageVo.setFId(resourceEntity.getFId());
-                    String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
-                    if (StringUtils.isNotEmpty(lzLinkUrl)){
-                        imageVo.setUrl(lzLinkUrl);
-                    }else {
-                        imageVo.setUrl(resourceEntity.getResourceUrl());
+                if(ObjectUtils.isNotNull(subTitleEntity.getSubtitleContent())){
+                    subTitleMo.setSubtitleContent(subTitleEntity.getSubtitleContent());
+                    String arr[] = subTitleEntity.getSubtitleContent().split("\\.");
+                    List<ImageVo> resource = new ArrayList<>();
+                    List<ResourceEntity> resourceEntityList = resourceMapper.selectBatchIds(Arrays.asList(arr));
+                    for (ResourceEntity resourceEntity:resourceEntityList){
+                        ImageVo imageVo = new ImageVo();
+                        imageVo.setIsNewd(resourceEntity.getIsNewd());
+                        imageVo.setPwd(resourceEntity.getPwd());
+                        imageVo.setFId(resourceEntity.getFId());
+                        String lzLinkUrl = (String) redisUtils.getCacheObject(KeyConstants.LZ_LINEURL_KEY+imageVo.getFId());
+                        if (StringUtils.isNotEmpty(lzLinkUrl)){
+                            imageVo.setUrl(lzLinkUrl);
+                        }else {
+                            imageVo.setUrl(resourceEntity.getResourceUrl());
+                        }
+                        resource.add(imageVo);
                     }
-                    resource.add(imageVo);
+                    subTitleMo.setResource(resource);
                 }
-                subTitleMo.setResource(resource);
             }
             subTitleMoList.add(subTitleMo);
         }

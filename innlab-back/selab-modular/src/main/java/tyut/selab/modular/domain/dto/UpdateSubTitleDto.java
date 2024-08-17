@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -41,8 +42,10 @@ public class UpdateSubTitleDto {
     @Schema(description = "小标题内容")
     private String subtitleContent;
     /**
-     * 小标题权重
+     * 小标题内容
      */
-    @Max(value = 99,message = "小标题权重异常！")
-    private Integer subtitleSort;
+    @Schema(description = "小标题移动")
+    @Min(value = -1,message = "小标题移动格式错误！")
+    @Max(value = 1,message = "小标题移动格式错误！")
+    private Integer subtitleMove;
 }
