@@ -354,10 +354,7 @@ const getLink = async (img) => {
 const shareTo = (type) => {
     const url = window.location.href;
     const title = actInfo.value.activityTitle;
-    // toQQzone(url, title);
-    // toQQ(url, title);
-    // toWeibo(url, title);
-    // toWechat(url, title);
+
     switch (type) {
         case 'qq':
             getQQCode();

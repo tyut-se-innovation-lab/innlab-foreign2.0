@@ -72,9 +72,7 @@
                                 <img :src="item.headerImage" alt="">
                             </div>
                             <div class="botText">
-                                <div class="botTextTag">
-                                    <span>分类</span>
-                                </div>
+
                                 <h3>{{ item.activityTitle }}</h3>
                                 <p>{{ item.activityIntroduction }}
                                 </p>
