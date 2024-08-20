@@ -44,7 +44,7 @@
                     <ul class="acts">
 
                         <ul class="shareList">
-                            <li class="icon-content" @click="shareTo('qq')">
+                            <li class="icon-content" @mouseover="shareTo('qq')">
                                 <a href="javascript:;" aria-label="Spotify" data-social="qq">
                                     <div class="filled"></div>
                                     <svg t="1722070846852" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -54,7 +54,12 @@
                                             p-id="2340" fill="currentColor"></path>
                                     </svg>
                                 </a>
-                                <div class="tooltip">转发到QQ</div>
+                                <div class="tooltip wxtooltip">
+                                    <span>手机QQ扫描二维码</span>
+                                    <span>点击右上角 ··· 按钮分享到QQ</span>
+                                    <img class="qrImg" :src="qrcodeUrlqq" alt="二维码" v-if="qrcodeUrlqq" />
+
+                                </div>
                             </li>
                             <li class="icon-content" @click="shareTo('qqkj')">
                                 <a href="javascript:;" aria-label="Pinterest" data-social="qqkj">
@@ -279,7 +284,6 @@ const getLink = async (img) => {
     return result;
 }
 
-const qrcodeUrl = ref('');
 
 const shareTo = (type) => {
     const url = window.location.href;
@@ -287,7 +291,7 @@ const shareTo = (type) => {
 
     switch (type) {
         case 'qq':
-            toQQ(url, title);
+            getQQCode();
             break;
         case 'qqkj':
             toQQzone(url, title);
@@ -305,6 +309,20 @@ const shareTo = (type) => {
     }
 }
 
+const qrcodeUrl = ref('');
+const qrcodeUrlqq = ref('');
+const getQQCode = () => {
+    const url = window.location.href;
+    if (url) {
+        QRCode.toDataURL(url, { width: 500, height: 500 }, (err, dataUrl) => {
+            if (err) {
+                console.error(err);
+            } else {
+                qrcodeUrlqq.value = dataUrl;
+            }
+        });
+    }
+}
 const getWxCode = () => {
     const url = window.location.href;
     if (url) {
@@ -694,6 +712,7 @@ aside .imgs .imgbox img:hover {
     opacity: 1;
     visibility: visible;
     top: 110%;
+    left: 7em;
 }
 
 .shareList .icon-content a {
