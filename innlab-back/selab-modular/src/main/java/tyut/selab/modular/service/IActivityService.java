@@ -35,5 +35,7 @@ public interface IActivityService {
 
     R deleteSubTitleById(Integer subTitleId);
 
+    R getSubTitleMsg(Integer subTitleId);
+
     R getActivityMsg1(Integer activityId);
 }

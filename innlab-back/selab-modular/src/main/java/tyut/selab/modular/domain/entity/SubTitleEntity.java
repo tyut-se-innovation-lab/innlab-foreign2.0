@@ -48,7 +48,6 @@ public class SubTitleEntity {
     /**
      * 小标题权重
      */
-    @JsonIgnore
     @TableField("subtitle_sort")
     private Integer subtitleSort;
     /**

@@ -31,10 +31,4 @@ public class AddSubTitleDto {
     @NotNull(message = "小标题类型不能为null")
     @Max(value = 9,message = "小标题类型异常！")
     private Integer subtitleType;
-    /**
-     * 小标题权重
-     */
-    @NotNull(message = "小标题权重不能为null")
-    @Max(value = 99,message = "小标题权重异常！")
-    private Integer subtitleSort;
 }

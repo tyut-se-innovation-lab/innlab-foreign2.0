@@ -125,7 +125,7 @@ public class ItemServiceImpl implements IItemService {
             itemMsgVo.setMarkdownBase64(itemEntity.getContentMarkdown());
             return R.success(itemMsgVo);
         }
-        return R.error("文章已删除！");
+        return R.success(itemMsgVo);
     }
     @Override
     public R getItemMsg1(Integer itemId) {
@@ -151,7 +151,7 @@ public class ItemServiceImpl implements IItemService {
             itemMsgVo.setMarkdownBase64(itemEntity.getContentMarkdown());
             return R.success(itemMsgVo);
         }
-        return R.error("文章已删除！");
+        return R.success(itemMsgVo);
     }
 
     @Override
@@ -169,6 +169,7 @@ public class ItemServiceImpl implements IItemService {
         ItemEntity itemEntity = new ItemEntity();
         itemEntity.setItemIntroduction(addItemDto.getItemIntroduction());
         itemEntity.setItemTitle(addItemDto.getItemTitle());
+        itemEntity.setContentMarkdown("");
         itemEntity.setDepartmentId(EnumUtils.getDepartmentIdByName(addItemDto.getDepartment()));
         itemEntity.setHeaderImage(addItemDto.getHeaderImage());
         itemEntity.setCreateUser(SecurityUtils.getUserNickName());

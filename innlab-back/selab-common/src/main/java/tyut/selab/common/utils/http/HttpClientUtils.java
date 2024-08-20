@@ -354,7 +354,7 @@ public class HttpClientUtils {
     }
 
     public static void main(String[] args) {
-        String newPayUrl="https://www.imgtp.com/api/upload";
+        System.out.println(get("http://tool.xwm.lol/api.php?msg=321"));
 //        File file = new File("C:/Users/gmsly/Pictures/图片1.png");
 //        Map<String,Object> map = new HashMap<>();
 //        map.put("image",file);
@@ -372,5 +372,6 @@ public class HttpClientUtils {
 //        JSONObject date2 = date1.getJSONObject("data");
 //        String token = date2.getString("token");
 //        System.out.println(token);
+
     }
 }

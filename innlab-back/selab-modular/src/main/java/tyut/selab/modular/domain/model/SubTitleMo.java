@@ -42,9 +42,4 @@ public class SubTitleMo {
      */
     @Schema(description = "资源")
     private List<ImageVo> resource;
-    /**
-     * 小标题权重
-     */
-    @Schema(description = "小标题权重")
-    private Integer subtitleSort;
 }

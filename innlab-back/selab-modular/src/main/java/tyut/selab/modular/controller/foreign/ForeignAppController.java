@@ -5,12 +5,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tyut.selab.common.annotation.AccessLogAnnotation;
 import tyut.selab.common.domain.R;
+import tyut.selab.common.utils.http.HttpClientUtils;
 import tyut.selab.framework.domain.PageParam;
 import tyut.selab.modular.service.IAppService;
 
@@ -32,10 +30,10 @@ public class ForeignAppController {
      * 获取App信息
      * @return
      */
-    @PostMapping("/getApp")
+    @PostMapping("/getGPT")
 //    @AccessLogAnnotation()
     @Operation(summary = "获取App信息",description = "获取App信息")
-    public R getApp(){
-        return iAppService.getApp();
+    public R getApp(@RequestParam("msg") String msg){
+        return R.success(HttpClientUtils.get("http://tool.xwm.lol/api.php?msg="+msg));
     }
 }

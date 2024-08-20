@@ -31,6 +31,7 @@ public class ActivityController {
     @PostMapping("/addActivity")
     @Operation(summary = "添加机构动态")
     @PreAuthorize("@ss.hasPermission('admin')")
+    @SysLogAnnotation(operModul = "机构动态管理",operType = "新增",operDesc = "新增机构动态")
     public R addActivity(@RequestBody @Validated AddActivityDto addActivityDto){
         return iActivityService.addActivity(addActivityDto);
     }
@@ -43,12 +44,14 @@ public class ActivityController {
     @PostMapping("/updateActivity")
     @Operation(summary = "修改机构动态")
     @PreAuthorize("@ss.hasPermission('admin')")
+    @SysLogAnnotation(operModul = "机构动态管理",operType = "修改",operDesc = "修改机构动态")
     public R updateActivity(@RequestBody @Validated UpdateActivityDto updateActivityDto){
         return iActivityService.updateActivity(updateActivityDto);
     }
     @PostMapping("/deleteActivity")
     @Operation(summary = "删除机构动态")
     @PreAuthorize("@ss.hasPermission('admin')")
+    @SysLogAnnotation(operModul = "机构动态管理",operType = "删除",operDesc = "删除机构动态")
     public R deleteActivity(@RequestParam("activityId")Integer activityId){
         return iActivityService.deleteActivity(activityId);
     }
@@ -56,6 +59,7 @@ public class ActivityController {
     @PostMapping("/addSubTitle")
     @Operation(summary = "添加小标题")
     @PreAuthorize("@ss.hasPermission('admin')")
+    @SysLogAnnotation(operModul = "机构动态管理",operType = "新增",operDesc = "新增小标题")
     public R addSubTitle(@RequestBody @Validated AddSubTitleDto addSubTitleDto){
         return iActivityService.addSubTitle(addSubTitleDto);
     }
@@ -63,6 +67,7 @@ public class ActivityController {
     @PostMapping("/updateSubTitle")
     @Operation(summary = "修改小标题")
     @PreAuthorize("@ss.hasPermission('admin')")
+    @SysLogAnnotation(operModul = "机构动态管理",operType = "修改",operDesc = "修改小标题")
     public R updateSubTitle(@RequestBody @Validated UpdateSubTitleDto updateSubTitleDto){
         return iActivityService.updateSubTitle(updateSubTitleDto);
     }
@@ -75,8 +80,17 @@ public class ActivityController {
     @PostMapping("/deleteSubTitle")
     @Operation(summary = "删除小标题")
     @PreAuthorize("@ss.hasPermission('admin')")
+    @SysLogAnnotation(operModul = "机构动态管理",operType = "删除",operDesc = "删除小标题")
     public R deleteSubTitleById(@RequestParam("subTitleId")Integer subTitleId){
         return iActivityService.deleteSubTitleById(subTitleId);
     }
+
+    @PostMapping("/getSubTitleMsg")
+    @Operation(summary = "获取小标题信息")
+    @PreAuthorize("@ss.hasPermission('admin')")
+    public R getSubTitleMsg(@RequestParam("subTitleId")Integer subTitleId){
+        return iActivityService.getSubTitleMsg(subTitleId);
+    }
+
 
 }

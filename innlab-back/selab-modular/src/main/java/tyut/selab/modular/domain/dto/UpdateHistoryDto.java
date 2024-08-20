@@ -37,7 +37,6 @@ public class UpdateHistoryDto {
 
 
     @Schema(description = "标题图片id")
-    @NotNull(message = "标题图片id不能为null")
     private Integer headerImageId;
 
     /**
