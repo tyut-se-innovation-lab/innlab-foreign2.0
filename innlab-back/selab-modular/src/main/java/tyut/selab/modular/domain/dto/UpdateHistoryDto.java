@@ -32,7 +32,7 @@ public class UpdateHistoryDto {
      * 历史标题
      */
     @Schema(description = "历史标题")
-    @Size(min = 1,max = 20,message = "历史标题必须在1-20字符之间！")
+    @Size(min = 1,max = 30,message = "历史标题必须在1-30字符之间！")
     private String historyTitle;
 
 

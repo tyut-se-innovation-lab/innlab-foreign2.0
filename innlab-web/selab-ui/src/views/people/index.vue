@@ -44,10 +44,13 @@
                                 </svg>
                                 <span>年份</span>
                             </template>
-                            <el-menu-item index="2-2">2020</el-menu-item>
-                            <el-menu-item index="2-3">2021</el-menu-item>
-                            <el-menu-item index="2-4">2022</el-menu-item>
-                            <el-menu-item index="2-5">2023</el-menu-item>
+<!--                            <el-menu-item index="2-1">2017</el-menu-item>-->
+<!--                            <el-menu-item index="2-2">2018</el-menu-item>-->
+<!--                            <el-menu-item index="2-3">2019</el-menu-item>-->
+                            <el-menu-item index="2-4">2020</el-menu-item>
+                            <el-menu-item index="2-4">2021</el-menu-item>
+                            <el-menu-item index="2-6">2022</el-menu-item>
+                            <el-menu-item index="2-7">2023</el-menu-item>
                         </el-sub-menu>
                     </el-menu>
                 </div>
@@ -79,10 +82,13 @@
                                 </svg>
                                 <span>年份</span>
                             </template>
-                            <el-menu-item index="2-2">2020</el-menu-item>
-                            <el-menu-item index="2-3">2021</el-menu-item>
-                            <el-menu-item index="2-4">2022</el-menu-item>
-                            <el-menu-item index="2-5">2023</el-menu-item>
+<!--                          <el-menu-item index="2-1">2017</el-menu-item>-->
+<!--                          <el-menu-item index="2-2">2018</el-menu-item>-->
+<!--                          <el-menu-item index="2-3">2019</el-menu-item>-->
+                          <el-menu-item index="2-4">2020</el-menu-item>
+                          <el-menu-item index="2-5">2021</el-menu-item>
+                          <el-menu-item index="2-6">2022</el-menu-item>
+                          <el-menu-item index="2-7">2023</el-menu-item>
                         </el-sub-menu>
                     </el-menu>
                 </div>
@@ -331,19 +337,25 @@ const handleSelect = (param) => {
         case '1-5':
             handlePart('算法竞赛')
             break;
-        case '2-1':
-            handlePeriod(2019)
-            break;
-        case '2-2':
+        // case '2-1':
+        //     handlePeriod(2017)
+        //     break;
+        // case '2-2':
+        //     handlePeriod(2018)
+        //     break;
+        // case '2-3':
+        //     handlePeriod(2019)
+        //     break;
+        case '2-4':
             handlePeriod(2020)
             break;
-        case '2-3':
+        case '2-5':
             handlePeriod(2021)
             break;
-        case '2-4':
+        case '2-6':
             handlePeriod(2022)
             break;
-        case '2-5':
+        case '2-7':
             handlePeriod(2023)
             break;
         default:

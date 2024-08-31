@@ -21,7 +21,7 @@ public class AddActivityDto {
      */
     @Schema(description = "活动标题")
     @NotNull(message = "活动标题不能为null")
-    @Size(min = 1,max = 20,message = "活动标题必须在1-200字符之间！")
+    @Size(min = 1,max = 30,message = "活动标题必须在1-30字符之间！")
     private String activityTitle;
     /**
      * 活动简介

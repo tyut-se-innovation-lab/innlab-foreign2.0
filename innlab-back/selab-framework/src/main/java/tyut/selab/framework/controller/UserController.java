@@ -125,6 +125,7 @@ public class UserController {
 
 
     @PostMapping("/deleteUser")
+    @PreAuthorize("@ss.hasPort('user:delete')")
     @Operation(summary = "删除用户",description= "通过用户id删除用户")
     public R delectUserById(@RequestParam("userId")Integer userId) {
         return iUserService.delectUserById(userId);

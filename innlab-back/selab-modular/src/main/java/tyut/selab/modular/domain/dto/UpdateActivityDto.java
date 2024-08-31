@@ -29,7 +29,7 @@ public class UpdateActivityDto {
      * 活动标题
      */
     @Schema(description = "活动标题")
-    @Size(min = 1,max = 20,message = "活动标题必须在1-200字符之间！")
+    @Size(min = 1,max = 30,message = "活动标题必须在1-30字符之间！")
     private String activityTitle;
     /**
      * 活动简介

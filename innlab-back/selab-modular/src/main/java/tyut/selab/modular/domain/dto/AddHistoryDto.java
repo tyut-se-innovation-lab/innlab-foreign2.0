@@ -29,7 +29,7 @@ public class AddHistoryDto {
      */
     @Schema(description = "历史标题")
     @NotNull(message = "历史标题不能为null")
-    @Size(min = 1,max = 20,message = "历史标题必须在1-20字符之间！")
+    @Size(min = 1,max = 30,message = "历史标题必须在1-30字符之间！")
     private String historyTitle;
 
     @Schema(description = "标题图片id")

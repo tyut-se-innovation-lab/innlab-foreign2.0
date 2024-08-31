@@ -40,5 +40,21 @@ public class PermissionService {
         }
         return false;
     }
+    public boolean hasPort(String port){
+        if (StringUtils.isEmpty( port)) {
+            return false;
+        }
+        LoginUser loginUser = SecurityUtils.getLoginUser();
+        if (ObjectUtils.isNull(loginUser) ||ObjectUtils.isNull(loginUser.getPermission())) {
+            return false;
+        }
+        if (loginUser.getPermission().equals("admin")){
+            return true;
+        }
+        if (loginUser.getPort().contains(port)){
+            return true;
+        }
+        return false;
+    }
 
 }

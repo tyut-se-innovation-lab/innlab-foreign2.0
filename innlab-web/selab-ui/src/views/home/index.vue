@@ -84,6 +84,12 @@ const actImgs = ref([
   "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/6fd8182ad2deeef079926afb865af7ea29a6d545ef19bd1a76f1815eae30e932b56e67e9f36cddab99d50dafabe1534a?pictype=scale&from=30013&version=3.3.3.3&fname=banner3.jpg&size=750",
   // "public/img/banner.jpg",
   "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/ec5f6cb7a3e8492f3648c2688b82b81b31d32bb27926ec114a5e34190ca350accc59fc5def77c588fff2bb7f2a2a5eb1?pictype=scale&from=30013&version=3.3.3.3&fname=banner2.jpg&size=750",
+  "https://free2.yunpng.top/2024/08/17/66c03df81e748.jpg",
+  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/0b812143bfbbf673dfe8b16704c7ab7728aeac73c1039e31955cba84abe71fd0c3d17ccdd08a3f885bd5fb6fe36db22b?pictype=scale&from=30113&version=3.3.3.3&fname=jingtaiziyuan.jpg&size=750",
+  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/c951d90e6913552328b07448020ec877a6f70a1024901065ff8530221a02c88c21bb7cf66c754b9566af68fb483e0c54?pictype=scale&from=30113&version=3.3.3.3&fname=154928-yi_shu-chuang_kou-guang-zi_se_de-azure-1366x768.jpg&size=750",
+  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f670b4b15d9186612e895d916bca6fd49caf113a22ee951cbd2b6640dd99c08603c40c531acc75571bc5a172bfe5499b?pictype=scale&from=30113&version=3.3.3.3&fname=shouye.jpg&size=750",
+  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/8e62988df6d5300d965775e34ef70400ca4fa14c3f65b6680a8ce09585af2ef04379d3e1e79daa8dff43f1c8682ba2d3?pictype=scale&from=30113&version=3.3.3.3&fname=start.jpg&size=750",
+
 ])
 
 // 轮播图切换

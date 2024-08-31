@@ -50,7 +50,7 @@ public class LoginUser implements UserDetails {
     /**
      * 接口列表
      */
-    private Set<String> interfaces;
+    private Set<String> port;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

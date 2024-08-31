@@ -40,7 +40,7 @@ public class AddPersonalDto {
      */
     @NotNull(message = "人员年代不能为空")
     @Schema(description = "人员年代")
-    @Min(value = 2020, message = "年代最低为2020年")
+    @Min(value = 2017, message = "年代最低为2017年")
     @Max(value = 2025, message = "年代最后高为2025年")
     private Integer personnelPeriod;
     /**

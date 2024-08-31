@@ -34,13 +34,12 @@ public class ItemController {
     @SysLogAnnotation(operModul = "项目管理",operType = "新增",operDesc = "新增项目")
     @PostMapping("/addItem")
     @Operation(summary = "添加项目介绍")
-    @PreAuthorize("@ss.hasPermission('admin')")
+    @PreAuthorize("@ss.hasPort('item:add')")
     public R addItem(@RequestBody @Validated AddItemDto addItemDto){
         return iItemService.addItem(addItemDto);
     }
     @PostMapping("/getItemList")
     @Operation(summary = "获取项目列表")
-    @PreAuthorize("@ss.hasPermission('admin')")
     public R getItemlist(@RequestBody @Validated ItemParam itemParam){
         return iItemService.getItemList(itemParam);
     }
@@ -48,13 +47,12 @@ public class ItemController {
     @SysLogAnnotation(operModul = "项目管理",operType = "修改",operDesc = "修改项目")
     @PostMapping("/updateItem")
     @Operation(summary = "修改项目")
-    @PreAuthorize("@ss.hasPermission('admin')")
+    @PreAuthorize("@ss.hasPort('item:update')")
     public R updateItem(@RequestBody @Validated UpdateItemDto updateItemDto){
         return iItemService.updateItem(updateItemDto);
     }
 
     @PostMapping("/getItemMsg")
-    @PreAuthorize("@ss.hasPermission('admin')")
     @Operation(summary = "获取项目详细信息")
     public R getItemMsgById(@RequestParam("itemId") Integer itemId){
         return iItemService.getItemMsg1(itemId);
@@ -63,7 +61,7 @@ public class ItemController {
     @SysLogAnnotation(operModul = "项目管理",operType = "删除",operDesc = "删除项目")
     @PostMapping("/deleteItem")
     @Operation(summary = "删除项目")
-    @PreAuthorize("@ss.hasPermission('admin')")
+    @PreAuthorize("@ss.hasPort('item:delete')")
     public R deleteItemById(@RequestParam("itemId") Integer itemId){
         return iItemService.deleteItemById(itemId);
     }

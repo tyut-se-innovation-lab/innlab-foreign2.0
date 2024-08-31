@@ -41,15 +41,13 @@
 
                     <h2>{{ partName }}</h2>
 
-                    <span> 软件开发作为创新实验室的一个部门，会不定期参与专业性
-                        比赛、接手实验室负责老师提供的实践项目等活动。对于刚进入
-                        开发小组的新生，主要以了解、学习专业知识为主。期间会有学
-                        长学姐们专门指导，规划学习路线，提供实战项目来巩固同学们
-                        的专业知识。随着学习的深入，按照学习情况与自身兴趣，会为
-                        同学们提供更加明确的学习方向，主要分为后端、前端、运维、
-                        算法以及产品 5 个方向，在学习一段时间后会提供实际开发项目，
-                        以此来积累项目开发经验 、提升团队合作能力，实践项目也可
-                        列在简历中作为项目经历。</span>
+                    <span> 网络安全是指用于防止网络攻击或减轻其影响的任何技术、措施或做法。
+                      其旨在保护个人和组织的系统、应用程序、计算设备、敏感数据和金融资产免受
+                      计算机病毒、复杂且代价高昂的 勒索软件 攻击等。如果用一个词说明学习网络
+                      安全的意义，那一定是“守护”。 我们运用技术保护计算机网络不受攻击者侵害，
+                      让网络世界也可 以拥有一片净土。创新实验室网络安全小组以“坚守网络红线，
+                      为个人、企业、国家网络安全作保障”为目标，长期致力于渗透 测试、web 安全
+                      、APT、攻防等网络空间安全领域的技术和治理研究。</span>
                     <div class="circle"></div>
 
                 </div>
@@ -66,15 +64,13 @@
 
                     <h2>{{ partName }}</h2>
 
-                    <span> 软件开发作为创新实验室的一个部门，会不定期参与专业性
-                        比赛、接手实验室负责老师提供的实践项目等活动。对于刚进入
-                        开发小组的新生，主要以了解、学习专业知识为主。期间会有学
-                        长学姐们专门指导，规划学习路线，提供实战项目来巩固同学们
-                        的专业知识。随着学习的深入，按照学习情况与自身兴趣，会为
-                        同学们提供更加明确的学习方向，主要分为后端、前端、运维、
-                        算法以及产品 5 个方向，在学习一段时间后会提供实际开发项目，
-                        以此来积累项目开发经验 、提升团队合作能力，实践项目也可
-                        列在简历中作为项目经历。</span>
+                    <span> 人工智能 (AI) 是一种使计算机和机器能够模拟人类智能和解决问题能力的技术。
+                      它可以单独使用或与其他技术（例如，传感器、地理定位、机器人）
+                      相结合，执行原本需要人类智能或人工干预的任务。数字助理、GPS 制导、自动驾驶汽车
+                      和生成式 AI 工具（如 Open AI 的 Chat GPT）只是日常新闻和我们日常生活中 AI
+                      的几个例子。 我们主要的研究方向有：机器学习/深度学习、计算机视觉方向。 具体的研
+                      究领域有：AI智慧医疗、3D human、智慧电力调度等。 在这里，我们会为你提供系统性
+                      的学习资源，学习路线；会有学长和老师带着你去探索各种前沿的知识；</span>
                     <div class="circle"></div>
 
                 </div>
@@ -187,10 +183,10 @@ const rkImgs = [
     "https://tse2-mm.cn.bing.net/th/id/OIP-C.Sy-2NQoygS0cKqAyrMYadAHaEJ?w=312&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7"
 ]
 const waImgs = [
-    "https://tse3-mm.cn.bing.net/th/id/OIP-C.u_8q93mlpEMKqdpRRazXfQHaDc?w=319&h=162&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7",
-    "https://tse1-mm.cn.bing.net/th/id/OIP-C.Ds8ploTR614jC_Hmbg_3YgHaEm?w=273&h=180&c=7&r=0&o=5&cb=10&dpr=1.5&pid=1.7",
-    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f9ab20ec8efe553b58ea928c0d5f43f39c48d0a85fa02bec5fe489440d8b617f8e5d368f6495f2c35e0f0c18c078bd26?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%9B%BE%E7%89%875.png&size=750",
-    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/322080e51da519907f73d46188107f6f3450524bdc8d6b4c075086a1ef7284c78f0b9f54c90d446c750be770dcde5a13?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%9B%BE%E7%89%876.png&size=750",
+  "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/45052fe1833fb71b2eadce0795e723fd78b9ec626319ff81b12b6b981ba324d1cbc15a016f95c8a0a0b7572765c3a862?pictype=scale&from=30013&version=3.3.3.3&fname=3aed018196054a80e4e383073eb9fec4.jpg&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/e4e9f5b45ea4a4e817a2964fa91d33e92eb8af98a7860b161ef070abc15b9713bb30e43b2cb5a43c51862d6877d14f6e?pictype=scale&from=30013&version=3.3.3.3&fname=61c53297d40593326d1ef55474ed634b.jpg&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/0e1eb7deae2928ca0b57028d00dc73e64483ebfeacfc93b6ac3b0502e823ed7412c55550d6f7e739818ef8faf44ed756?pictype=scale&from=30013&version=3.3.3.3&fname=06ab0ffa5d84ad0344d92c6513aee428.png&size=750",
+    "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/b9683369e5ec7af4ba4314d233fbceba00d065b7ca70359886e8cd0b6e373b6bd4192bfa79d9870e396c16f3135a4839?pictype=scale&from=30013&version=3.3.3.3&fname=35af17adfdc3addf3264b8b6ba4ac513.jpg&size=750",
 ]
 const aiImgs = [
     "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f87efe4b2a526e04a385dd674612f45853c4632719ad3706e3f009180778ff5c0eb4f4fd491a3dffa4e8ccb6c30d5121?pictype=scale&from=30013&version=3.3.3.3&fname=%E5%9B%BE%E7%89%879.png&size=750",
