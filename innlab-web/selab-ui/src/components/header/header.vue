@@ -1,7 +1,7 @@
 <template>
     <div class="heading">
 
-        <header class="header" :class="{ 'header': isAtTop, 'headUnTop': !isAtTop || isBlue }">
+        <header class="header" :class="{ 'header': isAtTop && !isBlue, 'headUnTop': !isAtTop || isBlue }">
             <div @click="scrollTo(1, '首页')">
                 <img lass="logo" width="200px" src="../../assets/logo.png" alt="">
                 <!-- <img v-show="!props.islogoWhite" lass="logo" width="200px" src="../../assets/logo/logo_blue.png" alt=""> -->
@@ -20,7 +20,6 @@
                                 style="width: 180px; height: 60px; display: flex; justify-content: center;">{{
                                     child.name
                                 }}
-
                             </el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
@@ -82,11 +81,13 @@ const scrollTo = (elementId: number, elementName: string) => {
 
 onMounted(() => {
     window.addEventListener("scroll", handleScroll);
-
-    currentPath.value = route.currentRoute.value.name;
+    console.log('routeame: ', currentPath.value);
+    console.log('routeName: ', route.currentRoute.value.name);
     if (route.currentRoute.value.name == 'about' || route.currentRoute.value.name == 'activity' || route.currentRoute.value.name == 'blog' || route.currentRoute.value.name == 'proMd') {
         isBlue.value = true;
     }
+    currentPath.value = route.currentRoute.value.name;
+
 });
 onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
