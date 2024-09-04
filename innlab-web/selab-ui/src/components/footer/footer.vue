@@ -44,7 +44,7 @@
     <div class="dinner">
         <p>版权所有：太原理工大学软件学院创新实验室</p>
         <a href="https://beian.miit.gov.cn/" class="a1" target="_blank">
-            晋ICP备2024044169号</a>
+            晋ICP备2024044249号-2</a>
 
 
     </div>
