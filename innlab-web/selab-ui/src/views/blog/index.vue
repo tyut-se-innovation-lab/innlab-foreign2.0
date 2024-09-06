@@ -3,7 +3,8 @@
         <div class="container">
             <div class="info">
                 <div class="bigtitle">
-                    <h1>{{ actInfo.activityTitle ? actInfo.activityTitle : 'title' }}</h1>
+                    <h1 v-show="actInfo.activityTitle">{{ actInfo.activityTitle ? actInfo.activityTitle : 'title' }}
+                    </h1>
                     <span v-show="actInfo.activityIntroduction">{{ actInfo.activityIntroduction ?
                         actInfo.activityIntroduction : 'description' }}</span>
                     <div class="dinnerInfo">
@@ -242,11 +243,11 @@ interface ActivityInfo {
 }
 const actInfo = ref<ActivityInfo | null>(null);
 actInfo.value = {
-    "activityTitle": "觉醒年代",
-    "activityIntroduction": "故事",
+    "activityTitle": "",
+    "activityIntroduction": "",
     "pageView": 0,
-    "createTime": "2024-07-17 22:15:22",
-    "updateTime": "2024-07-17 22:15:22",
+    "createTime": "",
+    "updateTime": "",
     "activityContent": [
         {
             "subtitleName": "",

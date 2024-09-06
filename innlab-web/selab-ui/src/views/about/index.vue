@@ -5,117 +5,60 @@
             <Header></Header>
         </div>
 
-        <nav class="navbar">
-            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-                <el-menu-item v-for="item in menuList" :index="item.id" @click="scrollTo(item.id)">{{ item.name
-                    }}</el-menu-item>
-            </el-menu>
-        </nav>
+
         <main>
             <div class="item" id="50">
-                <h1 class="item_title">支持与服务</h1>
-                <div class="contents">
-                    <div class="content">
-                        <h2 class="content_title">云服务</h2>
-                        <div class="content_text">
-                            <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h2 class="content_title">云服务</h2>
-                        <div class="content_text">
-                            <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h2 class="content_title">云服务</h2>
-                        <div class="content_text">
-                            <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item" id="51">
-                <h1 class="item_title">商业合作</h1>
-                <div class="contents">
-                    <div class="content">
-                        <h2 class="content_title">云服务</h2>
-                        <div class="content_text">
-                            <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h2 class="content_title">云服务</h2>
-                        <div class="content_text">
-                            <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h2 class="content_title">云服务</h2>
-                        <div class="content_text">
-                            <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item" id="52">
-                <h1 class="item_title">开发咨询</h1>
-                <div class="contents">
-                    <div class="content">
-                        <h2 class="content_title">云服务</h2>
-                        <div class="content_text">
-                            <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h2 class="content_title">云服务</h2>
-                        <div class="content_text">
-                            <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h2 class="content_title">云服务</h2>
-                        <div class="content_text">
-                            <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item" id="53" style="border: none;">
                 <h1 class="item_title">联系我们</h1>
                 <div class="contents">
                     <div class="content">
-                        <h2 class="content_title">云服务</h2>
+                        <h2 class="content_title">软件开发</h2>
                         <div class="content_text">
                             <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
+                            <p class="intext">负责人邮箱：2658085068lzc@gmail.com</p>
                         </div>
                     </div>
                     <div class="content">
-                        <h2 class="content_title">云服务</h2>
+                        <h2 class="content_title">网络安全</h2>
                         <div class="content_text">
                             <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
+                            <p class="intext">负责人邮箱：clicking7@outlook.com</p>
                         </div>
                     </div>
                     <div class="content">
-                        <h2 class="content_title">云服务</h2>
+                        <h2 class="content_title">人工智能</h2>
                         <div class="content_text">
                             <p class="intitle">联系邮箱</p>
-                            <p class="intext">云市场咨询：partner@selabcloud.com</p>
+                            <p class="intext">负责人邮箱：2654237268@qq.com</p>
                         </div>
                     </div>
+
+                </div>
+                <div class="contents">
+                    <div class="content">
+                        <h2 class="content_title">虚拟现实</h2>
+                        <div class="content_text">
+                            <p class="intitle">联系邮箱</p>
+                            <p class="intext">负责人邮箱：3288860391@qq.com</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <h2 class="content_title">算法竞赛</h2>
+                        <div class="content_text">
+                            <p class="intitle">联系邮箱</p>
+                            <p class="intext">负责人邮箱：2934060590@qq.com</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <h2 class="content_title">创新实验室</h2>
+                        <div class="content_text">
+                            <p class="intitle">联系邮箱</p>
+                            <p class="intext">负责人邮箱：cxlab202400906@163.com</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
         </main>
 
 
@@ -138,17 +81,7 @@ const menuList = [
     { id: 53, name: '联系我们' },
 ]
 
-// const scrollTo = (elementId: number) => {
 
-//     let element = document.getElementById(String(elementId));
-
-//     if (element) {
-
-//         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//         return true; // 继续默认行为
-//     }
-//     return false; // 阻止默认行为
-// }
 
 const scrollTo = (elementId: number) => {
     let element = document.getElementById(String(elementId));
@@ -191,7 +124,7 @@ onMounted(() => {
 .outer {
     /* height: 1200px; */
     margin: 100px 0;
-    padding-bottom: 320px;
+    padding-bottom: 5rem;
 }
 
 .navbar {
@@ -246,7 +179,7 @@ main {
 
 .item {
     margin-top: 60px;
-    border-bottom: 3px solid rgb(209, 209, 209);
+    /* border-bottom: 3px solid rgb(209, 209, 209); */
     padding-bottom: 80px;
 }
 
@@ -260,10 +193,13 @@ main {
 .contents {
     display: flex;
     justify-content: space-between;
+    margin: 5rem 0;
+
 }
 
 .content {
     width: 22%;
+    margin: 3rem 0;
 }
 
 .content_title {
@@ -306,11 +242,12 @@ main {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
+        margin: 0;
     }
 
     .content {
         width: 100%;
-        margin: 2% 0;
+        margin: 3rem 0;
     }
 }
 </style>
