@@ -92,6 +92,51 @@ public class ResourceServiceImpl implements IResourceService {
             return R.error("添加图片失败！");
         }
     }
+    @Override
+    public R addResource2(MultipartFile file, String fileDescription, Integer type) {
+        String fileName = file.getOriginalFilename();
+        //获取文件后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        String imagePath = null;
+        if (type==3) {
+            imagePath = "Cache/";
+        } else {
+            return R.error("文件格式错误！");
+        }
+        //重新生成文件名
+        Date date = new Date();
+        String fileName1 = DateUtils.format(date) + RandomUtils.createCode(5);
+//        String fileName2 = fileName1 + suffixName;
+        String fileName2 = fileName;
+        try {
+            BufferedOutputStream out = new BufferedOutputStream(
+                    new FileOutputStream(new File("selab-resources/" + imagePath + fileName2)));
+            out.write(file.getBytes());
+            out.flush();
+            out.close();
+            ResourceEntity resourceEntity = new ResourceEntity();
+            resourceEntity.setResourcePath(imagePath + fileName2);
+            resourceEntity.setResourceName(fileName1);
+            resourceEntity.setResourceType(type);
+            resourceEntity.setDelFlag(0);
+            resourceEntity.setResourceDescription(fileDescription);
+            resourceEntity.setCreateUser(SecurityUtils.getUserNickName());
+            resourceMapper.insert(resourceEntity);
+            QueryWrapper<ResourceEntity> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("resource_path", resourceEntity.getResourcePath());
+            ResourceEntity resourceEntity1 =resourceMapper.selectOne(queryWrapper);
+            R r = addResourceForCloud2(resourceEntity.getResourceId());
+            if (r.getCode()!=200){
+                return r;
+            }
+            ResourceEntity resourceEntity2 = resourceMapper.selectById(resourceEntity1.getResourceId());
+            ResourceVo resourceVo = new ResourceVo(resourceEntity2);
+            return R.success(resourceVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.error("添加图片失败！");
+        }
+    }
 
     @Override
     public R addResourceForCloud(Integer resourceId) {
@@ -110,6 +155,31 @@ public class ResourceServiceImpl implements IResourceService {
             out.close();
             if (redisUtils.hasKey("Resource_Cookie") && redisUtils.hasKey("Resource_Folder_Id")) {
                 File file = new File("selab-resources/Cache/" + resourceEntity.getResourcePath() + ".it");
+                Lz lz = FigureBedUtils.addLz(file, redisUtils.getCacheObject("Resource_Cookie").toString(), redisUtils.getCacheObject("Resource_Folder_Id").toString());
+                resourceEntity.setFId(lz.getFId());
+                resourceEntity.setIsNewd(lz.getIsNewd());
+                resourceEntity.setPwd(lz.getPwd());
+                resourceMapper.updateById(resourceEntity);
+            } else {
+                return R.error("请上传蓝奏云Cookie");
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return R.success();
+    }
+
+    @Override
+    public R addResourceForCloud2(Integer resourceId) {
+        ResourceEntity resourceEntity = resourceMapper.selectById(resourceId);
+        if (StringUtils.isEmpty(resourceEntity.getResourcePath())) {
+            return R.error("文件不存在！");
+        }
+        try {
+            if (redisUtils.hasKey("Resource_Cookie") && redisUtils.hasKey("Resource_Folder_Id")) {
+                File file = new File("selab-resources/" + resourceEntity.getResourcePath());
                 Lz lz = FigureBedUtils.addLz(file, redisUtils.getCacheObject("Resource_Cookie").toString(), redisUtils.getCacheObject("Resource_Folder_Id").toString());
                 resourceEntity.setFId(lz.getFId());
                 resourceEntity.setIsNewd(lz.getIsNewd());
@@ -171,7 +241,7 @@ public class ResourceServiceImpl implements IResourceService {
 
         return CompletableFuture.supplyAsync(() -> {
             String newLineUrl = FigureBedUtils.getLz(lz);
-            redisUtils.setCacheObject(lzKey, newLineUrl, 10, TimeUnit.MINUTES);
+            redisUtils.setCacheObject(lzKey, newLineUrl, 30, TimeUnit.MINUTES);
             return newLineUrl;
         });
     }
@@ -188,7 +258,7 @@ public class ResourceServiceImpl implements IResourceService {
         }
 
         String newLineUrl = FigureBedUtils.getLz(lz);
-        redisUtils.setCacheObject(lzKey, newLineUrl, 10, TimeUnit.MINUTES);
+        redisUtils.setCacheObject(lzKey, newLineUrl, 30, TimeUnit.MINUTES);
         return R.success(lineUrl);
     }
     public R getResourceBase64(Integer resourceId){

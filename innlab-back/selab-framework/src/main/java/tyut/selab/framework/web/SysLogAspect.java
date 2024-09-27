@@ -98,7 +98,10 @@ public class SysLogAspect {
             sysLog.setIp(IpUtil.getIpAddress(request)); //操作IP IPUtils工具类网上大把的，比如工具类集锦的hutool.jar
             sysLog.setUrl(request.getRequestURI()); // 请求URI
 
-            sysLog.setParams(Arrays.toString(joinPoint.getArgs())); // 请求参数
+            String params = Arrays.toString(joinPoint.getArgs());
+            if (params.length()<500){
+                sysLog.setParams(params); // 请求参数
+            }
             //需要先判断返回值是不是Map <String, Object>，如果不是會拋異常，需要控制层的接口返回数据格式统一
             //如果嫌返回格式统一太麻烦建议日志保存时去掉操作结果
             sysLog.setResultCode(result.getCode());

@@ -19,7 +19,11 @@ import java.util.concurrent.CompletableFuture;
 public interface IResourceService {
     R addResource(MultipartFile file, String fileDescription,Integer type);
 
+    R addResource2(MultipartFile file, String fileDescription, Integer type);
+
     R addResourceForCloud(Integer resourceId);
+
+    R addResourceForCloud2(Integer resourceId);
 
     R cacheCookie(CookieVo cookieVo);
 

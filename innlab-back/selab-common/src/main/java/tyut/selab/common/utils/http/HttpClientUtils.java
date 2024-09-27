@@ -18,10 +18,7 @@ import org.apache.hc.client5.http.io.HttpClientConnectionManager;
 import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
 import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactory;
 import org.apache.hc.core5.concurrent.FutureCallback;
-import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.HttpEntity;
-import org.apache.hc.core5.http.NameValuePair;
-import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.*;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -42,6 +39,7 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -123,7 +121,7 @@ public class HttpClientUtils {
 
         // 设置header
         if (headers != null) {
-            for (Map.Entry<String, Object> entry : params.entrySet()) {
+            for (Map.Entry<String, Object> entry : headers.entrySet()) {
                 httpGet.addHeader(entry.getKey(), entry.getValue());
             }
         }
@@ -146,10 +144,18 @@ public class HttpClientUtils {
 
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             // 获取状态码
+            // 检查响应状态码
+            int statusCode = response.getCode();
             System.out.println(response.getVersion()); // HTTP/1.1
             System.out.println(response.getCode()); // 200
             System.out.println(response.getReasonPhrase()); // OK
             HttpEntity entity = response.getEntity();
+            if (statusCode == HttpStatus.SC_MOVED_PERMANENTLY || statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {
+                // 获取重定向网址
+                String redirectUrl = response.getFirstHeader("Location").getValue();
+                log.info("Redirected to URL: " + redirectUrl);
+                return redirectUrl; // 返回新的网址
+            }
             // 获取响应信息
             resultContent = EntityUtils.toString(entity,"UTF-8");
             log.info("httpclient5 get end url="+url+"headers="+headers+",params="+params+",result="+resultContent);
@@ -159,6 +165,50 @@ public class HttpClientUtils {
             e.printStackTrace();
             log.info("Exception httpclient5 get url="+url+"headers="+headers+",params="+params+",exception="+e.getStackTrace());
 
+        }
+
+        return resultContent;
+    }
+    public static String get2(String url, Map<String, Object> headers) {
+        log.info("httpclient5 get start url="+url+" headers="+headers);
+
+        String resultContent = null;
+        HttpGet httpGet = new HttpGet(url);
+
+        // 设置 header
+        if (headers != null) {
+            for (Map.Entry<String, Object> entry : headers.entrySet()) {
+                httpGet.addHeader(entry.getKey(), entry.getValue().toString());
+            }
+        }
+
+
+        // Create HttpClient with redirection disabled
+        try (CloseableHttpClient httpClient = HttpClients.custom()
+                .disableRedirectHandling() // 禁用重定向处理
+                .build();
+             CloseableHttpResponse response = httpClient.execute(httpGet)) {
+
+            // 检查响应状态码
+            int statusCode = response.getCode();
+            System.out.println(response.getVersion()); // HTTP/1.1
+            System.out.println(statusCode); // 状态码
+            System.out.println(response.getReasonPhrase()); // 状态描述
+
+            if (statusCode == HttpStatus.SC_MOVED_PERMANENTLY || statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {
+                // 获取重定向网址
+                String redirectUrl = response.getFirstHeader("Location").getValue();
+                log.info("Redirected to URL: " + redirectUrl);
+                return redirectUrl; // 返回新的网址
+            }
+
+            HttpEntity entity = response.getEntity();
+            resultContent = EntityUtils.toString(entity, "UTF-8");
+            log.info("httpclient5 get end url=" + url + " headers=" + headers + ", result=" + resultContent);
+            EntityUtils.consume(entity);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            log.info("Exception httpclient5 get url=" + url + " headers=" + headers +  ", exception=" + e.getMessage());
         }
 
         return resultContent;
@@ -354,7 +404,7 @@ public class HttpClientUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(get("http://tool.xwm.lol/api.php?msg=321"));
+//        System.out.println(get("http://tool.xwm.lol/api.php?msg=321"));
 //        File file = new File("C:/Users/gmsly/Pictures/图片1.png");
 //        Map<String,Object> map = new HashMap<>();
 //        map.put("image",file);
@@ -372,6 +422,20 @@ public class HttpClientUtils {
 //        JSONObject date2 = date1.getJSONObject("data");
 //        String token = date2.getString("token");
 //        System.out.println(token);
+        String url = "https://down-load.lanrar.com/file/?AmRUagEwUmMACQoyUWRTPwM8BT1eM1ZkVWBWZFwtATAGP1QuD2NVMAAVBRxXSAVGW24PJFZ5Uz8AYAAoBzIEcQIkVGUBNVJqADMKA1FsUzYDZAUxXjhWbVVnVmVcMgE5BjNUMQ90VWcAJQVuVzoFNFszDz1WMVNoACEAdgcrBDgCMFQzAW5SMgB5CmxRPFN9A2gFMV4uVjFVN1Y2XDABZQY1VGUPNFUzAGYFZFc1BWZbZw9vVjtTZQA0ADAHbgQyAmFUYAFpUmIAbwo6UTVTagNsBTVeZ1Z6VTtWJFwmAXUGdVRmDyBVaAAyBW5XMAUwWzEPOlY5U2IANgAgBy8EbAJvVGYBOlI7AGcKa1E3U2QDaAUyXjdWYVViVmFcLgEuBiBUZQ8+VXYAawViVzQFNls3DztWO1NlAD4AMAdsBCMCd1RzAStSOwBnCmtRN1NkA2kFNV4wVmRVZVZgXCYBdQZvVHMPb1U1AG8FfVcxBTdbMw8kVjtTYAAwACgHaQQxAjpULQF6UmIAOQorUWtTDQM6BWtePFZk";
+        Map<String, Object> headers = new HashMap<>();
+            headers.put("accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
+        headers.put("accept-language","zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6");
+        headers.put("sec-ch-ua","\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"");
+        headers.put("sec-ch-ua-mobile","?0");
+        headers.put("sec-ch-ua-platform","\"Windows\"");
+        headers.put("sec-fetch-dest", "document");
+        headers.put("sec-fetch-mode","navigate");
+        headers.put("sec-fetch-site","none");
+        headers.put("sec-fetch-user","?1");
+        headers.put("upgrade-insecure-requests","1");
+        headers.put("cookie","down_ip=1");
 
+        get2(url,headers);
     }
 }

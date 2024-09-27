@@ -3,6 +3,7 @@ package tyut.selab.common.utils;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import tyut.selab.common.domain.Lz;
+import tyut.selab.common.utils.http.HttpClientUtils;
 import tyut.selab.common.utils.http.HttpsUtils;
 
 import java.io.File;
@@ -76,20 +77,38 @@ public class FigureBedUtils {
         if (geturl.equals("0")){
             return null;
         }
+        //url2为伪直链，有效期15分钟
         String url2 = data.getString("dom")+"/file/"+geturl;
         System.out.println(url2);
-        return url2;
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
+        headers.put("accept-language","zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6");
+        headers.put("sec-ch-ua","\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"");
+        headers.put("sec-ch-ua-mobile","?0");
+        headers.put("sec-ch-ua-platform","\"Windows\"");
+        headers.put("sec-fetch-dest", "document");
+        headers.put("sec-fetch-mode","navigate");
+        headers.put("sec-fetch-site","none");
+        headers.put("sec-fetch-user","?1");
+        headers.put("upgrade-insecure-requests","1");
+        headers.put("cookie","down_ip=1");
+
+        String url3 = HttpClientUtils.get2(url2,headers);
+        //url3为超直链有效期永久？？
+        return url3;
     }
     public static void main(String[] args) throws IOException {
-        String jsCode =HttpsUtils.sendGet("https://www.lanzouh.com/iriea24ezvcj");
-        String url1 = "https://wwd.lanzoue.com/ajaxm.php?file="+extractUrl(jsCode);
-        String skdklds = extractSkdklds(jsCode);
-        String xwwwfrom = "action=downprocess&sign="+skdklds+"&p="+"6mkr";
-        String json = HttpsUtils.sendSSLPost(url1,"https://www.lanzouh.com/iriea24ezvcj",null,xwwwfrom);
-        JSONObject data = JSON.parseObject(json);
-        String geturl = data.getString("url");
-        String url2 = data.getString("dom")+"/file/"+geturl;
-        System.out.println(url2);
+//        String jsCode =HttpsUtils.sendGet("https://www.lanzouh.com/iriea24ezvcj");
+//        String url1 = "https://wwd.lanzoue.com/ajaxm.php?file="+extractUrl(jsCode);
+//        String skdklds = extractSkdklds(jsCode);
+//        String xwwwfrom = "action=downprocess&sign="+skdklds+"&p="+"6mkr";
+//        String json = HttpsUtils.sendSSLPost(url1,"https://www.lanzouh.com/iriea24ezvcj",null,xwwwfrom);
+//        JSONObject data = JSON.parseObject(json);
+//        String geturl = data.getString("url");
+//        String url2 = data.getString("dom")+"/file/"+geturl;
+//        System.out.println(url2);
+        Lz lz = new Lz("53a4","imQAY29xbx5e","https://innlab.lanzouk.com");
+        System.out.println(getLz(lz));
 //        String newPayUrl="https://pc.woozooo.com/html5up.php";
 //        File file = new File("C:/Users/gmsly/Pictures/Default.jpg.it");
 //        Map<String,String> map = new HashMap<>();

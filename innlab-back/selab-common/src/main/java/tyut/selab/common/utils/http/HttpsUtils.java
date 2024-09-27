@@ -322,16 +322,15 @@ public class HttpsUtils
     }
 
     public static void main(String[] args) throws IOException {
-        Map<String, String> map =new HashMap<>();
-        map.put("task","1");
-        map.put("vie","3");
-        map.put("ve","2");
-//        map.put("name","3");
-        map.put("folder_id_bb_n","9922980");
-        File file = new File("C:\\Users\\gmsly\\Desktop\\稿定AI_202304241218.png.it");
-        System.out.println(doPostFormDataFile("https://pc.woozooo.com/html5up.php",file,map,null));
-        System.out.println(sendSSLPost("https://pc.woozooo.com/doupload.php",null,"_uab_collina=168673954271255132621062; phpdisk_info=UGdXYVIwADxSYAJhCmEAU1czV1xcNAJgV2IEZ1NgCz5ZaVVlAWNRbFBiAVgNZVY9AGUGPFxhVGUENgM2VWsAYVBtVzBSOABoUmUCNwpiADlXYVcxXDECM1c2BDZTYgtoWWVVYQE3UWxQawFjDV5WPQBlBjJcNlQ2BDADZ1VhADJQZVdl; uag=9e8a8a0a19ffc018cd55d144494e2dcd; ylogin=3400031; tfstk=f006yPgunOX144EO4jdENAbKOPUXTATycsNxZjQNMPUtM-wIZRyN0PkjhJM0Qlz9j-wjpbZVujUVGjUi8c74Qd4jMYzXUL8yzfcgSrpyUrxq3Va81NIO35IdpLYYczLyzfcO_5dr9URGBS7g2-UYXlCLpJVz6rEYkBwLG7jABxUvz-LNSKR-Np_h8Zc4pzhDSGjiRWp0UfgTt50Qglw8jJ_x12N_f8htW7J25W3ERurFgBUKZDkTOzT1E5iKNPFjoQIbhoggRSiHCGkSIShLAARVmWijM44gPsLtOPw_2qMdwwM-OjnzA2RJrPaTBmzig_9ZOVMZs2GVMMU_7DZS5zIr5ay5B6IfOubbO8RBOijczZAbMRiFnKrTt5ZeOB6tmlF3O8RBOij0XWV_LBOCBmf..; PHPSESSID=unuqsv9j81lmjcrqh30s3i5e4rgjr816; __51cke__=; __tins__21412745=%7B%22sid%22%3A%201710723751932%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201710725982416%7D; __51laig__=2; folder_id_c=9922980","task=22&file_id=169308215"));
-
+//        Map<String, String> map =new HashMap<>();
+//        map.put("task","1");
+//        map.put("vie","3");
+//        map.put("ve","2");
+////        map.put("name","3");
+//        map.put("folder_id_bb_n","9922980");
+//        File file = new File("C:\\Users\\gmsly\\Desktop\\稿定AI_202304241218.png.it");
+//        System.out.println(doPostFormDataFile("https://pc.woozooo.com/html5up.php",file,map,null));
+//        System.out.println(sendSSLPost("https://pc.woozooo.com/doupload.php",null,"_uab_collina=168673954271255132621062; phpdisk_info=UGdXYVIwADxSYAJhCmEAU1czV1xcNAJgV2IEZ1NgCz5ZaVVlAWNRbFBiAVgNZVY9AGUGPFxhVGUENgM2VWsAYVBtVzBSOABoUmUCNwpiADlXYVcxXDECM1c2BDZTYgtoWWVVYQE3UWxQawFjDV5WPQBlBjJcNlQ2BDADZ1VhADJQZVdl; uag=9e8a8a0a19ffc018cd55d144494e2dcd; ylogin=3400031; tfstk=f006yPgunOX144EO4jdENAbKOPUXTATycsNxZjQNMPUtM-wIZRyN0PkjhJM0Qlz9j-wjpbZVujUVGjUi8c74Qd4jMYzXUL8yzfcgSrpyUrxq3Va81NIO35IdpLYYczLyzfcO_5dr9URGBS7g2-UYXlCLpJVz6rEYkBwLG7jABxUvz-LNSKR-Np_h8Zc4pzhDSGjiRWp0UfgTt50Qglw8jJ_x12N_f8htW7J25W3ERurFgBUKZDkTOzT1E5iKNPFjoQIbhoggRSiHCGkSIShLAARVmWijM44gPsLtOPw_2qMdwwM-OjnzA2RJrPaTBmzig_9ZOVMZs2GVMMU_7DZS5zIr5ay5B6IfOubbO8RBOijczZAbMRiFnKrTt5ZeOB6tmlF3O8RBOij0XWV_LBOCBmf..; PHPSESSID=unuqsv9j81lmjcrqh30s3i5e4rgjr816; __51cke__=; __tins__21412745=%7B%22sid%22%3A%201710723751932%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201710725982416%7D; __51laig__=2; folder_id_c=9922980","task=22&file_id=169308215"));
     }
 
 
