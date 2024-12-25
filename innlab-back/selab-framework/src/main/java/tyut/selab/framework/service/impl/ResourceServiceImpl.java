@@ -241,6 +241,9 @@ public class ResourceServiceImpl implements IResourceService {
 
         return CompletableFuture.supplyAsync(() -> {
             String newLineUrl = FigureBedUtils.getLz(lz);
+            if (StringUtils.isEmpty(newLineUrl)){
+                return "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f3be25102f2afcbceaadd64f56fafd5d6ab12cca4f192576264076015041801db06736e672fde394c5fc6a7d9558e197?pictype=scale&from=30013&version=3.3.3.3&fname=5e74a7832ff411f18ee66c4e542b2647.jpg&size=750";
+            }
             redisUtils.setCacheObject(lzKey, newLineUrl, 30, TimeUnit.MINUTES);
             return newLineUrl;
         });

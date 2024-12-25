@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tyut.selab.common.annotation.AccessLogAnnotation;
 import tyut.selab.common.annotation.SysLogAnnotation;
 import tyut.selab.common.domain.Lz;
 import tyut.selab.common.domain.R;
@@ -71,6 +72,7 @@ public class ResourceController {
     }
     @PostMapping("/getResourceByLz")
     @Operation(summary = "通过蓝奏云三段获取资源")
+    @AccessLogAnnotation()
     public R getResourceByLz(@RequestBody @Validated Lz lz) throws ExecutionException, InterruptedException {
         return R.success("获取成功！",iResourceService.getResourceByLz(lz).get());
 //        return iResourceService.getResourceByLz2(lz);

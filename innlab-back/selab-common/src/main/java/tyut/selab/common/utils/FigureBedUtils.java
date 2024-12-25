@@ -2,6 +2,7 @@ package tyut.selab.common.utils;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import tyut.selab.common.domain.Lz;
 import tyut.selab.common.utils.http.HttpClientUtils;
 import tyut.selab.common.utils.http.HttpsUtils;
@@ -21,6 +22,7 @@ import java.util.regex.Pattern;
  * @CreateTime: 2024-05-23 13:19
  * @Version: 1.0
  **/
+@Slf4j
 public class FigureBedUtils {
 
     public static Lz addLz(File file,String cookie,String folder_id_bb_n) throws IOException {
@@ -72,6 +74,11 @@ public class FigureBedUtils {
         String skdklds = extractSkdklds(jsCode);
         String xwwwfrom = "action=downprocess&sign="+skdklds+"&p="+lz.getPwd()+"&kd=1";
         String json = HttpsUtils.sendSSLPost(url1,url,null,xwwwfrom);
+        if (StringUtils.isEmpty(json)){
+            log.error("图片："+lz.getFId()+"获取失败！");
+            return null;
+//            return "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f3be25102f2afcbceaadd64f56fafd5d6ab12cca4f192576264076015041801db06736e672fde394c5fc6a7d9558e197?pictype=scale&from=30013&version=3.3.3.3&fname=5e74a7832ff411f18ee66c4e542b2647.jpg&size=750";
+        }
         JSONObject data = JSON.parseObject(json);
         String geturl = data.getString("url");
         if (geturl.equals("0")){
