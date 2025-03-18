@@ -16,11 +16,11 @@
 
 ## 🌍上线地址🛷
 
-地址：[www.cxlab.tech](www.cxlab.tech)
+地址：[www.cxlab.tech](http://www.cxlab.tech/)
 
-备用地址1；[innlab.tyut.xyz](innlab.tyut.xyz)
+备用地址1；[innlab.tyut.xyz](http://innlab.tyut.xyz/)
 
-备用地址2；[innlab.tyut.tech](innlab.tyut.tech)
+备用地址2；[innlab.tyut.tech](http://innlab.tyut.tech/)
 
 ## 🐳 整体效果🐾🐾
 
