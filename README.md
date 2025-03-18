@@ -14,6 +14,14 @@
 
 其中还包括前端手机端适配，静态资源缓存等优化。
 
+## 🌍上线地址🛷
+
+地址：[www.cxlab.tech](www.cxlab.tech)
+
+备用地址1；[innlab.tyut.xyz](innlab.tyut.xyz)
+
+备用地址2；[innlab.tyut.tech](innlab.tyut.tech)
+
 ## 🐳 整体效果🐾🐾
 
 
