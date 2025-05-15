@@ -1,31 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
 
-  <!DOCTYPE html>
-  <html lang="en">
-
-  <head>
+<head>
     <meta charset="UTF-8">
     <link rel="icon" href="./src/assets/logoY.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>创新实验室</title>
     <style>
-      html{
-        font-size: 14px;
-      }
-      body{
-        overflow-x: hidden;
-        scroll-behavior: smooth;
-      }
-      #app{
-        overflow-x: hidden;
-      }
+        html {
+            font-size: 14px;
+        }
 
+        body {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        #app {
+            overflow-x: hidden;
+        }
+
+        /* Dify Chatbot 样式 */
+        #dify-chatbot-bubble-button {
+            background-color: #1C64F2 !important;
+        }
+
+        #dify-chatbot-bubble-window {
+            width: 24rem !important;
+            height: 40rem !important;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
-    <div id="app" class="blurred-wrapper"></div>
-    <script type="module" src="/src/main.ts"></script>
-    
-  </body>
+<body>
+<div id="app" class="blurred-wrapper"></div>
 
-</html>
+<!-- Dify Chatbot 配置和脚本 -->
+<script>
+    window.difyChatbotConfig = {
+        token: 'mwqu97ZCuml07616',
+        baseUrl: 'http://49.232.217.248:9080'
+    };
+</script>
+<script src="/src/dify-ai.js" id="mwqu97ZCuml07616" defer></script>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>  

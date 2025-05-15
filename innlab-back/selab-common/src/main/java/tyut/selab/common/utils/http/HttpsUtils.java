@@ -12,10 +12,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 import java.io.*;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
@@ -321,7 +318,53 @@ public class HttpsUtils
         }
     }
 
+
+    public static void downloadImageUsingSendGet(String url)throws IOException {
+        URL urlObj = new URL(url);
+        HttpURLConnection connection = (HttpURLConnection) urlObj.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(5000);
+
+        InputStream inputStream =null;
+        int responseCode = connection.getResponseCode();
+        if (responseCode == 200) {
+            // 调用sendGet方法获取图片输入流
+            inputStream = connection.getInputStream();
+        } else {
+            throw new IOException("HTTP响应码：" + responseCode);
+        }
+        try {
+
+            // 创建保存路径
+            File dir = new File("D:/GM/");
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            String fileName = url.substring(132,151);
+            System.out.println(fileName);
+            // 创建目标文件
+            File targetFile = new File("D:/GM/" + fileName);
+
+            // 写入文件
+            try (FileOutputStream outputStream = new FileOutputStream(targetFile)) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                System.out.println("图片保存成功，路径：" + targetFile.getAbsolutePath());
+            } catch (IOException e) {
+                System.out.println("保存图片失败：" + e.getMessage());
+            }
+
+        } catch (Exception e) {
+            System.out.println("下载或保存图片失败：" + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) throws IOException {
+        downloadImageUsingSendGet("https://pdf1.webgetstore.com/2025/05/15/e0e2547660ea10c176b879343cf240f0.it?sg=23f965a46d65045837a565f8a3e4d7a3&e=6825c0dc&fileName=2025-05-15ILxXJ.png.it");
 //        Map<String, String> map =new HashMap<>();
 //        map.put("task","1");
 //        map.put("vie","3");
@@ -330,7 +373,6 @@ public class HttpsUtils
 //        map.put("folder_id_bb_n","9922980");
 //        File file = new File("C:\\Users\\gmsly\\Desktop\\稿定AI_202304241218.png.it");
 //        System.out.println(doPostFormDataFile("https://pc.woozooo.com/html5up.php",file,map,null));
-//        System.out.println(sendSSLPost("https://pc.woozooo.com/doupload.php",null,"_uab_collina=168673954271255132621062; phpdisk_info=UGdXYVIwADxSYAJhCmEAU1czV1xcNAJgV2IEZ1NgCz5ZaVVlAWNRbFBiAVgNZVY9AGUGPFxhVGUENgM2VWsAYVBtVzBSOABoUmUCNwpiADlXYVcxXDECM1c2BDZTYgtoWWVVYQE3UWxQawFjDV5WPQBlBjJcNlQ2BDADZ1VhADJQZVdl; uag=9e8a8a0a19ffc018cd55d144494e2dcd; ylogin=3400031; tfstk=f006yPgunOX144EO4jdENAbKOPUXTATycsNxZjQNMPUtM-wIZRyN0PkjhJM0Qlz9j-wjpbZVujUVGjUi8c74Qd4jMYzXUL8yzfcgSrpyUrxq3Va81NIO35IdpLYYczLyzfcO_5dr9URGBS7g2-UYXlCLpJVz6rEYkBwLG7jABxUvz-LNSKR-Np_h8Zc4pzhDSGjiRWp0UfgTt50Qglw8jJ_x12N_f8htW7J25W3ERurFgBUKZDkTOzT1E5iKNPFjoQIbhoggRSiHCGkSIShLAARVmWijM44gPsLtOPw_2qMdwwM-OjnzA2RJrPaTBmzig_9ZOVMZs2GVMMU_7DZS5zIr5ay5B6IfOubbO8RBOijczZAbMRiFnKrTt5ZeOB6tmlF3O8RBOij0XWV_LBOCBmf..; PHPSESSID=unuqsv9j81lmjcrqh30s3i5e4rgjr816; __51cke__=; __tins__21412745=%7B%22sid%22%3A%201710723751932%2C%20%22vd%22%3A%202%2C%20%22expires%22%3A%201710725982416%7D; __51laig__=2; folder_id_c=9922980","task=22&file_id=169308215"));
     }
 
 

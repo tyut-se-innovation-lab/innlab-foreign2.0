@@ -1,4 +1,4 @@
-# 创新实验室对外官网
+# 创界·无极——创新实验室官网平台
 
 ![](https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/a672e0badf69ec4138b59eaa733f78531d5e4485fbde13456a46d57afc9e2e1b45a1389b1040ef0d8193e4c7f90f6a7d?pictype=scale&from=30013&version=3.3.3.3&fname=Snipaste_2024-07-19_14-54-59.png&size=750)
 
@@ -18,9 +18,7 @@
 
 地址：[www.cxlab.tech](http://www.cxlab.tech/)
 
-备用地址1；[innlab.tyut.xyz](http://innlab.tyut.xyz/)
-
-备用地址2；[innlab.tyut.tech](http://innlab.tyut.tech/)
+备用地址：[innlab.tyut.tech](http://innlab.tyut.tech/)
 
 ## 🐳 整体效果🐾🐾
 

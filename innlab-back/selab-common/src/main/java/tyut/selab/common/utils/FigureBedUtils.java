@@ -59,10 +59,19 @@ public class FigureBedUtils {
      * @return
      */
     private static String extractSkdklds(String jsCode) {
-        Pattern skdkldsPattern = Pattern.compile("var skdklds = '([^']+)'");
-        Matcher skdkldsMatcher = skdkldsPattern.matcher(jsCode);
-        if(skdkldsMatcher.find()){
-            return skdkldsMatcher.group(1);
+        if (jsCode == null) {
+            return "";
+        }
+        Pattern signPattern = Pattern.compile("'sign':'([^']+)'");
+        Matcher signMatcher = signPattern.matcher(jsCode);
+//        while (signMatcher.find()) {
+//            String sign = signMatcher.group(1);
+//            log.info(sign);
+//        }
+        if (signMatcher.find()) {
+            if (signMatcher.find()) {
+                return signMatcher.group(1);
+            }
         }
         return "";
     }
@@ -71,8 +80,10 @@ public class FigureBedUtils {
         String url = lz.getIsNewd()+"/"+lz.getFId();
         String jsCode =HttpsUtils.sendGet(url);
         String url1 = lz.getIsNewd()+"/ajaxm.php?file="+extractUrl(jsCode);
+        log.info(jsCode);
         String skdklds = extractSkdklds(jsCode);
         String xwwwfrom = "action=downprocess&sign="+skdklds+"&p="+lz.getPwd()+"&kd=1";
+        log.info(xwwwfrom);
         String json = HttpsUtils.sendSSLPost(url1,url,null,xwwwfrom);
         if (StringUtils.isEmpty(json)){
             log.error("图片："+lz.getFId()+"获取失败！");
