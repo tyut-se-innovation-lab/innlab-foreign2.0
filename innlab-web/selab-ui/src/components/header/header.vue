@@ -15,7 +15,7 @@
                     </span>
                     <template #dropdown v-if="item.children && item.children.length > 0">
                         <el-dropdown-menu>
-                            <el-dropdown-item v-for=" child in item.children " :key="child.id"
+                            <el-dropdown-item v-for="child in item.children" :key="child.id"
                                 @click="scrollTo(child.id, child.name)"
                                 style="width: 180px; height: 60px; display: flex; justify-content: center;">{{
                                     child.name

@@ -1,5 +1,9 @@
 <template>
     <div class="blog">
+        <!-- 头部 -->
+        <div class="header">
+            <Header></Header>
+        </div>
         <div class="container">
             <div class="info">
                 <div class="bigtitle">
@@ -193,6 +197,7 @@
 import { ref, reactive, onMounted, watch } from "vue"
 import Action from "@/views/blog/components/action/index.vue"
 import Comment from "@/views/blog/components/comment/index.vue"
+import Header from '@/components/header/header.vue'
 import { useRouter } from 'vue-router';
 import { useRoute } from 'vue-router';
 import { getProInfo } from '@/api/pro/pro'
@@ -874,6 +879,9 @@ aside .imgs .imgbox img:hover {
 
 /* 移动端适配 */
 @media (max-width: 1284px) {
+    .header {
+        display: none;
+    }
 
     .blog {
         width: 100%;
