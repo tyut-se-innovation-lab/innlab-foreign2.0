@@ -31,14 +31,14 @@ public class LogController {
     private ILogService iLogService;
 
     @PostMapping("/getLoginLogList")
-    @PreAuthorize("@ss.hasPermission('admin')")
+    @PreAuthorize("@ss.hasPort('log:login')")
     @Operation(summary = "获取登陆日志列表",description ="")
     public R getLoginLogList(@RequestBody @Validated LogParam logParam){
         return iLogService.getLoginLogList(logParam);
     }
 
     @PostMapping("/getSysLogList")
-    @PreAuthorize("@ss.hasPermission('admin')")
+    @PreAuthorize("@ss.hasPort('log:sys')")
     @Operation(summary = "获取系统日志列表",description ="")
     public R getSysLogList(@RequestBody @Validated LogParam logParam){
         return iLogService.getSysLogList(logParam);
@@ -46,7 +46,7 @@ public class LogController {
 
 
     @PostMapping("/getAccessLogList")
-    @PreAuthorize("@ss.hasPermission('admin')")
+    @PreAuthorize("@ss.hasPort('log:access')")
     @Operation(summary = "获取访问日志列表",description ="")
     public R getAccessLogList(@RequestBody @Validated LogParam logParam){
         return iLogService.getAccessLogList(logParam);

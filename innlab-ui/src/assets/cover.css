@@ -1,0 +1,14 @@
+/* 该文件放置强制覆盖的css */
+.el-menu {
+    border-right: none !important;
+}
+.el-main {
+    display: flex !important;
+    padding: 10px 10px !important;
+}
+
+.personal :focus-visible {
+    outline: none;
+}
+
+  

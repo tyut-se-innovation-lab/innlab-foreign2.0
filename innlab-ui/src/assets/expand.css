@@ -1,0 +1,185 @@
+.flex {
+    display: flex;
+	box-sizing: border-box;
+}
+.flex1 {
+	flex:1;
+}
+.flex-wrap {
+	flex-wrap: wrap;
+}
+.block {
+	display: block;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	box-sizing: border-box;
+}
+.flex-col {
+    flex-direction: column;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+.justify-start {
+    justify-content: flex-start;
+}
+.justify-end {
+    justify-content: flex-end;
+}
+.justify-center {
+    justify-content: center;
+}
+.justif-between {
+    justify-content: space-between;
+}
+.justify-around {
+    justify-content: space-around;
+}
+.align-center {
+	align-items: center;
+}
+.flex-item-right {
+	margin-left: auto;
+}
+
+.absolute {
+    position: absolute;
+}
+.relative {
+    position: relative;
+}
+
+
+.block {
+    display: block;
+}
+.inline-block {
+    display: inline-block;
+}
+.inline {
+    display: inline;
+}
+
+.text-black {
+    color: #000;
+}
+.text-white {
+    color: #fff !important;
+}
+.text-red {
+	color: red;
+}
+.text-333 {
+	color:#333;
+}
+.text-888 {
+	color:#888 !important;
+}
+.text-primary {
+	color:#02A7F0;
+}
+
+.bg-black {
+    background-color: #000;
+}
+.bg-white {
+    background-color: #fff;
+}
+.bg-input {
+	background-color: #f7f9fc;
+}
+.bg-primary {
+	background-color: #02A7F0;
+}
+.bg-f0 {
+	background-color: #f0f0f0;
+}
+.bg-common {
+	background-color: #409efc;
+}
+
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+.container {
+	width: 100vw;
+	height:100vh;
+	box-sizing: border-box;
+}
+
+.fz-12 {
+	font-size: 12px;
+}
+.fz-14 {
+	font-size: 14px;
+}
+.fz-16 {
+	font-size: 16px;
+}
+.fz-17 {
+	font-size: 17px;
+}
+.fz-18 {
+	font-size: 18px;
+}
+.fz-20 {
+	font-size: 20px;
+}
+
+
+.border-t {
+	border-top: 1px solid #eee;
+}
+.border-b-ccc {
+	border-bottom: 1px solid #ccc;
+}
+
+
+.w-100vw {
+	width: 100vw;
+}
+
+.border-box {
+	box-sizing: border-box;
+}
+
+.z-index-999{
+	z-index: 999;
+}
+
+.cursor-pointer{
+	cursor: pointer;
+}
+
+.over-hidden{
+	overflow: hidden;
+}
+
+
+.box-shadow{
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+.circle {
+	border-radius: 60%;
+}
+
+.text-ellipsis {
+  white-space: nowrap;      /* 防止文本换行 */
+  overflow: hidden;         /* 隐藏超出部分 */
+  text-overflow: ellipsis;  /* 显示省略号 */
+  width: 100%;             /* 设置宽度，或者使用max-width */
+}
+

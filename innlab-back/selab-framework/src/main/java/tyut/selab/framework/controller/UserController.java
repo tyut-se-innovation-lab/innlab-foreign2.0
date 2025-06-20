@@ -15,13 +15,13 @@ import tyut.selab.common.annotation.SysLogAnnotation;
 import tyut.selab.common.domain.R;
 import tyut.selab.common.utils.http.AddressUtil;
 import tyut.selab.common.utils.http.IpUtil;
-import tyut.selab.framework.domain.dto.AddUserDto;
-import tyut.selab.framework.domain.dto.LoginDto;
-import tyut.selab.framework.domain.dto.VerifyRegisterDto;
+import tyut.selab.framework.domain.dto.*;
 import tyut.selab.framework.domain.dto.param.UserParam;
 import tyut.selab.framework.service.IUserService;
 import tyut.selab.framework.web.SecurityUtils;
 import tyut.selab.framework.web.service.LoginService;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * @ClassName: UserController
@@ -106,7 +106,7 @@ public class UserController {
 //    }
     @PostMapping("/getSelfMag")
     @Operation(summary = "获取自己的登陆信息",description = "登陆成功后第一时间通过token调取，可以获得用户自己的信息")
-    public R getSelfMsg() {
+    public R getSelfMsg() throws ExecutionException, InterruptedException {
         Integer userId = SecurityUtils.getUserId();
         return iUserService.getUserMsgById(userId);
     }
@@ -118,11 +118,43 @@ public class UserController {
 
     @PostMapping("/userMsg")
     @Operation(summary = "用户信息",description= "获取用户详细信息")
-    public R userMsg(@RequestParam("userId")Integer userId) {
+    public R userMsg(@RequestParam("userId")Integer userId) throws ExecutionException, InterruptedException {
         return iUserService.getUserMsgById(userId);
     }
 
 
+    @PostMapping("/resetUserPassword")
+    @Operation(summary = "用户重置",description= "重置用户密码")
+    @PreAuthorize("@ss.hasPort('user:reset')")
+    public R resetUserPassword(@RequestParam("userId")Integer userId) {
+        return iUserService.resetUserPassword(userId);
+    }
+
+
+
+    @PostMapping("/updateSelfMsg")
+    @Operation(summary = "修改自己信息",description= "修改自己信息")
+    public R updateSelfMsg(@RequestBody @Validated UpdateUserDto updateUserDto) {
+        updateUserDto.setUserId(SecurityUtils.getUserId());
+        return iUserService.updateUser(updateUserDto);
+    }
+
+
+    @PostMapping("/updateSelfPassword")
+    @Operation(summary = "修改自己密码",description= "修改自己密码")
+    public R updateSelfPassword(@RequestBody @Validated UpdateUserPasswordDto updateUserPasswordDto) {
+        updateUserPasswordDto.setUserId(SecurityUtils.getUserId());
+        return iUserService.updateUserPassword(updateUserPasswordDto);
+    }
+
+
+
+    @PostMapping("/updateUser")
+    @Operation(summary = "修改用户",description= "修改用户信息")
+    @PreAuthorize("@ss.hasPort('user:update')")
+    public R updateUser(@RequestBody @Validated UpdateUserDto updateUserDto) {
+        return iUserService.updateUser(updateUserDto);
+    }
 
     @PostMapping("/deleteUser")
     @PreAuthorize("@ss.hasPort('user:delete')")

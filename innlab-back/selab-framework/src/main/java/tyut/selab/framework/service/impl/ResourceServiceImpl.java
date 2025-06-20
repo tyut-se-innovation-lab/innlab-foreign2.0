@@ -23,6 +23,7 @@ import java.io.*;
 import java.util.Base64;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -149,12 +150,12 @@ public class ResourceServiceImpl implements IResourceService {
             byte[] fileData = new byte[0];
             fileData = in.readAllBytes();
             BufferedOutputStream out = new BufferedOutputStream(
-                    new FileOutputStream(new File("selab-resources/Cache/" + resourceEntity.getResourcePath() + ".it")));
+                    new FileOutputStream(new File("selab-resources/Cache/" + resourceEntity.getResourcePath())));
             out.write(fileData);
             out.flush();
             out.close();
             if (redisUtils.hasKey("Resource_Cookie") && redisUtils.hasKey("Resource_Folder_Id")) {
-                File file = new File("selab-resources/Cache/" + resourceEntity.getResourcePath() + ".it");
+                File file = new File("selab-resources/Cache/" + resourceEntity.getResourcePath());
                 Lz lz = FigureBedUtils.addLz(file, redisUtils.getCacheObject("Resource_Cookie").toString(), redisUtils.getCacheObject("Resource_Folder_Id").toString());
                 resourceEntity.setFId(lz.getFId());
                 resourceEntity.setIsNewd(lz.getIsNewd());
@@ -247,6 +248,21 @@ public class ResourceServiceImpl implements IResourceService {
             redisUtils.setCacheObject(lzKey, newLineUrl, 30, TimeUnit.MINUTES);
             return newLineUrl;
         });
+    }
+
+    @Override
+    public R getResourceById(Integer resourceId) throws ExecutionException, InterruptedException {
+        ResourceEntity resourceEntity = resourceMapper.selectById(resourceId);
+        if (ObjectUtils.isNull(resourceEntity)){
+            return R.error("资源不存在！");
+        }
+        if (StringUtils.isNotBlank(resourceEntity.getResourceUrl())){
+            return R.success(resourceEntity.getResourceUrl());
+        }else {
+            Lz lz = new Lz(resourceEntity.getPwd(),resourceEntity.getFId(),resourceEntity.getIsNewd());
+            String url = getResourceByLz(lz).get();
+            return R.success(url);
+        }
     }
 
     @Override

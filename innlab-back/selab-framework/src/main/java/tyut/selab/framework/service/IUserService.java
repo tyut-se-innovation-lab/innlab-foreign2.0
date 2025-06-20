@@ -2,10 +2,10 @@ package tyut.selab.framework.service;
 
 
 import tyut.selab.common.domain.R;
-import tyut.selab.framework.domain.dto.AddUserDto;
-import tyut.selab.framework.domain.dto.LoginDto;
-import tyut.selab.framework.domain.dto.VerifyRegisterDto;
+import tyut.selab.framework.domain.dto.*;
 import tyut.selab.framework.domain.dto.param.UserParam;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * @ClassName: IUserService
@@ -26,7 +26,13 @@ public interface IUserService {
 
     R getUserList(UserParam userParam);
 
-    R getUserMsgById(Integer userId);
+    R getUserMsgById(Integer userId) throws ExecutionException, InterruptedException;
+
+    R updateUser(UpdateUserDto updateUserDto);
+
+    R updateUserPassword(UpdateUserPasswordDto updateUserPasswordDto);
+
+    R resetUserPassword(Integer userId);
 
     R delectUserById(Integer userId);
 }

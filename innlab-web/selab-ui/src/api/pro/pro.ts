@@ -29,6 +29,7 @@ export const getProInfo = (id: any) => {
     })
 }
 
+
 export const getMd = (url: any) => {
     return reqmd.get(url)
 }

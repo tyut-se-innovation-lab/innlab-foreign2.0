@@ -8,6 +8,7 @@ import tyut.selab.framework.domain.dto.param.ResourceParam;
 import tyut.selab.framework.domain.vo.CookieVo;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @ClassName: IResourceService
@@ -33,6 +34,8 @@ public interface IResourceService {
 
     @Async
     CompletableFuture<String> getResourceByLz(Lz lz);
+
+    R getResourceById(Integer resourceId) throws ExecutionException, InterruptedException;
 
     R getResourceByLz2(Lz lz);
 }

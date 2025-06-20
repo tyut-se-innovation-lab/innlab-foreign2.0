@@ -142,7 +142,7 @@ public class ActivityServiceImpl implements IActivityService {
                 subTitleMo.setSubtitleContent(subTitleEntity.getSubtitleContent());
             }else {
                 if(ObjectUtils.isNotNull(subTitleEntity.getSubtitleContent())){
-                    String arr[] = subTitleEntity.getSubtitleContent().split("\\.");
+                    String arr[] = subTitleEntity.getSubtitleContent().split(",");
                     List<ImageVo> resource = new ArrayList<>();
                     List<ResourceEntity> resourceEntityList = resourceMapper.selectBatchIds(Arrays.asList(arr));
                     for (ResourceEntity resourceEntity:resourceEntityList){
@@ -379,7 +379,7 @@ public class ActivityServiceImpl implements IActivityService {
         if (subTitleEntity.getSubtitleType()!=0){
             if(ObjectUtils.isNotNull(subTitleEntity.getSubtitleContent())){
                 subTitleMo.setSubtitleContent(subTitleEntity.getSubtitleContent());
-                String arr[] = subTitleEntity.getSubtitleContent().split("\\.");
+                String arr[] = subTitleEntity.getSubtitleContent().split(",");
                 List<ImageVo> resource = new ArrayList<>();
                 List<ResourceEntity> resourceEntityList = resourceMapper.selectBatchIds(Arrays.asList(arr));
                 for (ResourceEntity resourceEntity:resourceEntityList){
@@ -434,7 +434,7 @@ public class ActivityServiceImpl implements IActivityService {
             if (subTitleEntity.getSubtitleType()!=0){
                 if(ObjectUtils.isNotNull(subTitleEntity.getSubtitleContent())){
                     subTitleMo.setSubtitleContent(subTitleEntity.getSubtitleContent());
-                    String arr[] = subTitleEntity.getSubtitleContent().split("\\.");
+                    String arr[] = subTitleEntity.getSubtitleContent().split(",");
                     List<ImageVo> resource = new ArrayList<>();
                     List<ResourceEntity> resourceEntityList = resourceMapper.selectBatchIds(Arrays.asList(arr));
                     for (ResourceEntity resourceEntity:resourceEntityList){

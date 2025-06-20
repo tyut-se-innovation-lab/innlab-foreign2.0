@@ -15,22 +15,15 @@ import tyut.selab.common.utils.EnumUtils;
 import tyut.selab.common.utils.ObjectUtils;
 import tyut.selab.common.utils.StringUtils;
 import tyut.selab.common.utils.http.ServletUtils;
-import tyut.selab.framework.domain.dto.AddUserDto;
-import tyut.selab.framework.domain.dto.LoginDto;
-import tyut.selab.framework.domain.dto.VerifyRegisterDto;
+import tyut.selab.framework.domain.dto.*;
 import tyut.selab.framework.domain.dto.param.UserParam;
-import tyut.selab.framework.domain.entity.InvitationEntity;
-import tyut.selab.framework.domain.entity.RoleEntity;
-import tyut.selab.framework.domain.entity.UserEntity;
-import tyut.selab.framework.domain.entity.UserMsgEntity;
+import tyut.selab.framework.domain.entity.*;
 import tyut.selab.framework.domain.model.LoginUser;
 import tyut.selab.framework.domain.model.LoginUserToken;
 import tyut.selab.framework.domain.vo.UserMsgVo;
 import tyut.selab.framework.jwt.security.AuthenticationContextHolder;
-import tyut.selab.framework.mapper.InvitationMapper;
-import tyut.selab.framework.mapper.RoleMapper;
-import tyut.selab.framework.mapper.UserMapper;
-import tyut.selab.framework.mapper.UserMsgMapper;
+import tyut.selab.framework.mapper.*;
+import tyut.selab.framework.service.IResourceService;
 import tyut.selab.framework.service.IUserService;
 import tyut.selab.framework.web.SecurityUtils;
 import tyut.selab.framework.web.service.LoginService;
@@ -39,6 +32,7 @@ import tyut.selab.framework.web.service.TokenService;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @ClassName: UserServiceimpl
@@ -63,7 +57,11 @@ public class UserServiceImpl implements IUserService {
     private RoleMapper roleMapper;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private ResourceMapper resourceMapper;
 
+    @Autowired
+    private IResourceService iResourceService;
     @Override
     public R login(LoginDto loginDto){
         Authentication authentication = null;
@@ -198,11 +196,61 @@ public class UserServiceImpl implements IUserService {
         return R.success(userIPage);
     }
     @Override
-    public R getUserMsgById(Integer userId){
+    public R getUserMsgById(Integer userId) throws ExecutionException, InterruptedException {
         UserEntity userEntity = userMapper.selectById(userId);
         UserMsgEntity userMsgEntity = userMsgMapper.selectById(userId);
         UserMsgVo userMsgVo = get1(userEntity,userMsgEntity);
         return R.success(userMsgVo);
+    }
+
+
+    @Override
+    public R updateUser(UpdateUserDto updateUserDto){
+        UserMsgEntity userMsgEntity = userMsgMapper.selectById(updateUserDto.getUserId());
+        if (ObjectUtils.isNull(userMsgEntity)){
+            return R.error("用户不存在！");
+        }
+        if (ObjectUtils.isNotNull(updateUserDto.getUserAvatar())){
+            ResourceEntity resourceEntity = resourceMapper.selectById(updateUserDto.getUserAvatar());
+            if (ObjectUtils.isNotNull(resourceEntity)){
+                userMsgEntity.setUserAvatar(updateUserDto.getUserAvatar());
+                userMsgMapper.updateById(userMsgEntity);
+                return R.success("头像修改成功！");
+            }else {
+                return R.error("图片不存在！");
+            }
+        }
+        userMsgEntity.setUserPhone(updateUserDto.getUserPhone());
+        userMsgMapper.updateById(userMsgEntity);
+        return R.success("修改成功！");
+    }
+
+
+    @Override
+    public R updateUserPassword(UpdateUserPasswordDto updateUserPasswordDto){
+        UserEntity userEntity = userMapper.selectById(updateUserPasswordDto.getUserId());
+        if (ObjectUtils.isNull(userEntity)){
+            return R.error("用户不存在！");
+        }
+        if (SecurityUtils.matchesPassword(updateUserPasswordDto.getOldUserPassword(),userEntity.getUserPassword())){
+            userEntity.setUserPassword(SecurityUtils.encryptPassword(updateUserPasswordDto.getNewUserPassword()));
+            userMapper.updateById(userEntity);
+            return R.success("修改成功！");
+        }else{
+            return R.error("原密码错误！");
+        }
+    }
+
+
+    @Override
+    public R resetUserPassword(Integer userId){
+        UserEntity userEntity = userMapper.selectById(userId);
+        if (ObjectUtils.isNull(userEntity)){
+            return R.error("用户不存在！");
+        }
+            userEntity.setUserPassword(SecurityUtils.encryptPassword("123456"));
+            userMapper.updateById(userEntity);
+            return R.success("修改成功！");
     }
     @Override
     public R delectUserById(Integer userId){
@@ -210,7 +258,7 @@ public class UserServiceImpl implements IUserService {
         userMsgMapper.deleteById(userId);
         return R.success("删除成功！");
     }
-    private UserMsgVo get1(UserEntity userEntity,UserMsgEntity userMsgEntity){
+    private UserMsgVo get1(UserEntity userEntity,UserMsgEntity userMsgEntity) throws ExecutionException, InterruptedException {
         UserMsgVo userMsgVo = new UserMsgVo();
         userMsgVo.setAccount(userEntity.getUserAccount());
         userMsgVo.setNickname(userEntity.getUserNickname());
@@ -220,7 +268,17 @@ public class UserServiceImpl implements IUserService {
         userMsgVo.setEmail(userEntity.getUserEmail());
         userMsgVo.setLastLoginLocation(userEntity.getLastLoginLocation());
         userMsgVo.setDepartment(EnumUtils.getDepartmentNameById(String.valueOf(userEntity.getUserDepartment())));
-        userMsgVo.setAvatarUrl("https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/1060da23f3b113b2b5b463a79362a585073ab63910848e4cde3592cebca6e86ec9606c33bc453f781041bee899c21f71?pictype=scale&from=30113&version=3.3.3.3&fname=tx.jpg&size=750");
+        if (ObjectUtils.isNotNull(userMsgEntity.getUserAvatar())){
+            R r = iResourceService.getResourceById(userMsgEntity.getUserAvatar());
+            String avatarUrl = (String) r.getMessage();
+            if (StringUtils.isNotBlank(avatarUrl)){
+                userMsgVo.setAvatarUrl(avatarUrl);
+            }else {
+                userMsgVo.setAvatarUrl("https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/d809a05f94085f016d4ef0094eda7a221c3f4b102bb8b15c2dfe84ef76cc3ae2f6b012e6850a1be56ee5ddbf1274bcc9?pictype=scale&from=30013&version=3.3.3.3&fname=%E8%B5%84%E6%BA%90_13%20%285%29.png&size=750");
+            }
+        }else {
+            userMsgVo.setAvatarUrl("https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/d809a05f94085f016d4ef0094eda7a221c3f4b102bb8b15c2dfe84ef76cc3ae2f6b012e6850a1be56ee5ddbf1274bcc9?pictype=scale&from=30013&version=3.3.3.3&fname=%E8%B5%84%E6%BA%90_13%20%285%29.png&size=750");
+        }
         RoleEntity roleEntity = roleMapper.selectById(userEntity.getRoleId());
         userMsgVo.setRole(roleEntity.getRoleKey());
         return userMsgVo;
