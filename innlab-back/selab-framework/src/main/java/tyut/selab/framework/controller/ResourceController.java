@@ -17,6 +17,7 @@ import tyut.selab.framework.domain.dto.param.ResourceParam;
 import tyut.selab.framework.domain.vo.CookieVo;
 import tyut.selab.framework.service.IResourceService;
 
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -70,6 +71,23 @@ public class ResourceController {
     public R getResourceList(@RequestBody @Validated ResourceParam resourceParam){
         return iResourceService.getResourcelist(resourceParam);
     }
+
+    @PostMapping("/getCacheImg")
+    @Operation(summary = "获取缓存图片",description ="获取缓存图片，转图床使用")
+    public R getCacheImg(){
+        return iResourceService.getCacheImg2();
+    }
+    @PostMapping("/deleteAllCache")
+    @Operation(summary = "删除所有缓存",description ="删除所有缓存")
+    public R deleteAllCache(){
+        return iResourceService.deleteAllCache();
+    }
+    @PostMapping("/wyImgUpload")
+    @Operation(summary = "微云图床上传",description ="微云图床上传")
+    public R wyImgUpload(@RequestBody Set<String> urls){
+        return iResourceService.addWYImg(urls);
+    }
+
     @PostMapping("/getResourceByLz")
     @Operation(summary = "通过蓝奏云三段获取资源")
     @AccessLogAnnotation()

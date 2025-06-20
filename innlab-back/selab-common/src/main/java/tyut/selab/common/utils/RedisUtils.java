@@ -1,13 +1,15 @@
 package tyut.selab.common.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Component;
+import tyut.selab.common.exception.ErrorCode;
+import tyut.selab.common.exception.ServiceException;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -242,5 +244,46 @@ public class RedisUtils {
      */
     public Set<String> keys(final String pattern) {
         return redisTemplate.keys(pattern);
+    }
+
+    /**
+     * 使用SCAN命令安全地获取前缀匹配的key-value对
+     * @param prefix key前缀
+     * @return Map<String, Object> key-value映射
+     */
+    public Map<String, Object> scanValuesByPrefix(String prefix) {
+        Map<String, Object> result = new HashMap<>();
+        ScanOptions options = ScanOptions.scanOptions().match(prefix + "*").build();
+        Cursor<String> cursor = redisTemplate.scan(options);
+
+        while (cursor.hasNext()) {
+            String key = cursor.next();
+            result.put(key, redisTemplate.opsForValue().get(key));
+        }
+        cursor.close();
+        return result;
+    }
+
+    /**
+     * 安全删除指定前缀的所有key（使用SCAN命令）
+     * @param prefix key前缀
+     * @return 删除的key数量
+     */
+    public long deleteKeysByPrefix(String prefix) {
+        Set<String> keysToDelete = new HashSet<>();
+        ScanOptions options = ScanOptions.scanOptions().match(prefix + "*").build();
+
+        // 使用SCAN命令查找所有匹配的key
+        try (Cursor<String> cursor = redisTemplate.scan(options)) {
+            while (cursor.hasNext()) {
+                keysToDelete.add(cursor.next());
+            }
+        }
+
+        // 批量删除找到的key
+        if (!keysToDelete.isEmpty()) {
+            return redisTemplate.delete(keysToDelete);
+        }
+        return 0L;
     }
 }

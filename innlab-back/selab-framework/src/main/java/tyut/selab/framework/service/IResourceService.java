@@ -7,6 +7,7 @@ import tyut.selab.common.domain.R;
 import tyut.selab.framework.domain.dto.param.ResourceParam;
 import tyut.selab.framework.domain.vo.CookieVo;
 
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -34,6 +35,14 @@ public interface IResourceService {
 
     @Async
     CompletableFuture<String> getResourceByLz(Lz lz);
+
+    R getCacheImg1();
+
+    R deleteAllCache();
+
+    R addWYImg(Set<String> urls);
+
+    R getCacheImg2();
 
     R getResourceById(Integer resourceId) throws ExecutionException, InterruptedException;
 

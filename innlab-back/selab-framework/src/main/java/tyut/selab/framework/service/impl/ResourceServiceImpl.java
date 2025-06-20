@@ -3,6 +3,7 @@ package tyut.selab.framework.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,7 @@ import tyut.selab.common.domain.Lz;
 import tyut.selab.framework.web.SecurityUtils;
 
 import java.io.*;
-import java.util.Base64;
-import java.util.Date;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
  * @CreateTime: 2024-05-23 16:04
  * @Version: 1.0
  **/
+@Slf4j
 @Service
 public class ResourceServiceImpl implements IResourceService {
     @Autowired
@@ -98,6 +99,10 @@ public class ResourceServiceImpl implements IResourceService {
         String fileName = file.getOriginalFilename();
         //获取文件后缀名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
+
+        if (suffixName.equals(".png")||suffixName.equals(".jpg")||suffixName.equals(".mp4")){
+            return R.error("上传图片/视频请使用对应接口！");
+        }
         String imagePath = null;
         if (type==3) {
             imagePath = "Cache/";
@@ -108,15 +113,15 @@ public class ResourceServiceImpl implements IResourceService {
         Date date = new Date();
         String fileName1 = DateUtils.format(date) + RandomUtils.createCode(5);
 //        String fileName2 = fileName1 + suffixName;
-        String fileName2 = fileName;
+//        String fileName2 = fileName;
         try {
             BufferedOutputStream out = new BufferedOutputStream(
-                    new FileOutputStream(new File("selab-resources/" + imagePath + fileName2)));
+                    new FileOutputStream(new File("selab-resources/" + imagePath + fileName1)));
             out.write(file.getBytes());
             out.flush();
             out.close();
             ResourceEntity resourceEntity = new ResourceEntity();
-            resourceEntity.setResourcePath(imagePath + fileName2);
+            resourceEntity.setResourcePath(imagePath + fileName1);
             resourceEntity.setResourceName(fileName1);
             resourceEntity.setResourceType(type);
             resourceEntity.setDelFlag(0);
@@ -250,6 +255,53 @@ public class ResourceServiceImpl implements IResourceService {
         });
     }
 
+    @Override
+    public R getCacheImg1(){
+        Map<String, Object> keys = redisUtils.scanValuesByPrefix("lz_lineurl:");
+        Set<String> imgUrls = new HashSet<String>();
+        for (Map.Entry<String, Object> key : keys.entrySet()) {
+            String url = (String) key.getValue();
+            String img = url.substring(url.length()-6);
+            if (img.equals("jpg.it")||img.equals("png.it")){
+             imgUrls.add(url);
+            }
+        }
+        return R.success(imgUrls);
+    }
+
+    @Override
+    public R deleteAllCache(){
+        Long number = redisUtils.deleteKeysByPrefix("lz_lineurl:");
+        return R.success("删除成功！",number);
+    }
+    @Override
+    public R addWYImg(Set<String> urls){
+        ResourceEntity resourceEntity = new ResourceEntity();
+        for (String url :urls){
+            resourceEntity.setResourceUrl(url+"&size=750");
+            String name = url.substring(url.length()-19,url.length()-4);
+            log.info(name);
+            log.info(url);
+            QueryWrapper<ResourceEntity> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("resource_name",name);
+            resourceMapper.update(resourceEntity,queryWrapper);
+        }
+        return R.success("上传成功！");
+    }
+
+    @Override
+    public R getCacheImg2(){
+        Map<String, Object> keys = redisUtils.scanValuesByPrefix("lz_lineurl:");
+        Set<String> imgUrls = new HashSet<String>();
+        for (Map.Entry<String, Object> key : keys.entrySet()) {
+            String url = (String) key.getValue();
+            String img = url.substring(url.length()-4);
+            if (img.equals(".jpg")||img.equals(".png")){
+                imgUrls.add(url);
+            }
+        }
+        return R.success(imgUrls);
+    }
     @Override
     public R getResourceById(Integer resourceId) throws ExecutionException, InterruptedException {
         ResourceEntity resourceEntity = resourceMapper.selectById(resourceId);
