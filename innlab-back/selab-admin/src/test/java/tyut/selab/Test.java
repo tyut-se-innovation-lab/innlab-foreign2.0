@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import tyut.selab.common.domain.R;
 import tyut.selab.common.utils.ObjectUtils;
+import tyut.selab.common.utils.RedisUtils;
 import tyut.selab.framework.domain.PageParam;
 import tyut.selab.framework.domain.entity.AccessLogEntity;
 import tyut.selab.framework.domain.entity.ResourceEntity;
@@ -21,9 +22,7 @@ import tyut.selab.modular.mapper.ActivityMapper;
 import tyut.selab.modular.mapper.ItemMapper;
 import tyut.selab.modular.mapper.SubTitleMapper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +49,9 @@ public class Test {
 
     @Autowired
     private AccessLogMapper accessLogMapper;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     @org.junit.Test
     public void test1(){
@@ -114,14 +116,6 @@ public class Test {
             System.out.println(url);
         }
     }
-    public static void main(String[] args) {
-//        String arr[] = ".321.321.321".split("\\.");
-//        for (String abc:arr){
-//            System.out.println(abc);
-//        }
-
-
-    }
 
     @org.junit.Test
     public void test3(){
@@ -146,15 +140,11 @@ public class Test {
 
     @org.junit.Test
     public void test4(){
-        for (int i=33;i<=642;i++){
-            ResourceEntity resourceEntity = resourceMapper.selectById(i);
-            if (resourceEntity == null){
-                continue;
-            }
-            if (resourceEntity.getResourceType()==1&&resourceEntity.getResourceUrl()==null){
-                System.out.println(i);
-                resourceMapper.deleteById(i);
-            }
+        Map<String, Object> keys = redisUtils.scanValuesByPrefix("lz_lineurl:");
+        for (Map.Entry<String, Object> key : keys.entrySet()) {
+
+            System.out.println("Key = " + key.getKey() + ", Value = " + key.getValue());
+
         }
     }
 

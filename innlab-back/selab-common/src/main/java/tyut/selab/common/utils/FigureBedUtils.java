@@ -64,14 +64,15 @@ public class FigureBedUtils {
         }
         Pattern signPattern = Pattern.compile("'sign':'([^']+)'");
         Matcher signMatcher = signPattern.matcher(jsCode);
+        log.info(String.valueOf(signMatcher));
 //        while (signMatcher.find()) {
 //            String sign = signMatcher.group(1);
 //            log.info(sign);
 //        }
         if (signMatcher.find()) {
-            if (signMatcher.find()) {
+//            if (signMatcher.find()) {
                 return signMatcher.group(1);
-            }
+//            }
         }
         return "";
     }
