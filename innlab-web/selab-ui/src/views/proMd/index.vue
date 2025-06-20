@@ -1,5 +1,9 @@
 <template>
     <div class="blog">
+        <!-- 头部 -->
+        <div class="header">
+            <Header></Header>
+        </div>
         <div class="container">
             <div class="info">
                 <div class="bigtitle">
@@ -162,6 +166,7 @@ import { getPros } from '@/api/pro/pro'
 import { getActs } from '@/api/activity/activity'
 import bus from '@/eventBus';
 import router from '@/router';
+import Header from '@/components/header/header.vue'
 import { parseLanzouLink } from '@/utils/getFileByBackend';
 import { toQQzone, toQQ, toWeibo, toWechat } from './share.js'
 import QRCode from 'qrcode';
@@ -804,6 +809,9 @@ aside .imgs .imgbox img:hover {
 
 /* 移动端适配 */
 @media (max-width: 1284px) {
+    .header {
+        display: none;
+    }
 
     .blog {
         width: 100%;

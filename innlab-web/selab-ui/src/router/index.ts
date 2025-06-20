@@ -36,14 +36,14 @@ const router = createRouter({
       name: 'blog',
       component: () => import('../views/blog/index.vue'),
       // meta: { header_unhome: true, footer: true }
-      meta: { header: true, sidebar: true }
+      meta: { sidebar: true }
     },
     {
       path: '/proMd',
       name: 'proMd',
       component: () => import('../views/proMd/index.vue'),
       // meta: { header_unhome: true, footer: true }
-      meta: { header: true, sidebar: true }
+      meta: { sidebar: true }
     },
     {
       path: '/people',
