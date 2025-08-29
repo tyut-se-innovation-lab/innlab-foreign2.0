@@ -14,21 +14,21 @@
                         <h2 class="content_title">软件开发</h2>
                         <div class="content_text">
                             <p class="intitle">联系邮箱</p>
-                            <p class="intext">负责人邮箱：2658085068lzc@gmail.com</p>
+                            <p class="intext">负责人邮箱：764352194@qq.com</p>
                         </div>
                     </div>
                     <div class="content">
                         <h2 class="content_title">网络安全</h2>
                         <div class="content_text">
                             <p class="intitle">联系邮箱</p>
-                            <p class="intext">负责人邮箱：clicking7@outlook.com</p>
+                            <p class="intext">负责人邮箱：jie051015@163.com</p>
                         </div>
                     </div>
                     <div class="content">
                         <h2 class="content_title">人工智能</h2>
                         <div class="content_text">
                             <p class="intitle">联系邮箱</p>
-                            <p class="intext">负责人邮箱：2654237268@qq.com</p>
+                            <p class="intext">负责人邮箱：3363167631@qq.com</p>
                         </div>
                     </div>
 
@@ -38,21 +38,21 @@
                         <h2 class="content_title">虚拟现实</h2>
                         <div class="content_text">
                             <p class="intitle">联系邮箱</p>
-                            <p class="intext">负责人邮箱：3288860391@qq.com</p>
+                            <p class="intext">负责人邮箱：2997808981@qq.com</p>
                         </div>
                     </div>
                     <div class="content">
                         <h2 class="content_title">算法竞赛</h2>
                         <div class="content_text">
                             <p class="intitle">联系邮箱</p>
-                            <p class="intext">负责人邮箱：2934060590@qq.com</p>
+                            <p class="intext">负责人邮箱：sx.shuxin@outlook.com</p>
                         </div>
                     </div>
                     <div class="content">
                         <h2 class="content_title">创新实验室</h2>
                         <div class="content_text">
                             <p class="intitle">联系邮箱</p>
-                            <p class="intext">负责人邮箱：cxlab202400906@163.com</p>
+                            <p class="intext">负责人邮箱：m13466898985@163.com</p>
                         </div>
                     </div>
 

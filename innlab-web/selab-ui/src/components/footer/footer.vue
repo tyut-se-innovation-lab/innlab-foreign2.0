@@ -21,7 +21,7 @@
                     <div class="mainMain">
                         <span>地址：中国山西省晋中市榆次区大学街209号太原理工大学行勉楼</span>
                         <!-- <span>联系方式：12345678900</span> -->
-                        <span>邮箱：3135631305@qq.com</span>
+                        <span>邮箱：m13466898985@163.com</span>
                         <span>邮编：030600</span>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="contactMain">
                     <span>地址：中国山西省晋中市榆次区大学街209号太原理工大学行勉楼</span>
                     <!-- <span>联系方式：12345678900</span> -->
-                    <span>邮箱：3135631305@qq.com</span>
+                    <span>邮箱：m13466898985@163.com</span>
                     <span>邮编：030600</span>
 
                 </div>
