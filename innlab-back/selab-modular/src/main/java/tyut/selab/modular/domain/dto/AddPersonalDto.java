@@ -54,11 +54,11 @@ public class AddPersonalDto {
      * 人员贡献
      */
     @Schema(description = "人员事例")
-    @Size(min = 1, max = 200, message = "贡献描述不能超过200字")
+    @Size(min = 1, max = 200, message = "贡献描述为1-200字")
     private String personnelExample;
 
     @Schema(description = "人员语录")
-    @Size(min = 1, max = 100, message = "语录不能超过200字")
+    @Size(min = 1, max = 100, message = "语录为1-100字")
     private String personnelSaying;
     /**
      * 权重（默认1）

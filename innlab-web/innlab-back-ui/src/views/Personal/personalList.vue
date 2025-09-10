@@ -412,8 +412,8 @@ const submitForm = async () => {
       personnelName: formData.value.personnelName,
       personnelPeriod: formData.value.personnelPeriod,
       personnelDepartment: formData.value.personnelDepartment,
-      personnelPost: formData.value.personnelPost,
-      personnelExample: formData.value.personnelContribute,
+      personnelPost: formData.value.personnelPost === '' ? null : formData.value.personnelPost,
+      personnelExample: formData.value.personnelContribute === '' ? null : formData.value.personnelContribute,
       personnelSaying: formData.value.personnelSaying,
       personnelSort: formData.value.personnelSort,
       state: formData.value.state,
@@ -443,29 +443,29 @@ const submitForm = async () => {
 // 新增添加对话框相关状态
 const addVisible = ref(false);
 const addFormData = ref({
-  personnelName: '',
+  personnelName: null,
   personnelAvatar: null,
-  personnelPeriod: '',
-  personnelDepartment: '',
-  personnelPost: '',
-  personnelExample: '',
-  personnelSaying: '',
+  personnelPeriod: null,
+  personnelDepartment: null,
+  personnelPost: null,
+  personnelExample: null,
+  personnelSaying: null,
   personnelSort: 0,
-  avatarUrl: ''
+  avatarUrl: null
 });
 
 // 添加人员按钮点击事件
 const handleAdd = () => {
   addFormData.value = {
-    personnelName: '',
+    personnelName: null,
     personnelAvatar: null,
-    personnelPeriod: '',
-    personnelDepartment: '',
-    personnelPost: '',
-    personnelExample: '',
-    personnelSaying: '',
+    personnelPeriod: null,
+    personnelDepartment: null,
+    personnelPost: null,
+    personnelExample: null,
+    personnelSaying: null,
     personnelSort: 0,
-    avatarUrl: ''
+    avatarUrl: null
   };
   addVisible.value = true;
 };
@@ -514,8 +514,8 @@ const submitAddForm = async () => {
       personnelAvatar: addFormData.value.personnelAvatar,
       personnelPeriod: addFormData.value.personnelPeriod,
       personnelDepartment: addFormData.value.personnelDepartment,
-      personnelPost: addFormData.value.personnelPost,
-      personnelExample: addFormData.value.personnelExample,
+      personnelPost: addFormData.value.personnelPost === '' ? null : addFormData.value.personnelPost,
+      personnelExample: addFormData.value.personnelExample === '' ? null : addFormData.value.personnelExample,
       personnelSaying: addFormData.value.personnelSaying,
       personnelSort: addFormData.value.personnelSort
     });

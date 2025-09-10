@@ -11,7 +11,9 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, defineProps } from "vue"
 import emoji from '@/utils/emoji'
-import { type CommentApi, type ConfigApi, type SubmitParamApi, UToast, dayjs, createObjectURL } from 'undraw-ui'
+// import { type CommentApi, type ConfigApi, type SubmitParamApi, UToast, dayjs, createObjectURL } from 'undraw-ui'// 修改后：
+import dayjs from 'dayjs' // 单独导入 dayjs
+import { type CommentApi, type ConfigApi, type SubmitParamApi, UToast, createObjectURL } from 'undraw-ui'
 import { getComments } from '@/api/activity/activity'
 
 const props = defineProps({

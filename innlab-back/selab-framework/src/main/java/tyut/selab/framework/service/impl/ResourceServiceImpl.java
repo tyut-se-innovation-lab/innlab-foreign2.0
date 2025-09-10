@@ -112,16 +112,16 @@ public class ResourceServiceImpl implements IResourceService {
         //重新生成文件名
         Date date = new Date();
         String fileName1 = DateUtils.format(date) + RandomUtils.createCode(5);
-//        String fileName2 = fileName1 + suffixName;
+        String fileName2 = fileName1 + suffixName;
 //        String fileName2 = fileName;
         try {
             BufferedOutputStream out = new BufferedOutputStream(
-                    new FileOutputStream(new File("selab-resources/" + imagePath + fileName1)));
+                    new FileOutputStream(new File("selab-resources/" + imagePath + fileName2)));
             out.write(file.getBytes());
             out.flush();
             out.close();
             ResourceEntity resourceEntity = new ResourceEntity();
-            resourceEntity.setResourcePath(imagePath + fileName1);
+            resourceEntity.setResourcePath(imagePath + fileName2);
             resourceEntity.setResourceName(fileName1);
             resourceEntity.setResourceType(type);
             resourceEntity.setDelFlag(0);
@@ -250,7 +250,9 @@ public class ResourceServiceImpl implements IResourceService {
             if (StringUtils.isEmpty(newLineUrl)){
                 return "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f3be25102f2afcbceaadd64f56fafd5d6ab12cca4f192576264076015041801db06736e672fde394c5fc6a7d9558e197?pictype=scale&from=30013&version=3.3.3.3&fname=5e74a7832ff411f18ee66c4e542b2647.jpg&size=750";
             }
-            redisUtils.setCacheObject(lzKey, newLineUrl, 30, TimeUnit.MINUTES);
+
+            //redis缓存蓝奏云直链的时间
+            redisUtils.setCacheObject(lzKey, newLineUrl, 25, TimeUnit.MINUTES);
             return newLineUrl;
         });
     }
