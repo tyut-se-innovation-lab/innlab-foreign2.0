@@ -3,7 +3,8 @@ import axios from 'axios'; // 改为直接从 axios 库导入
 
 const authorizationHttp = axios.create({
   // baseURL: 'http://49.232.217.248:8087',
-  baseURL: 'http://localhost:8081',
+  // baseURL: 'http://localhost:8081',
+  baseURL: 'http://47.94.132.207:18081',
   timeout: 10000,
 });
 
