@@ -15,6 +15,7 @@
     "aos": "^2.3.4",
     "axios": "^1.6.7",
     "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.18",
     "element-plus": "^2.4.4",
     "fullpage.js": "^4.0.22",
     "jarallax": "^2.2.1",

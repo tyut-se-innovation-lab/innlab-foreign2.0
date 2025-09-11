@@ -63,7 +63,7 @@ const PeopleList = ref<Array<{
 const PeopleListParams = ref({
     pageNum: 1,
     pageSize: 8,
-    period: 2022,
+    period: 2023,
 })
 
 const MobilePeopleList = ref<Array<{

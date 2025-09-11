@@ -267,6 +267,7 @@ const getActvityInfo = async () => {
     try {
         const result = await getActInfo(actId.value);
         actInfo.value = result.data;
+        
 
         // 处理资源并更新数据
         for (const element of actInfo.value.activityContent) {

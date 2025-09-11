@@ -116,7 +116,8 @@
                         <h1><span class="style2">个人介绍 </span> <span class="style1">Personal resume</span></h1>
                         <h2>基本信息</h2>
                         <table class="style4">
-                            <tr>
+                            <tbody>
+                              <tr>
                                 <td class="peoImg" rowspan="5">
                                     <img alt="" :src="people.personnelAvatar" />
                                 </td>
@@ -126,9 +127,9 @@
                                     <p> 年份：{{ people.personnelPeriod }}</p>
                                     <p> 职位：{{ people.personnelPost }}</p>
                                 </td>
-
-
-                            </tr>
+                              </tr>  
+                            </tbody>
+                            
 
                         </table>
                         <h2>贡献</h2>
@@ -302,13 +303,22 @@ const handleSizeChange = () => {
     }
 
 }
-const handleCurrentChange = () => {
+const handleCurrentChange = (val: number) => {
+    PeopleListParams.value.pageNum = val;
+
+    router.replace({
+        query: {
+            ...routeQuery.query,
+            pageNum: val,
+        },
+    });
+
     if (!isCheckAll.value) {
         getPeopleList();
     } else {
         getAllPeopleList();
     }
-}
+};
 
 
 // 侧栏菜单
@@ -408,7 +418,8 @@ const toDetail = (peopleitem) => {
         query: {
             part: PeopleListParams.value.department,
             period: PeopleListParams.value.period,
-            people: encrypt(JSON.stringify(peopleitem))
+            people: encrypt(JSON.stringify(peopleitem)),
+            pageNum: PeopleListParams.value.pageNum, // 保存当前页码
         },
     });
     sessionStorage.setItem('isDetail', JSON.stringify(isDetail.value));
@@ -462,6 +473,10 @@ onMounted(async () => {
         } catch (error) {
             console.error('Error parsing people parameter:', error);
         }
+    }
+    // 从路由恢复页码
+    if (routeQuery.query.pageNum) {
+        PeopleListParams.value.pageNum = Number(routeQuery.query.pageNum);
     }
     // 没有查看人员详情时
     if (!routeQuery.query.people) {
