@@ -18,11 +18,11 @@ spring:
     #数据库驱动完整类名
     driver-class-name: com.mysql.cj.jdbc.Driver
     #数据库连接url
-    url: jdbc:mysql://49.232.217.248:3306/selab_foreign
+    url: jdbc:mysql://127.0.0.1:3306/innlab
     #数据库用户名
-    username: foreign
+    username: innlab
     #数据库密码
-    password: ntptxKNRAFh8APpG
+    password: zHYTfNZwGLj56Hw4
     # druid 连接池管理
     druid:
       filter:
@@ -70,14 +70,14 @@ spring:
       # 检测连接是否有效的超时时间
       validation-query-timeout: 1
       stat-view-servlet:
-        # 访问白名单
-        allow: 127.0.0.1
+        # 访问白名单  没有设置就是允许所有访问
+        allow:
         # 配置统计页面
         enabled: true
         # 访问密码
-        login-password: 123456
+        login-password:
         # 访问用户名
-        login-username: root
+        login-username:
         # 允许重置监控数据
         reset-enable: true
       web-stat-filter:
@@ -108,7 +108,7 @@ spring:
     host: smtp.163.com
 
 server:
-  port: 8081
+  port: 18081
 # springdoc-openapi项目配置，访问地址：http://127.0.0.1:8081/doc.html
 springdoc:
   swagger-ui:
@@ -127,6 +127,7 @@ springdoc:
     - group: '对外网站前台'
       paths-to-match: '/**'
       packages-to-scan: tyut.selab.modular.controller.foreign
+
 # Xxl-Job分布式定时任务调度中心
 xxl:
   job:

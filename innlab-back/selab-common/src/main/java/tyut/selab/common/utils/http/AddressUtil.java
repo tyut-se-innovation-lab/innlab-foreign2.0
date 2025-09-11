@@ -16,21 +16,21 @@ public class AddressUtil {
      * @param ip ip地址
      * @return 地址
      */
-//    public static String getAddressByIP(String ip) {
-//        if (StringUtils.isBlank(ip)) {
-//            return "";
-//        }
-//        if ("127.0.0.1".equals(ip)) {
-//            return "局域网，无法获取位置";
-//        }
-//        String url = "https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&format=json&query=" + ip;
-//        JSONObject resJson = JSONObject.parseObject(HttpClientUtils.get(url));
-////        System.out.println(resJson.getJSONArray("data").get(0));
-//        JSONObject data = (JSONObject) resJson.getJSONArray("data").get(0);
-//        String location = data.getString("location");
-//        return location;
-//    }
     public static String getAddressByIP(String ip) {
+        if (StringUtils.isBlank(ip)) {
+            return "";
+        }
+        if ("127.0.0.1".equals(ip)) {
+            return "局域网，无法获取位置";
+        }
+        String url = "https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&format=json&query=" + ip;
+        JSONObject resJson = JSONObject.parseObject(HttpClientUtils.get(url));
+//        System.out.println(resJson.getJSONArray("data").get(0));
+        JSONObject data = (JSONObject) resJson.getJSONArray("data").get(0);
+        String location = data.getString("location");
+        return location;
+    }
+    public static String getAddressByIP2(String ip) {
         if (StringUtils.isBlank(ip)) {
             return "";
         }
@@ -47,6 +47,6 @@ public class AddressUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(getAddressByIP("220.196.160.65"));
+        System.out.println(getAddressByIP2("220.196.160.65"));
     }
 }

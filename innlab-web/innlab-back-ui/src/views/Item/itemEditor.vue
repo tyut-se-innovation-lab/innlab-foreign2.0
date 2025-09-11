@@ -149,7 +149,7 @@ const submitForm = async () => {
 
     const res = await updateItemApi({
       itemId: formData.value.itemId,
-      markdownBase64: encodedContent
+      contentMarkdown: encodedContent
     })
 
     if (res.code === 200) {

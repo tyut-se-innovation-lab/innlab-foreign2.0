@@ -240,7 +240,7 @@ const downloadAllImages = async () => {
 // 删除全部缓存
 const deleteAllCache = async () => {
   try {
-    await ElMessageBox.confirm('确定要删除全部缓存图片吗？此操作不可恢复！', '警告', {
+    await ElMessageBox.confirm('确定要删除全部缓存图片吗？', '警告', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'error'

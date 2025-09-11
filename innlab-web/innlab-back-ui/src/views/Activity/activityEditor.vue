@@ -11,8 +11,16 @@
             <el-tag>作者: {{ activityData.author || '未知' }}</el-tag>
             <el-tag type="success">最后更新: {{ formatDateTime(activityData.updateTime) }}</el-tag>
             <el-tag :type="isAutoSaving ? 'warning' : 'success'">
-              {{ isAutoSaving ? '自动保存中...' : '已启用自动保存' }}
+              {{ isAutoSaving ? '自动保存中...' : '自动保存' }}
             </el-tag>
+            <el-button
+              size="small"
+              @click="toggleAutoSave"
+              :type="autoSaveEnabled ? 'danger' : 'success'"
+              :icon="autoSaveEnabled ? 'Switch' : 'CircleCheck'"
+            >
+              {{ autoSaveEnabled ? '停止自动保存' : '开启自动保存' }}
+            </el-button>
           </div>
         </div>
       </template>
@@ -86,13 +94,15 @@
                   fit="cover"
                   :preview-src-list="[res.url]"
                   :initial-index="0"
-                  hide-on-click-modal>
-                  <template #error>
-                    <div class="image-error">
-                      <el-icon><Picture /></el-icon>
-                      <span>图片加载失败</span>
-                    </div>
-                  </template>
+                  hide-on-click-modal
+                  preview-teleported
+                >
+                <template #error>
+                  <div class="image-error">
+                    <el-icon><Picture /></el-icon>
+                    <span>图片加载失败</span>
+                  </div>
+                </template>
                 </el-image>
                 <div v-else class="image-loading">
                   <el-icon class="loading-icon"><Loading /></el-icon>
@@ -160,23 +170,52 @@
         <el-form-item :label="`选择${uploadTitle}文件`">
           <el-upload
             ref="uploadRef"
+            class="upload-demo"
+            drag
             :auto-upload="false"
             :accept="uploadAccept"
             :on-change="handleFileChange"
             :show-file-list="false"
           >
             <template #trigger>
-              <el-button type="primary">选择文件</el-button>
+              <div v-if="!uploadForm.file" class="upload-area">
+                <el-icon class="el-icon--upload"><Plus /></el-icon>
+                <div class="el-upload__text">
+                  将文件拖到此处，或<em>点击上传</em>
+                </div>
+              </div>
+              <div v-else class="preview-area">
+                <!-- 图片预览 -->
+                <el-image
+                  v-if="uploadType === 1"
+                  :src="localPreviewUrl"
+                  fit="contain"
+                  style="max-height: 200px;"
+                  :preview-src-list="[localPreviewUrl]"
+                />
+                <!-- 视频预览 -->
+                <video
+                  v-else-if="uploadType === 2"
+                  :src="localPreviewUrl"
+                  controls
+                  style="max-height: 200px;"
+                />
+                <!-- 文件预览 -->
+                <div v-else class="file-preview">
+                  <el-icon :size="48"><Document /></el-icon>
+                  <div class="file-name">{{ uploadForm.file.name }}</div>
+                </div>
+                <el-button
+                  type="danger"
+                  size="small"
+                  @click.stop="clearFile"
+                  class="mt-10"
+                >
+                  重新选择
+                </el-button>
+              </div>
             </template>
           </el-upload>
-          <div v-if="uploadForm.file" class="file-info">
-            <span>{{ uploadForm.file.name }}</span>
-            <span>{{ formatFileSize(uploadForm.file.size) }}</span>
-          </div>
-          <div v-if="localPreviewUrl" class="preview-container">
-            <img v-if="uploadType === 1" :src="localPreviewUrl" alt="预览" class="preview-image" />
-            <video v-else-if="uploadType === 2" :src="localPreviewUrl" controls class="preview-video"></video>
-          </div>
         </el-form-item>
         <el-form-item label="描述信息">
           <el-input v-model="uploadForm.description" type="textarea" rows="3" placeholder="请输入文件描述"></el-input>
@@ -244,7 +283,14 @@ const activityData = ref({
 })
 const loading = ref(false)
 const vditorInstances = ref({})
-
+// 清空已选文件
+const clearFile = () => {
+  uploadForm.file = null;
+  if (localPreviewUrl.value) {
+    URL.revokeObjectURL(localPreviewUrl.value);
+    localPreviewUrl.value = '';
+  }
+};
 // 获取活动详情
 const fetchActivityDetail = async () => {
   try {
@@ -306,7 +352,7 @@ const initEditors = () => {
         const markdownContent = decodeBase64(subtitle.subtitleContent)
 
         vditorInstances.value[subtitle.subtitleId] = new Vditor(elementId, {
-          height: 400,
+          // height: 400,
           value: markdownContent,
           placeholder: '请输入Markdown内容...',
           toolbar: [
@@ -563,24 +609,27 @@ const submitUpload = async () => {
 
 // 启动自动保存
 const startAutoSave = () => {
+  if (!autoSaveEnabled.value) return
+
   autoSaveInterval.value = setInterval(async () => {
     if (!isAutoSaving.value && activityData.value?.activityContent) {
       isAutoSaving.value = true
       try {
-        // 保存所有小标题
         for (const subtitle of activityData.value.activityContent) {
           await saveSubtitle(subtitle)
         }
-        ElMessage.success('自动保存成功')
+        // 只在开发环境显示提示，避免干扰用户
+        if (process.env.NODE_ENV === 'development') {
+          ElMessage.success('自动保存成功')
+        }
       } catch (error) {
         console.error('自动保存出错:', error)
       } finally {
         isAutoSaving.value = false
       }
     }
-  }, 10000) // 10秒
+  }, 10000)
 }
-
 
 // 自动保存相关
 const autoSaveInterval = ref(null)
@@ -686,7 +735,18 @@ const formatFileSize = (bytes) => {
 const goBack = () => {
   router.go(-1)
 }
+const autoSaveEnabled = ref(true)
 
+const toggleAutoSave = () => {
+  autoSaveEnabled.value = !autoSaveEnabled.value
+  if (autoSaveEnabled.value) {
+    startAutoSave()
+    ElMessage.success('已开启自动保存')
+  } else {
+    stopAutoSave()
+    ElMessage.warning('已停止自动保存')
+  }
+}
 // 删除资源ID
 const removeResourceId = async (subtitle, idToRemove) => {
   try {
@@ -1088,7 +1148,35 @@ onBeforeUnmount(() => {
   margin-top: 15px;
   color: #909399;
 }
+.upload-demo {
+  width: 100%;
+  min-height: 180px;
+}
 
+.upload-area, .preview-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.file-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.file-name {
+  margin-top: 10px;
+  word-break: break-all;
+  text-align: center;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
 .video-player {
   width: 100%;
   max-height: 70vh;

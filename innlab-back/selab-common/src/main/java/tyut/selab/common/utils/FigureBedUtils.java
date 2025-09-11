@@ -69,12 +69,21 @@ public class FigureBedUtils {
 //            String sign = signMatcher.group(1);
 //            log.info(sign);
 //        }
+        String sign1 = "";
+        String sign2 = "";
+//        if (signMatcher.find()) {
         if (signMatcher.find()) {
-//            if (signMatcher.find()) {
-                return signMatcher.group(1);
-//            }
+            sign1 =signMatcher.group(1);
         }
-        return "";
+        if (signMatcher.find()) {
+            sign2 =signMatcher.group(1);
+        }
+        if (sign2.isEmpty()){
+            return sign1;
+        }else {
+            return sign2;
+        }
+//        }
     }
 
     public static String getLz(Lz lz){
@@ -126,7 +135,7 @@ public class FigureBedUtils {
 //        String geturl = data.getString("url");
 //        String url2 = data.getString("dom")+"/file/"+geturl;
 //        System.out.println(url2);
-        Lz lz = new Lz("53a4","imQAY29xbx5e","https://innlab.lanzouk.com");
+        Lz lz = new Lz("5ia8","iF23l2z8ziwb","https://innlab.lanzn.com");
         System.out.println(getLz(lz));
 //        String newPayUrl="https://pc.woozooo.com/html5up.php";
 //        File file = new File("C:/Users/gmsly/Pictures/Default.jpg.it");
