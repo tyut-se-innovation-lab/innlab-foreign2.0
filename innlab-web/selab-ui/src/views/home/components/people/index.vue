@@ -80,7 +80,7 @@ const MobilePeopleList = ref<Array<{
 const MobilePeopleListParams = ref({
     pageNum: 1,
     pageSize: 4,
-    period: 2022
+    period: 2023
 })
 
 const getPeopleList = async () => {

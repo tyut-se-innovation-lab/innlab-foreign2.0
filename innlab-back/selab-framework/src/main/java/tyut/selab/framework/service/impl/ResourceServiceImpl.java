@@ -297,8 +297,7 @@ public class ResourceServiceImpl implements IResourceService {
         Set<String> imgUrls = new HashSet<String>();
         for (Map.Entry<String, Object> key : keys.entrySet()) {
             String url = (String) key.getValue();
-            String img = url.substring(url.length()-4);
-            if (img.equals(".jpg")||img.equals(".png")){
+            if (url.contains(".jpg")||url.contains(".png")){
                 imgUrls.add(url);
             }
         }
