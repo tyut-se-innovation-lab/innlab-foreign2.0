@@ -100,3 +100,21 @@ body::-webkit-scrollbar {
   width: 0px;
   height: 0px;
 }
+
+/* 移动端禁用页面滚动 */
+@media (max-width: 1248px) {
+  html,
+  body {
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #app {
+    height: auto;
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
