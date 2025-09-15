@@ -10,7 +10,7 @@
                     <div class="selab">
 
                         <el-carousel @change="onCarouselChange" class="slide active" ref="carousel" interval="8000"
-                            direction="vertical" motion-blur indicator-position="outside">
+                            direction="vertical" indicator-position="outside">
                             <el-carousel-item v-for="(item, index) in ActivitiesList" :key="index">
                                 <div v-if="currentIndex == index" class="seAcBig seAcforce">
                                     <div class="seAcBigImg">
@@ -40,7 +40,7 @@
                     <div class="mobileselab">
 
                         <el-carousel @change="onCarouselChange" arrow="never" class="slide active" ref="carousel"
-                            interval="8000" motion-blur indicator-position="outside">
+                            interval="8000" indicator-position="outside">
                             <el-carousel-item v-for="(item, index) in ActivitiesList" :key="index">
                                 <div v-if="currentIndex == index" class="seAcBig seAcforce">
                                     <div class="seAcBigImg">
@@ -326,7 +326,7 @@ const onCarouselChange = (index: number) => {
     console.log('^%^: ', index);
 
     currentIndex.value = index;
-    AOS.refreshHard(); // 强制刷新AOS，立即触发动画
+    // 降低刷新频率，避免强制重排引发的抖动
 };
 
 
@@ -418,7 +418,7 @@ onMounted(() => {
 .main {
     /* padding: 3em 0em 0em 0em; */
     display: flex;
-    width: 120%;
+    width: 100%;
     margin-top: 10%;
     flex-direction: column;
     align-items: center;

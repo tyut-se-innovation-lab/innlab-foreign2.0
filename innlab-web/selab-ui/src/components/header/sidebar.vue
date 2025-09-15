@@ -284,7 +284,14 @@ onMounted(() => {
     background-color: #002d72;
     border: 1px solid rgba(100, 103, 105, 0.1);
     box-shadow: 10px 10px 20px rgba(69, 85, 103, 0.1);
-    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.sideouter::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
 }
 
 

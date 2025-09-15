@@ -141,7 +141,7 @@ const LinkTo = (elementId: number) => {
 
 <style scoped>
 .homePart {
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
     background-color: white;
