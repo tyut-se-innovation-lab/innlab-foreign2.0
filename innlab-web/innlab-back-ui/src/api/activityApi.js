@@ -88,7 +88,7 @@ export function updateActivityApi(updateActivity) {
       activityIntroduction: updateActivity.activityIntroduction,
       headerImage: updateActivity.headerImage,
       activityDepartment: updateActivity.activityDepartment,
-      activityType: updateActivity.activityDepartment,
+      activityType: updateActivity.activityType,
       state: updateActivity.state,
       isTop: updateActivity.isTop
     });

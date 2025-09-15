@@ -251,8 +251,10 @@ public class ResourceServiceImpl implements IResourceService {
                 return "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f3be25102f2afcbceaadd64f56fafd5d6ab12cca4f192576264076015041801db06736e672fde394c5fc6a7d9558e197?pictype=scale&from=30013&version=3.3.3.3&fname=5e74a7832ff411f18ee66c4e542b2647.jpg&size=750";
             }
 
-            //redis缓存蓝奏云直链的时间
-            redisUtils.setCacheObject(lzKey, newLineUrl, 25, TimeUnit.MINUTES);
+            /**
+             * redis缓存蓝奏云直链的时间
+             */
+            redisUtils.setCacheObject(lzKey, newLineUrl, 15, TimeUnit.MINUTES);
             return newLineUrl;
         });
     }
@@ -297,8 +299,7 @@ public class ResourceServiceImpl implements IResourceService {
         Set<String> imgUrls = new HashSet<String>();
         for (Map.Entry<String, Object> key : keys.entrySet()) {
             String url = (String) key.getValue();
-            String img = url.substring(url.length()-4);
-            if (img.equals(".jpg")||img.equals(".png")){
+            if (url.contains(".jpg")||url.contains(".png")){
                 imgUrls.add(url);
             }
         }
