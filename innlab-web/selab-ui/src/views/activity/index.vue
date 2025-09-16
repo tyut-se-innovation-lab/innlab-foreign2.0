@@ -710,5 +710,36 @@ main {
         height: 100%;
 
     }
+
+    /* 移动端分页器样式优化 */
+    :deep(.el-pagination) {
+        justify-content: center;
+        margin: 4% 0;
+        padding: 0 50px;
+        max-width: calc(100% - 100px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    :deep(.el-pagination .el-pager li) {
+        min-width: max(30px, 2.5vw);
+        max-width: 50px;
+        height: max(30px, 2.5vw);
+        max-height: 50px;
+        line-height: max(30px, 2.5vw);
+        font-size: max(12px, 1.2vw);
+        margin: 0 max(2px, 0.2vw);
+    }
+    
+    :deep(.el-pagination .btn-prev),
+    :deep(.el-pagination .btn-next) {
+        min-width: max(30px, 2.5vw);
+        max-width: 50px;
+        height: max(30px, 2.5vw);
+        max-height: 50px;
+        line-height: max(30px, 2.5vw);
+        font-size: max(12px, 1.2vw);
+        margin: 0 max(2px, 0.2vw);
+    }
 }
 </style>

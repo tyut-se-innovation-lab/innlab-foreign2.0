@@ -64,12 +64,20 @@
 
 }
 
-
+html {                /* ① 让滚动发生在 html 而不是 body */
+  overflow-y: auto;
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge 旧版 */
+}
+html::-webkit-scrollbar {       /* Chrome/Safari/Edge 新版 */
+  display: none;
+}
 body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
   overflow-x: hidden;
+  overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
@@ -100,6 +108,7 @@ body::-webkit-scrollbar {
   width: 0px;
   height: 0px;
 }
+
 
 /* 移动端禁用页面滚动 */
 @media (max-width: 1248px) {
