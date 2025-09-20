@@ -3,7 +3,7 @@ import axios from 'axios'
 const request = axios.create({
     // baseURL: 'http://192.168.188.128:8081',
     // baseURL: 'http://127.0.0.1:8081',
-    baseURL: 'http://47.94.132.207:18081',
+    baseURL: 'https://47.94.132.207:18081',
     timeout: 2000
 })
 
