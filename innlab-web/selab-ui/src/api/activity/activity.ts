@@ -9,11 +9,12 @@ export const getAllActs = (params: { pageNum: number; pageSize: number; }) => {
         pageSize: params.pageSize
     })
 }
-export const getActs = (params: { pageNum: number; pageSize: number; activityType: string }) => {
+export const getActs = (params: { pageNum: number; pageSize: number; activityType: string ;department: string }) => {
     return http.post(`${prefix}/showActivitys`, {
         pageNum: params.pageNum,
         pageSize: params.pageSize,
-        activityType: params.activityType
+        activityType: params.activityType,
+        department:params.department
     })
 }
 

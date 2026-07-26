@@ -18,7 +18,7 @@ spring:
     #数据库驱动完整类名
     driver-class-name: com.mysql.cj.jdbc.Driver
     #数据库连接url
-    url: jdbc:mysql://127.0.0.1:3306/innlab
+    url: jdbc:mysql://47.94.132.207:3306/innlab
     #数据库用户名
     username: innlab
     #数据库密码
@@ -108,7 +108,7 @@ spring:
     host: smtp.163.com
 
 server:
-  port: 18081
+  port: 8081
 # springdoc-openapi项目配置，访问地址：http://127.0.0.1:8081/doc.html
 springdoc:
   swagger-ui:

@@ -3,6 +3,11 @@ package tyut.selab.common.utils.http;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
 import tyut.selab.common.constant.Constants;
 import tyut.selab.common.utils.ObjectUtils;
 import tyut.selab.common.utils.StringUtils;
@@ -17,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
 
 /**
  * @ClassName: HttpsUtils
@@ -29,6 +35,75 @@ import java.util.Map;
 public class HttpsUtils
 {
 
+
+    public static String sendGetWithHttpClient(String url) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+
+        // 设置请求头
+        httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
+        httpGet.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+        httpGet.setHeader("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8");
+        httpGet.setHeader("Accept-Encoding", "gzip, deflate, br");
+
+        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+            // HttpClient 会自动处理 gzip 解压缩
+            return EntityUtils.toString(response.getEntity(), "UTF-8");
+        } catch (Exception e) {
+            log.error("请求失败", e);
+        }
+        return null;
+    }
+
+    public static String sendGetWithHeaders(String url, Map<String, String> headers) {
+        try {
+            URL obj = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+
+            // 设置请求方法
+            connection.setRequestMethod("GET");
+
+            // 设置默认 headers
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
+            connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            connection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8");
+            connection.setRequestProperty("Accept-Encoding", "gzip");
+
+            // 添加自定义 headers
+            if (headers != null) {
+                for (Map.Entry<String, String> entry : headers.entrySet()) {
+                    connection.setRequestProperty(entry.getKey(), entry.getValue());
+                }
+            }
+
+            // 处理响应
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                String contentEncoding = connection.getHeaderField("Content-Encoding");
+                InputStream inputStream;
+
+                if ("gzip".equalsIgnoreCase(contentEncoding)) {
+                    inputStream = new GZIPInputStream(connection.getInputStream());
+                } else {
+                    inputStream = connection.getInputStream();
+                }
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = in.readLine()) != null) {
+                    response.append(line);
+                }
+                in.close();
+
+                return response.toString();
+            }
+
+        } catch (Exception e) {
+            log.error("请求失败", e);
+        }
+        return null;
+    }
     /**
      * 向指定 URL 发送GET方法的请求
      *

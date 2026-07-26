@@ -86,45 +86,96 @@ public class FigureBedUtils {
 //        }
     }
 
-    public static String getLz(Lz lz){
-        String url = lz.getIsNewd()+"/"+lz.getFId();
-        String jsCode =HttpsUtils.sendGet(url);
-        String url1 = lz.getIsNewd()+"/ajaxm.php?file="+extractUrl(jsCode);
-        log.info(jsCode);
-        String skdklds = extractSkdklds(jsCode);
-        String xwwwfrom = "action=downprocess&sign="+skdklds+"&p="+lz.getPwd()+"&kd=1";
-        log.info(xwwwfrom);
-        String json = HttpsUtils.sendSSLPost(url1,url,null,xwwwfrom);
-        if (StringUtils.isEmpty(json)){
-            log.error("图片："+lz.getFId()+"获取失败！");
-            return null;
-//            return "https://picabstract-preview-ftn.weiyun.com/ftn_pic_abs_v3/f3be25102f2afcbceaadd64f56fafd5d6ab12cca4f192576264076015041801db06736e672fde394c5fc6a7d9558e197?pictype=scale&from=30013&version=3.3.3.3&fname=5e74a7832ff411f18ee66c4e542b2647.jpg&size=750";
+    public static String getLz(Lz lz) {
+        String url = lz.getIsNewd() + "/" + lz.getFId();
+
+        // 第一次请求，获取页面
+        String jsCode = HttpsUtils.sendGetWithHttpClient(url);
+
+        System.out.println(jsCode);
+        // 检查是否是反爬挑战页面
+        if (jsCode.contains("acw_sc__v2") && jsCode.contains("arg1")) {
+            log.info("检测到反爬挑战，开始处理...");
+
+            try {
+                // 处理挑战
+                jsCode = LanzouAntiCrawler.handleChallenge(jsCode, url, "");
+
+                // 再次检查是否还有挑战
+                if (jsCode.contains("acw_sc__v2") && jsCode.contains("arg1")) {
+                    log.error("挑战处理失败，仍然存在反爬页面");
+                    return null;
+                }
+
+            } catch (Exception e) {
+                log.error("反爬挑战处理失败: " + e.getMessage());
+                return null;
+            }
         }
+
+        // 提取 file 参数
+        String fileParam = extractUrl(jsCode);
+        if (StringUtils.isEmpty(fileParam)) {
+            log.error("无法提取 file 参数");
+            return null;
+        }
+
+        String url1 = lz.getIsNewd() + "/ajaxm.php?file=" + fileParam;
+        log.info("提取的 file 参数: " + fileParam);
+
+        // 提取 sign 参数
+        String skdklds = extractSkdklds(jsCode);
+        if (StringUtils.isEmpty(skdklds)) {
+            log.error("无法提取 sign 参数");
+            return null;
+        }
+
+        log.info("提取的 sign: " + skdklds);
+
+        String xwwwfrom = "action=downprocess&sign=" + skdklds + "&p=" + lz.getPwd() + "&kd=1";
+        log.info("POST数据: " + xwwwfrom);
+
+        // 发送 POST 请求
+        String json = HttpsUtils.sendSSLPost(url1, url, null, xwwwfrom);
+
+        if (StringUtils.isEmpty(json)) {
+            log.error("图片：" + lz.getFId() + " 获取失败！");
+            return null;
+        }
+
         JSONObject data = JSON.parseObject(json);
         String geturl = data.getString("url");
-        if (geturl.equals("0")){
+
+        if ("0".equals(geturl)) {
+            log.error("服务器返回错误: " + data.getString("inf"));
             return null;
         }
-        //url2为伪直链，有效期15分钟
-        String url2 = data.getString("dom")+"/file/"+geturl;
-        System.out.println(url2);
-        Map<String, Object> headers = new HashMap<>();
-        headers.put("accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
-        headers.put("accept-language","zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6");
-        headers.put("sec-ch-ua","\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"");
-        headers.put("sec-ch-ua-mobile","?0");
-        headers.put("sec-ch-ua-platform","\"Windows\"");
-        headers.put("sec-fetch-dest", "document");
-        headers.put("sec-fetch-mode","navigate");
-        headers.put("sec-fetch-site","none");
-        headers.put("sec-fetch-user","?1");
-        headers.put("upgrade-insecure-requests","1");
-        headers.put("cookie","down_ip=1");
 
-        String url3 = HttpClientUtils.get2(url2,headers);
-        //url3为超直链有效期永久？？
+        // 获取最终 URL
+        String url2 = data.getString("dom") + "/file/" + geturl;
+        log.info("中间 URL: " + url2);
+
+        // 获取重定向 URL
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
+        headers.put("accept-language", "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6");
+        headers.put("referer", url);
+        headers.put("cookie", "down_ip=1");
+
+        String url3 = HttpClientUtils.get2(url2, headers);
+
+        if (StringUtils.isEmpty(url3)) {
+            log.error("获取最终 URL 失败");
+            return null;
+        }
+
+        log.info("最终 URL: " + url3);
         return url3;
     }
+
+
+
+
     public static void main(String[] args) throws IOException {
 //        String jsCode =HttpsUtils.sendGet("https://www.lanzouh.com/iriea24ezvcj");
 //        String url1 = "https://wwd.lanzoue.com/ajaxm.php?file="+extractUrl(jsCode);
