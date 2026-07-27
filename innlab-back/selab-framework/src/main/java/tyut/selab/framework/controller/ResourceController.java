@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tyut.selab.common.annotation.AccessLogAnnotation;
 import tyut.selab.common.annotation.SysLogAnnotation;
+import tyut.selab.common.annotation.WhitelistAnnotation;
 import tyut.selab.common.domain.Lz;
 import tyut.selab.common.domain.R;
 import tyut.selab.framework.domain.dto.param.ResourceParam;
@@ -34,13 +35,13 @@ import java.util.concurrent.ExecutionException;
 public class ResourceController {
     @Autowired
     private IResourceService iResourceService;
-    @PostMapping("/cachexookie")
-    @PreAuthorize("@ss.hasPermission('admin')")
-    @Operation(summary = "缓存蓝奏云Cookie",description = "缓存蓝奏云Cookie")
-    public R cacheCookie(@RequestBody @Validated CookieVo cookieVo){
-        Integer folderId = Integer.valueOf(cookieVo.getFolderId());
-        return iResourceService.cacheCookie(cookieVo);
-    }
+//    @PostMapping("/cachexookie")
+//    @PreAuthorize("@ss.hasPermission('admin')")
+//    @Operation(summary = "缓存蓝奏云Cookie",description = "缓存蓝奏云Cookie")
+//    public R cacheCookie(@RequestBody @Validated CookieVo cookieVo){
+//        Integer folderId = Integer.valueOf(cookieVo.getFolderId());
+//        return iResourceService.cacheCookie(cookieVo);
+//    }
 
     @Operation(summary = "添加图片",description ="添加资源仅支持.jpg.png 文件，调用本接口后需根据返回信息调用添加资源接口")
     @Parameter(name="file",description="上传文件",required=true)
@@ -58,7 +59,7 @@ public class ResourceController {
     public R handleFileUploadVideo(MultipartFile file,String description){
         return iResourceService.addResource(file,description,2);
     }
-    @Operation(summary = "添加文件",description ="添加资源仅支持.jpg.png 文件，调用本接口后需根据返回信息调用添加资源接口")
+    @Operation(summary = "添加文件",description ="添加资源，调用本接口后需根据返回信息调用添加资源接口")
     @Parameter(name="file",description="上传文件",required=true)
     @Parameter(name="description",description="文件描述")
     @PostMapping("/addResource")
@@ -66,6 +67,26 @@ public class ResourceController {
     public R handleFileUploadResource(MultipartFile file,String description){
         return iResourceService.addResource2(file,description,3);
     }
+
+    @PostMapping("/addPdf")
+    @Operation(summary = "添加PdF",description ="添加资源仅支持.pdf文件，调用本接口后需根据返回信息调用添加资源接口")
+    @SysLogAnnotation(operModul = "资源管理",operType = "新增",operDesc = "添加视频")
+    @Parameter(name="file",description="上传文件",required=true)
+    @Parameter(name="description",description="文件描述")
+    public R handleFileUploadPdf(MultipartFile file,String description){
+        return iResourceService.addResource2(file,description,4);
+    }
+
+    @PostMapping("/addMp3")
+    @Operation(summary = "添加MP3",description ="添加资源仅支持.mp3文件，调用本接口后需根据返回信息调用添加资源接口")
+    @SysLogAnnotation(operModul = "资源管理",operType = "新增",operDesc = "添加视频")
+    @Parameter(name="file",description="上传文件",required=true)
+    @Parameter(name="description",description="文件描述")
+    public R handleFileUploadMp3(MultipartFile file,String description){
+        return iResourceService.addResource2(file,description,5);
+    }
+
+
     @PostMapping("/resourceList")
     @Operation(summary = "资源列表",description ="获取资源列表方便管理")
     public R getResourceList(@RequestBody @Validated ResourceParam resourceParam){
@@ -91,6 +112,7 @@ public class ResourceController {
     @PostMapping("/getResourceByLz")
     @Operation(summary = "通过蓝奏云三段获取资源")
     @AccessLogAnnotation()
+    @WhitelistAnnotation()
     public R getResourceByLz(@RequestBody @Validated Lz lz) throws ExecutionException, InterruptedException {
         return R.success("获取成功！",iResourceService.getResourceByLz(lz).get());
 //        return iResourceService.getResourceByLz2(lz);

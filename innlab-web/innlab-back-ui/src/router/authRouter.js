@@ -22,11 +22,11 @@ import loginLogList from "@/views/Log/loginLogList.vue";
 import sysLogList from "@/views/Log/sysLogList.vue";
 import resourceList from "@/views/Resource/resourceList.vue";
 import personalList from "@/views/Personal/personalList.vue";
-import itemList from "@/views/Item/itemList.vue";
+// import itemList from "@/views/Item/itemList.vue";
 import activityList from "@/views/Activity/activityList.vue";
 import historyList from "@/views/History/historyList.vue";
 import activityEditor from "@/views/Activity/activityEditor.vue";
-import itemEditor from "@/views/Item/itemEditor.vue";
+// import itemEditor from "@/views/Item/itemEditor.vue";
 import imgCache from "@/views/Resource/imgCache.vue";
 
 
@@ -50,11 +50,11 @@ const componentObj = {
   sysLogList,
   resourceList,
   personalList,
-  itemList,
+  // itemList,
   historyList,
   activityList,
   activityEditor,
-  itemEditor,
+  // itemEditor,
   imgCache
 }
 const iconList = {
@@ -67,7 +67,7 @@ const iconList = {
   log:'MessageBox',
   resource:"UploadFilled",
   personal:"UserFilled",
-  item:"Memo",
+  // item:"Memo",
   history:"Calendar",
   activity:"Flag"
 }

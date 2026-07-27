@@ -1,8 +1,10 @@
 // 资源类型选项
 
- export const resourceTypeOptions = [
+export const resourceTypeOptions = [
   { label: '图片', value: 1 },
   { label: '视频', value: 2 },
+  { label: 'PDF', value: 4 },
+  { label: '音频', value: 5 },
   { label: '其他文件', value: 3 }
 ];
 
@@ -27,8 +29,8 @@ export const tableConfig = [
     label: '资源ID'
   },
   {
-    prop: 'resourceName',
-    label: '资源名称'
+    prop: 'resourceDescription',
+    label: '资源描述'
   },
   {
     prop: 'resourceType',

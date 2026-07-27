@@ -235,41 +235,15 @@ const routes = [
     ]
   },
   {
-    path: '/item',
-    id: 500,
-    name: 'item',
-    meta: {
-      title: '项目管理'
-    },
-    children: [{
-      path: 'itemList',
-      id: 501,
-      name: 'itemList',
-      meta: {
-        title: '项目列表'
-      }
-    },{
-      path: 'itemEditor/:itemId',
-      id: 502,
-      name: 'itemEditor',
-      meta: {
-        title: '项目编辑',
-        requiresAuth: true,
-        hidden: true
-      }
-    }
-    ]
-  },
-  {
     path: '/history',
-    id: 600,
+    id: 500,
     name: 'history',
     meta: {
       title: '历史管理'
     },
     children: [{
       path: 'historyList',
-      id: 601,
+      id: 501,
       name: 'historyList',
       meta: {
         title: '历史列表'
@@ -279,21 +253,21 @@ const routes = [
   },
   {
     path: '/activity',
-    id: 700,
+    id: 600,
     name: 'activity',
     meta: {
       title: '动态管理'
     },
     children: [{
       path: 'activityList',
-      id: 701,
+      id: 601,
       name: 'activityList',
       meta: {
         title: '动态列表'
       }
     },{
       path: 'activityEditor/:activityId',
-      id: 702,
+      id: 602,
       name: 'activityEditor',
       meta: {
         title: '动态编辑',

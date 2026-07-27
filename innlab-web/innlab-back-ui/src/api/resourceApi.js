@@ -5,7 +5,8 @@ import authorizationHttp from "@/utils/authorizationHttp.js";
 export function addImageApi(file, description) {
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('description', description);
+  const desc = !description || description.trim() === '' ? file.name : description;
+  formData.append('description', desc);
 
   return authorizationHttp.post('/background/resource/addImage', formData, {
     headers: {
@@ -18,7 +19,8 @@ export function addImageApi(file, description) {
 export function addVideoApi(file, description) {
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('description', description);
+  const desc = !description || description.trim() === '' ? file.name : description;
+  formData.append('description', desc);
 
   return authorizationHttp.post('/background/resource/addvideo', formData, {
     headers: {
@@ -32,9 +34,36 @@ export function addVideoApi(file, description) {
 export function addResourceApi(file, description) {
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('description', description);
+  const desc = !description || description.trim() === '' ? file.name : description;
+  formData.append('description', desc);
 
   return authorizationHttp.post('/background/resource/addResource', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    timeout: 300000 // 设置超时时间为5分钟
+  });
+}
+export function addMp3Api(file, description) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const desc = !description || description.trim() === '' ? file.name : description;
+  formData.append('description', desc);
+
+  return authorizationHttp.post('/background/resource/addMp3', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    timeout: 300000 // 设置超时时间为5分钟
+  });
+}
+export function addPdfApi(file, description) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const desc = !description || description.trim() === '' ? file.name : description;
+  formData.append('description', desc);
+
+  return authorizationHttp.post('/background/resource/addPdf', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     },

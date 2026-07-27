@@ -3,8 +3,8 @@ import axios from 'axios';// 改为直接从 axios 库导入
 
 const touristHttp = axios.create({
   // baseURL: 'http://49.232.217.248:8087',
-  // baseURL: 'http://localhost:8081',
-  baseURL: 'https://api.cxlab.tech/',
+  baseURL: 'http://localhost:8081',
+  // baseURL: 'https://api.cxlab.tech/',
   timeout: 10000,
 });
 

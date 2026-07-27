@@ -1,9 +1,15 @@
 <template>
-  <div class="register-container flex">
+  <div class="register-container">
+    <!-- 移动端隐藏左侧图片 -->
     <img src="../../../public/img/login-left.png" class="register-left" />
+
     <div class="register-right flex flex-col">
-      <div class="fz-20 text-center text-bold">欢迎注册创新实验室官网平台</div>
-      <div class="text-center mb-20">WELCOME</div>
+      <!-- 添加响应式标题 -->
+      <div class="register-title">
+        <div class="fz-20 text-center text-bold">欢迎注册创新实验室平台</div>
+        <div class="text-center mb-20">WELCOME</div>
+      </div>
+
       <el-form :model="form" :rules="rules" ref="ruleForm" @submit.prevent="onSubmit">
         <!-- 邀请码 -->
         <el-form-item class="register-input flex" prop="invitationCode">
@@ -92,7 +98,7 @@
           <span class="login-text"> 已有账号？</span>
           <el-link type="primary" @click="goToLogin">返回登录</el-link>
         </el-form-item>
-        </el-form>
+      </el-form>
     </div>
   </div>
 </template>
@@ -199,60 +205,281 @@ const onSubmit = async () => {
 };
 </script>
 <style scoped>
+/* 基础样式 */
 .register-container {
   width: 100vw;
-  height: 100vh;
-  background: url("../../../public/img/login.png") no-repeat;
+  min-height: 100vh;
+  background: url("../../../public/img/login.png") no-repeat center center;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
+
+/* 左侧图片 - 移动端隐藏 */
 .register-left {
-  width: 58%;
-  height: 100%;
+  display: none;
 }
+
+/* 右侧注册框 - 基础样式 */
 .register-right {
-  width: 25%;
-  height: 75%;
+  width: 100%;
+  max-width: 450px;
+  min-height: 600px;
   background-color: #fff;
-  margin: auto;
   border-radius: 10px;
   box-shadow: #b3d2fb 1px 1px 15px 1px;
   padding: 40px 30px;
+  margin: 0 auto;
+  overflow-y: auto; /* 内容过多时可滚动 */
 }
+
 .register-input {
-  height:40px;
+  height: 40px;
   border: 1px solid #b3d2fb;
   border-radius: 5px;
   background: rgba(231, 241, 253, 0.4);
 }
+
 .register-input-right {
   width: 80%;
   height: 60%;
   border-left: 1px solid #ccc;
 }
-.register-remember {
-  font-size: 12px;
-}
+
 .register-btn {
   height: 40px;
 }
-register-verify{
 
+/* 验证码按钮样式 */
+.register-verify {
   text-align: center;
+  font-size: 12px;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+  .register-container {
+    padding: 10px;
+    background: #f5f7fa; /* 移动端使用纯色背景 */
+  }
+
+  .register-right {
+    min-height: auto;
+    padding: 25px 20px;
+    max-width: 100%;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    max-height: 90vh; /* 限制最大高度 */
+  }
+
+  .register-title {
+    margin-bottom: 20px;
+  }
+
+  .register-title .fz-20 {
+    font-size: 18px !important;
+  }
+
+  .register-title .mb-20 {
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+
+  .register-input {
+    height: 44px;
+    margin-bottom: 12px;
+  }
+
+  .register-btn {
+    height: 44px;
+    font-size: 16px;
+  }
+
+  /* 验证码按钮适配 */
+  .register-verify {
+    font-size: 11px;
+    padding: 0 6px;
+    min-width: 90px;
+  }
+
+  /* 调整表单间距 */
+  .el-form-item {
+    margin-bottom: 16px;
+  }
+
+  .login-link {
+    margin-top: 15px;
+  }
+
+  .login-text {
+    font-size: 13px;
+  }
+}
+
+/* 小屏幕手机适配 */
+@media screen and (max-width: 375px) {
+  .register-right {
+    padding: 20px 15px;
+  }
+
+  .register-title .fz-20 {
+    font-size: 16px !important;
+  }
+
+  .register-input {
+    height: 40px;
+  }
+
+  .register-btn {
+    height: 40px;
+  }
+
+  /* 调整图标大小 */
+  .el-icon {
+    font-size: 16px;
+  }
+
+  /* 验证码按钮更小 */
+  .register-verify {
+    font-size: 10px;
+    min-width: 80px;
+    padding: 0 4px;
+  }
+
+  /* 输入框placeholder字体调整 */
+  ::placeholder {
+    font-size: 13px;
+  }
+}
+
+/* 平板设备适配 */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .register-left {
+    display: block;
+    width: 45%;
+    height: auto;
+  }
+
+  .register-right {
+    width: 40%;
+    max-width: 400px;
+    min-height: 650px;
+  }
+}
+
+/* 桌面端适配 */
+@media screen and (min-width: 1025px) {
+  .register-container {
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  .register-left {
+    display: block;
+    width: 58%;
+    height: 100vh;
+    object-fit: cover;
+  }
+
+  .register-right {
+    width: 25%;
+    height: 75%;
+    margin: auto 10% auto auto;
+    min-height: 650px;
+  }
+}
+
+/* 大屏幕桌面适配 */
+@media screen and (min-width: 1440px) {
+  .register-right {
+    width: 450px;
+    padding: 50px 40px;
+  }
+
+  .register-input {
+    height: 44px;
+  }
+}
+
+/* 超小屏幕适配（如iPhone SE） */
+@media screen and (max-width: 320px) {
+  .register-right {
+    padding: 15px 12px;
+  }
+
+  .register-title .fz-20 {
+    font-size: 15px !important;
+  }
+
+  .register-input {
+    height: 38px;
+  }
+
+  .register-btn {
+    height: 38px;
+    font-size: 14px;
+  }
+
+  .register-verify {
+    font-size: 9px;
+    min-width: 70px;
+  }
 }
 </style>
+
 <style>
+/* 全局样式调整 */
 .register-input-right .el-input__wrapper {
   border: none !important;
   box-shadow: none !important;
   background: transparent;
 }
-.register-remember .el-checkbox__label {
-  font-size: 12px;
-  color:#aaa;
+
+/* 验证码输入框的特殊处理 */
+.register-input .el-input-group__append {
+  background: transparent;
+  border: none;
+  padding: 0 5px;
+}
+
+/* 移动端调整Element Plus组件 */
+@media screen and (max-width: 768px) {
+  .el-input__inner {
+    font-size: 14px;
+  }
+
+  .el-button {
+    font-size: 14px;
+  }
+
+  .el-link {
+    font-size: 13px;
+  }
+
+  /* 验证码按钮样式调整 */
+  .el-input-group__append .el-button {
+    height: 100%;
+    padding: 0 8px;
+  }
+}
+
+/* 小屏幕调整 */
+@media screen and (max-width: 375px) {
+  .el-input__inner {
+    font-size: 13px;
+  }
+
+  .el-button {
+    font-size: 13px;
+  }
 }
 </style>
+
 <style scoped>
-/* 添加注册链接的样式 */
+/* 登录链接样式 */
 .login-link {
   display: flex;
   justify-content: center;

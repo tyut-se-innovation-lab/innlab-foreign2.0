@@ -24,6 +24,8 @@ import tyut.selab.framework.jwt.security.JwtAuthenticationEntryPoint;
 import tyut.selab.framework.jwt.security.JwtAuthenticationFilter;
 import tyut.selab.framework.web.service.AccountUserDetailsService;
 
+import java.util.Arrays;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
@@ -53,16 +55,32 @@ public class SecurityConfig {
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Autowired
     private AccountUserDetailsService accountUserDetailsService;
-    private static final String[] URL_WHITELIST = {"foreign/*","/background/login","/background/register","/background/register/verify","/background/resource/getResourceByLz","/favicon.ico","/doc.html","/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs/**", "/druid/**"};
+    private static String[] URL_WHITELIST = {"/favicon.ico","/doc.html","/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs/**", "/druid/**"};
 
-//    private static final String[] URL_WHITELIST = {"foreign/*","/background/login","/background/register","/background/register/verify","/background/resource/getResourceByLz"};
-    private static final String[] URL_WHITELIST_GET = {"/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**","/webjars/**"};
-//    private static final String[] URL_WHITELIST_GET = {};
+    private static String[] URL_WHITELIST_GET = {"/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**","/webjars/**","/foreign/getResource"};
 
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+
+    // 提供获取原始白名单的方法
+    public String[] getOriginalWhitelist() {
+        return URL_WHITELIST.clone();
+    }
+
+    public String[] getOriginalWhitelistGet() {
+        return URL_WHITELIST_GET.clone();
+    }
+
+    // 提供更新白名单的方法
+    public void updateWhitelists(String[] newWhitelist, String[] newWhitelistGet) {
+        URL_WHITELIST = newWhitelist;
+        URL_WHITELIST_GET = newWhitelistGet;
+        System.out.println(Arrays.toString(URL_WHITELIST));
+        System.out.println(Arrays.toString(URL_WHITELIST_GET));
     }
 
     /**

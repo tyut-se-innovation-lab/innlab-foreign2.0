@@ -107,6 +107,22 @@ spring:
 
     host: smtp.163.com
 
+    port: 465  # 或587
+    protocol: smtps  # 使用465端口时
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true  # 使用587端口时需要
+            required: true
+          ssl:
+            enable: true  # 使用465端口时需要
+  mvc:
+    pathmatch:
+      #Spring Boot 3.x 默认使用 PathPatternParser，此处切换到 AntPathMatcher
+      matching-strategy: ant_path_matcher
 server:
   port: 8081
 # springdoc-openapi项目配置，访问地址：http://127.0.0.1:8081/doc.html

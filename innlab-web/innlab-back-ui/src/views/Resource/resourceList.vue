@@ -11,6 +11,8 @@
         <el-button type="primary" @click="showUploadDialog(1)">添加图片</el-button>
         <el-button type="success" @click="showUploadDialog(2)">添加视频</el-button>
         <el-button type="warning" @click="showUploadDialog(3)">添加其他文件</el-button>
+        <el-button type="info" @click="showUploadDialog(4)">添加PDF</el-button>
+        <el-button type="danger" @click="showUploadDialog(5)">添加MP3</el-button>
       </div>
     </div>
 
@@ -23,7 +25,7 @@
     >
       <!-- 资源类型列的插槽 -->
       <template #resourceType ="{ row }">
-        <el-tag :type="row.resourceType === 1 ? 'success' : (row.resourceType === 2 ? 'primary' : (row.resourceType === 3 ? 'danger' : 'info'))">
+        <el-tag :type="getResourceTypeTagType(row.resourceType)">
           {{resourceTypeOptions.find(item => item.value === row.resourceType)?.label || '未知'}}
         </el-tag>
       </template>
@@ -44,6 +46,12 @@
         <div v-else-if="row.resourceType === 2" class="video-preview">
           <el-icon :size="24"><VideoPlay /></el-icon>
         </div>
+        <div v-else-if="row.resourceType === 4" class="pdf-preview">
+          <el-icon :size="24"><Document /></el-icon>
+        </div>
+        <div v-else-if="row.resourceType === 5" class="mp3-preview">
+          <el-icon :size="24"><VideoPlay /></el-icon>
+        </div>
         <div v-else class="file-preview">
           <el-icon :size="24"><Document /></el-icon>
         </div>
@@ -58,13 +66,13 @@
     <el-dialog v-model="detailVisible" :title="`资源详情 - ${detailData.resourceName}`" width="700px">
       <el-descriptions :column="1" border>
         <el-descriptions-item label="资源ID">{{ detailData.resourceId }}</el-descriptions-item>
-        <el-descriptions-item label="资源名称">{{ detailData.resourceName }}</el-descriptions-item>
+        <el-descriptions-item label="资源路径">{{ detailData.resourcePath}}</el-descriptions-item>
         <el-descriptions-item label="资源类型">
-          <el-tag :type="detailData.resourceType === 1 ? 'success' : (detailData.resourceType === 2 ? 'primary' : (detailData.resourceType === 3 ? 'danger' : 'info'))">
+          <el-tag :type="getResourceTypeTagType(detailData.resourceType)">
             {{resourceTypeOptions.find(item => item.value === detailData.resourceType)?.label || '未知'}}
           </el-tag>
         </el-descriptions-item>
-        <el-descriptions-item label="资源描述">{{ detailData.description || '无' }}</el-descriptions-item>
+        <el-descriptions-item label="资源描述">{{ detailData.resourceDescription || '无' }}</el-descriptions-item>
         <el-descriptions-item label="创建时间">{{ detailData.createTime }}</el-descriptions-item>
         <el-descriptions-item label="资源预览">
           <div v-if="loadingResourceUrl" class="flex justify-center">
@@ -86,6 +94,15 @@
               controls
               style="max-height: 300px;"
             />
+            <!-- PDF预览 -->
+            <div v-else-if="detailData.resourceType === 4 && resourceUrl" class="flex items-center">
+              <PDFView :pdfUrl="resourceUrl"
+                       controls style="width: 100%;"/>
+            </div>
+            <!-- MP3预览 -->
+            <div v-else-if="detailData.resourceType === 5 && resourceUrl" class="flex items-center">
+              <audio :src="resourceUrl" controls style="width: 100%;"></audio>
+            </div>
             <!-- 其他文件 -->
             <div v-else-if="detailData.resourceType === 3 && resourceUrl" class="flex items-center">
               <el-icon size="24" class="mr-10"><Document /></el-icon>
@@ -94,13 +111,108 @@
             <span v-else>无法预览</span>
           </div>
         </el-descriptions-item>
+        <!-- 新增：资源直链 -->
+        <el-descriptions-item label="资源直链">
+          <div class="direct-link-container">
+
+            <!-- 下载直链2 -->
+            <div class="direct-link-item">
+              <span class="link-label">下载直链：</span>
+              <el-input
+                v-model="directLink"
+                readonly
+                class="link-input"
+              >
+                <template #append>
+                  <el-button @click="copyToClipboard(directLink)">
+                    <el-icon><DocumentCopy /></el-icon>
+                  </el-button>
+                </template>
+              </el-input>
+            </div>
+
+            <!-- 根据资源类型显示不同的链接格式 -->
+            <div v-if="detailData.resourceType === 1" class="direct-link-item">
+              <span class="link-label">图片链接1：</span>
+              <el-input
+                v-model="imageHtmlLink"
+                readonly
+                class="link-input"
+              >
+                <template #append>
+                  <el-button @click="copyToClipboard(imageHtmlLink)">
+                    <el-icon><DocumentCopy /></el-icon>
+                  </el-button>
+                </template>
+              </el-input>
+            </div>
+            <div v-if="detailData.resourceType === 1" class="direct-link-item">
+              <span class="link-label">图片链接2：</span>
+              <el-input
+                v-model="imageMarkdownLink"
+                readonly
+                class="link-input"
+              >
+                <template #append>
+                  <el-button @click="copyToClipboard(imageMarkdownLink)">
+                    <el-icon><DocumentCopy /></el-icon>
+                  </el-button>
+                </template>
+              </el-input>
+            </div>
+
+            <div v-if="detailData.resourceType === 2" class="direct-link-item">
+              <span class="link-label">HTML视频链接：</span>
+              <el-input
+                v-model="videoHtmlLink"
+                readonly
+                class="link-input"
+              >
+                <template #append>
+                  <el-button @click="copyToClipboard(videoHtmlLink)">
+                    <el-icon><DocumentCopy /></el-icon>
+                  </el-button>
+                </template>
+              </el-input>
+            </div>
+
+            <div v-if="detailData.resourceType === 4" class="direct-link-item">
+              <span class="link-label">PDF组件链接：</span>
+              <el-input
+                v-model="pdfComponentLink"
+                readonly
+                class="link-input"
+              >
+                <template #append>
+                  <el-button @click="copyToClipboard(pdfComponentLink)">
+                    <el-icon><DocumentCopy /></el-icon>
+                  </el-button>
+                </template>
+              </el-input>
+            </div>
+
+            <div v-if="detailData.resourceType === 5" class="direct-link-item">
+              <span class="link-label">HTML音频链接：</span>
+              <el-input
+                v-model="audioHtmlLink"
+                readonly
+                class="link-input"
+              >
+                <template #append>
+                  <el-button @click="copyToClipboard(audioHtmlLink)">
+                    <el-icon><DocumentCopy /></el-icon>
+                  </el-button>
+                </template>
+              </el-input>
+            </div>
+          </div>
+        </el-descriptions-item>
       </el-descriptions>
 
       <template #footer>
         <el-button type="primary" @click="detailVisible = false">关闭</el-button>
       </template>
     </el-dialog>
-
     <!-- 在template中添加 -->
     <el-dialog
       v-model="countdownVisible"
@@ -208,19 +320,78 @@
 </template>
 
 <script setup>
+
+
+// import { ref, onMounted, computed, watch } from 'vue';
+import { DocumentCopy } from '@element-plus/icons-vue';
+// 其他导入保持不变
+
+const directLink = computed(() => {
+  if (!detailData.value.fid || !detailData.value.pwd || !detailData.value.isNewd) {
+    return '链接信息不完整';
+  }
+  return `https://lz.tyut.tech/lz?fid=${detailData.value.fid}&pwd=${detailData.value.pwd}&isNewd=${detailData.value.isNewd}`;
+});
+
+const imageHtmlLink = computed(() => {
+  return `<img src="${directLink.value}" alt="${detailData.value.resourceName}">`;
+});
+
+const imageMarkdownLink = computed(() => {
+  return `![](${directLink.value})`;
+});
+const videoHtmlLink = computed(() => {
+  return `<video width="100%" controls><source src="${directLink.value}" type="video/mp4">您的浏览器不支持视频播放</video>`;
+});
+
+const pdfComponentLink = computed(() => {
+  return `<PdfPreview pdfUrl="${directLink.value}" />`;
+});
+
+const audioHtmlLink = computed(() => {
+  return `<audio width="100%" controls><source src="${directLink.value}" type="audio/mpeg">您的浏览器不支持MP3播放</audio>`;
+});
+
+// 新增：复制到剪贴板功能
+const copyToClipboard = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    ElMessage.success('已复制到剪贴板');
+  } catch (err) {
+    console.error('复制失败:', err);
+    // 备用方案
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      ElMessage.success('已复制到剪贴板');
+    } catch (backupErr) {
+      ElMessage.error('复制失败');
+    }
+    document.body.removeChild(textArea);
+  }
+};
 import { ref, onMounted, computed } from 'vue';
 import CustomTable from "@/components/CustomTable/index.vue";
 import CustomSearch from "@/components/CustomSearch/index.vue";
 import { tableConfig, searchConfig, resourceTypeOptions } from "./resourceListConfig";
+import PDFView from "@/components/PdfPreview/index.vue";
+import touristHttp from "@/utils/touristHttp.js";
+
 import {
   getResourceListApi,
   getResourceByLzApi,
   addImageApi,
   addVideoApi,
-  addResourceApi
+  addResourceApi,
+  addPdfApi,
+  addMp3Api
 } from "@/api/resourceApi";
 import { ElMessage } from "element-plus";
 import { UploadFilled, Document, Loading ,VideoPlay } from '@element-plus/icons-vue';
+
 // 表格数据
 const tableData = ref([]);
 const total = ref(0);
@@ -238,19 +409,33 @@ const uploadAccept = computed(() => {
   switch(uploadType.value) {
     case 1: return 'image/*';
     case 2: return 'video/*';
+    case 4: return '.pdf';
+    case 5: return '.mp3';
     default: return '*';
   }
 });
+
+// 获取资源类型标签样式
+const getResourceTypeTagType = (resourceType) => {
+  switch(resourceType) {
+    case 1: return 'success';
+    case 2: return 'primary';
+    case 3: return 'danger';
+    case 4: return 'warning';
+    case 5: return 'info';
+    default: return 'info';
+  }
+};
+
 // 详情对话框
 const detailVisible = ref(false);
 const detailData = ref({});
 const resourceUrl = ref('');
 const loadingResourceUrl = ref(false);
 
-
 // 上传相关
 const uploadVisible = ref(false);
-const uploadType = ref(1); // 1:图片 2:视频 3:其他
+const uploadType = ref(1); // 1:图片 2:视频 3:其他 4:PDF 5:MP3
 const uploadForm = ref({
   file: null,
   description: ''
@@ -282,6 +467,7 @@ const fetchResourceList = async () => {
     tableLoading.value = false;
   }
 };
+
 // 更新查询参数并重新加载数据
 const updateQueryData = (params, shouldFetch = true) => {
   if (params.pageNum !== undefined) {
@@ -307,21 +493,49 @@ const handleDetail = async (row) => {
   resourceUrl.value = row.resourceUrl || '';
   loadingResourceUrl.value = false;
 
+  /**
+   * 旧版接口直链获取
+   */
+  // // 如果资源URL为空，需要调用接口获取
+  // if (!row.resourceUrl) {
+  //   try {
+  //     loadingResourceUrl.value = true;
+  //     const res = await getResourceByLzApi({
+  //       pwd: row.pwd,
+  //       isNewd: row.isNewd,
+  //       fid: row.fid
+  //     });
+  //
+  //     if (res.code === 200) {
+  //       resourceUrl.value = res.data;
+  //     } else {
+  //       ElMessage.error(res.message || '获取资源URL失败');
+  //     }
+  //   } catch (error) {
+  //     console.error('获取资源URL出错:', error);
+  //     ElMessage.error('获取资源URL失败');
+  //   } finally {
+  //     loadingResourceUrl.value = false;
+  //   }
+  // }
+
   // 如果资源URL为空，需要调用接口获取
   if (!row.resourceUrl) {
     try {
       loadingResourceUrl.value = true;
-      const res = await getResourceByLzApi({
+      // 构建查询参数
+      const params = {
         pwd: row.pwd,
         isNewd: row.isNewd,
-        fid: row.fid
-      });
+        fId: row.fid
+      };
 
-      if (res.code === 200) {
-        resourceUrl.value = res.data;
-      } else {
-        ElMessage.error(res.message || '获取资源URL失败');
-      }
+      const queryParams = new URLSearchParams(params).toString();
+
+      let baseURL = touristHttp.defaults.baseURL;
+      resourceUrl.value = `${baseURL}/foreign/getResource?${queryParams}`;
+
+      console.log(resourceUrl.value);
     } catch (error) {
       console.error('获取资源URL出错:', error);
       ElMessage.error('获取资源URL失败');
@@ -335,7 +549,7 @@ const handleDetail = async (row) => {
 
 // 显示上传对话框
 const showUploadDialog = (type) => {
-  console.log('打开上传对话框，类型:', type); // 调试
+  console.log('打开上传对话框，类型:', type);
   uploadType.value = type;
   uploadForm.value = {
     file: null,
@@ -356,6 +570,7 @@ const handleFileChange = (file) => {
 
   ElMessage.success('文件已选择，请填写描述信息');
 };
+
 // 清空已选文件
 const clearFile = () => {
   uploadForm.value.file = null;
@@ -364,8 +579,8 @@ const clearFile = () => {
     localPreviewUrl.value = '';
   }
 };
+
 // 上传前校验
-// 文件选择前的校验（可选）
 const beforeUpload = (file) => {
   const isImage = file.type.startsWith('image/')
   if (!isImage) {
@@ -405,6 +620,12 @@ const submitUpload = async () => {
       case 3:
         res = await addResourceApi(file, description);
         break;
+      case 4:
+        res = await addPdfApi(file, description);
+        break;
+      case 5:
+        res = await addMp3Api(file, description);
+        break;
       default:
         throw new Error('未知的资源类型');
     }
@@ -426,10 +647,7 @@ const submitUpload = async () => {
   }
 };
 
-
 // 倒计时弹窗
-
-// 在script setup部分添加以下代码
 const countdownVisible = ref(false);
 const countdownSeconds = ref(0);
 let countdownTimer = null;
@@ -441,7 +659,7 @@ const calculateCountdown = (fileSize) => {
   if (seconds>10){
     ElMessage.success('文件过大，上传缓慢，请耐心等待！');
   }
-  return Math.max(seconds, 1); // 限制在1-60秒之间
+  return Math.max(seconds, 1);
 };
 
 // 开始倒计时
@@ -494,17 +712,6 @@ onMounted(() => {
 .upload-demo {
   width: 100%;
 }
-
-.loading-preview {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background: #f5f7fa;
-}
-
 .video-preview, .file-preview {
   width: 60px;
   height: 60px;
@@ -568,5 +775,31 @@ onMounted(() => {
   margin-top: 20px;
   color: #666;
   line-height: 1.6;
+}
+.direct-link-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.direct-link-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link-label {
+  min-width: 100px;
+  font-weight: 500;
+  color: #606266;
+}
+
+.link-input {
+  flex: 1;
+}
+
+:deep(.link-input .el-input__inner) {
+  font-family: monospace;
+  font-size: 12px;
 }
 </style>
