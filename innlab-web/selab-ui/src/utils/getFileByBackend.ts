@@ -1,8 +1,8 @@
 import axios from 'axios'
 const request = axios.create({
     // baseURL: 'http://49.232.217.248:8087',
-    baseURL: 'http://127.0.0.1:8081',
-    // baseURL: 'https://api.cxlab.tech/',
+    // baseURL: 'http://127.0.0.1:8081',
+    baseURL: 'http://8.137.83.173:8081/',
     timeout: 2000
 })
 // 请求拦截器

@@ -19,7 +19,7 @@
                 <div class="mainCon">
                     <h1 class="mainTitle">联系我们</h1>
                     <div class="mainMain">
-                        <span>地址：中国山西省晋中市榆次区大学街209号太原理工大学行勉楼</span>
+                        <span>地址：中国山西省晋中市榆次区大学街209号</span>
                         <!-- <span>联系方式：12345678900</span> -->
                         <span>邮箱：m13466898985@163.com</span>
                         <span>邮编：030600</span>
@@ -30,7 +30,7 @@
             <div class="contact">
                 <h1 class="contactTitle">联系我们</h1>
                 <div class="contactMain">
-                    <span>地址：中国山西省晋中市榆次区大学街209号太原理工大学行勉楼</span>
+                    <span>地址：中国山西省晋中市榆次区大学街209号</span>
                     <!-- <span>联系方式：12345678900</span> -->
                     <span>邮箱：m13466898985@163.com</span>
                     <span>邮编：030600</span>
@@ -42,7 +42,7 @@
 
     </div>
     <div class="dinner">
-        <p>版权所有：太原理工大学软件学院创新实验室</p>
+        <p>版权所有：软件学院创新实验室</p>
         <a href="https://beian.miit.gov.cn/" class="a1" target="_blank">
           晋ICP备2024044169号</a>
 

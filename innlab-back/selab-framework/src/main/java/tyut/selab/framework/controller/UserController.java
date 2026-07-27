@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import tyut.selab.common.annotation.AccessLogAnnotation;
 import tyut.selab.common.annotation.LoginLogAnnotation;
 import tyut.selab.common.annotation.SysLogAnnotation;
+import tyut.selab.common.annotation.WhitelistAnnotation;
 import tyut.selab.common.domain.R;
 import tyut.selab.common.utils.http.AddressUtil;
 import tyut.selab.common.utils.http.IpUtil;
@@ -43,6 +44,7 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "用户登陆")
     @LoginLogAnnotation()
+    @WhitelistAnnotation()
     public R login(@RequestBody @Validated LoginDto loginDto) {
         R verifyr = loginService.mayLogin(loginDto.getAccount());
         if (verifyr.getCode()!=200){
@@ -61,6 +63,7 @@ public class UserController {
     @PostMapping("/register")
     @AccessLogAnnotation(method = "用户注册")
     @Operation(summary = "用户注册")
+    @WhitelistAnnotation()
     public R register(@RequestBody @Validated AddUserDto addUserDto) {
         R verifyr = loginService.mayRegister(addUserDto.getUserAccount(), addUserDto.getUserEmail(),addUserDto.getVerificationCode());
         if (verifyr.getCode()!=200){
@@ -73,6 +76,7 @@ public class UserController {
     @PostMapping("/register/verify")
     @Operation(summary = "用户注册验证")
     @AccessLogAnnotation(method = "用户注册验证")
+    @WhitelistAnnotation()
     public R verifyRegister(@RequestBody @Validated VerifyRegisterDto verifyRegister) {
         R verifyr = loginService.mayRegisterVerify();
         if (verifyr.getCode()!=200){

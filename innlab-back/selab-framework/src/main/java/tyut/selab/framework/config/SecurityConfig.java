@@ -55,7 +55,7 @@ public class SecurityConfig {
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Autowired
     private AccountUserDetailsService accountUserDetailsService;
-    private static String[] URL_WHITELIST = {"/favicon.ico","/doc.html","/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs/**", "/druid/**"};
+    private static String[] URL_WHITELIST = {"/foreign/*","/favicon.ico","/doc.html","/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs/**", "/druid/**"};
 
     private static String[] URL_WHITELIST_GET = {"/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**","/webjars/**","/foreign/getResource"};
 
